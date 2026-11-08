@@ -16,6 +16,7 @@
 
 body {
     margin: 0;
+    padding-bottom: 90px;
     background: #f1f5f3;
     font-family: Arial, sans-serif;
 }
@@ -130,6 +131,94 @@ footer {
     padding: 20px;
     color: #087f5b;
 }
+
+/* =================================
+   شريط التنقل السفلي
+================================= */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: rgba(255,255,255,0.97);
+    border-top: 1px solid #e5eee9;
+    box-shadow: 0 -3px 15px #00000012;
+
+    padding: 9px 4px;
+    padding-bottom: calc(9px + env(safe-area-inset-bottom));
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #89958f;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    font-size: 11px;
+    transition: 0.25s ease;
+}
+
+.nav-icon {
+    position: relative;
+    font-size: 23px;
+    transition: transform 0.25s ease;
+}
+
+.nav-item.active {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.nav-item.active .nav-icon {
+    transform: translateY(-4px) scale(1.12);
+}
+
+.nav-item:active .nav-icon {
+    transform: scale(0.85);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -12px;
+
+    background: #e53935;
+    color: white;
+
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+
+    border-radius: 20px;
+    font-size: 10px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-badge.show {
+    display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-item,
+    .nav-icon {
+        transition: none;
+    }
+}
 </style>
 
 </head>
@@ -200,23 +289,86 @@ footer {
 
 
 <footer>
-
     <p>سِلّتي 💚 طلبك من دكانك لحد بابك</p>
-
 </footer>
 
 
-<script type="module">
+<!-- شريط التنقل السفلي -->
 
-import { db } from "./firebase.js";
+<nav class="bottom-nav">
 
-import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+    <a href="index.html" class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        <span>الرئيسية</span>
+    </a>
+
+    <a href="stores.html" class="nav-item">
+        <span class="nav-icon">🏪</span>
+        <span>المتاجر</span>
+    </a>
+
+    <a href="cart.html" class="nav-item">
+        <span class="nav-icon">
+            🛒
+            <span class="cart-badge" id="cartBadge">0</span>
+        </span>
+        <span>السلة</span>
+    </a>
+
+    <a href="my-orders.html" class="nav-item">
+        <span class="nav-icon">📦</span>
+        <span>طلباتي</span>
+    </a>
+
+    <a href="login.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>حسابي</span>
+    </a>
+
+</nav>
 
 
-/* عرض المنطقة */
+<script>
+
+/* =================================
+   عداد السلة
+================================= */
+
+function updateCartBadge() {
+
+    let cart = [];
+
+    try {
+        cart = JSON.parse(
+            localStorage.getItem("silatiCart") || "[]"
+        );
+
+        if (!Array.isArray(cart)) cart = [];
+
+    } catch (error) {
+        cart = [];
+    }
+
+    let count = cart.reduce((sum, item) => {
+        return sum + Math.max(
+            0,
+            Number(item.quantity) || 0
+        );
+    }, 0);
+
+    const badge = document.getElementById("cartBadge");
+
+    badge.textContent = count > 99 ? "99+" : count;
+
+    badge.classList.toggle("show", count > 0);
+}
+
+updateCartBadge();
+
+
+/* =================================
+   عرض المنطقة
+================================= */
 
 const savedLocation = JSON.parse(
     localStorage.getItem("silatiLocation") || "null"
@@ -240,7 +392,22 @@ if (savedLocation) {
 }
 
 
-/* تحميل المتاجر من Firebase */
+/* =================================
+   تحميل المتاجر من Firebase
+================================= */
+
+</script>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
 
 const storesList = document.getElementById("storesList");
 
