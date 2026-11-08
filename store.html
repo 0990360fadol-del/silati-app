@@ -2,109 +2,119 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>متجر سِلّتي</title>
+<title>متجر سِلّتي</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            background: #f1f5f3;
-            font-family: Arial, sans-serif;
-            color: #26332e;
-        }
+body {
+    margin: 0;
+    background: #f1f5f3;
+    font-family: Arial, sans-serif;
+    color: #26332e;
+}
 
-        .header {
-            background: #087f5b;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.header {
+    background: #087f5b;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-        }
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
 
-        .cart a {
-            color: white;
-            text-decoration: none;
-        }
+.cart a {
+    color: white;
+    text-decoration: none;
+}
 
-        .stores {
-            max-width: 750px;
-            margin: 20px auto;
-            padding: 15px;
-        }
+.stores {
+    max-width: 750px;
+    margin: 20px auto;
+    padding: 15px;
+}
 
-        .store-info {
-            background: white;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px #00000012;
-        }
+.store-info {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px #00000012;
+}
 
-        .store-info h2 {
-            color: #087f5b;
-            margin-top: 0;
-        }
+.store-info h2 {
+    color: #087f5b;
+    margin-top: 0;
+}
 
-        .store-card {
-            background: white;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #00000012;
-        }
+.store-card {
+    background: white;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #00000012;
+}
 
-        .store-card h3 {
-            color: #087f5b;
-        }
+.store-card h3 {
+    color: #087f5b;
+}
 
-        .product-price {
-            font-weight: bold;
-            color: #087f5b;
-        }
+.product-price {
+    font-weight: bold;
+    color: #087f5b;
+    font-size: 17px;
+}
 
-        .quantity-select {
-            display: block;
-            width: 100%;
-            padding: 11px;
-            margin: 12px 0;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            background: white;
-            font-size: 16px;
-        }
+.quantity-select {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    background: white;
+    font-size: 16px;
+}
 
-        .store-card button {
-            width: 100%;
-            background: #087f5b;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.store-card button {
+    width: 100%;
+    background: #087f5b;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-        .empty-message {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-    </style>
+.empty-message {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin: 20px;
+    color: #087f5b;
+    text-decoration: none;
+}
+</style>
 </head>
 
 <body>
@@ -122,14 +132,26 @@
 <section class="stores">
 
     <div class="store-info">
+
         <h2 id="storeTitle">🏪 جاري تحميل المتجر...</h2>
+
         <p id="storeWelcome"></p>
+
         <p id="storeDetails"></p>
+
     </div>
 
     <h3>📦 منتجات المتجر</h3>
 
-    <div id="productsContainer"></div>
+    <div id="productsContainer">
+        <div class="empty-message">
+            جارٍ تحميل المنتجات...
+        </div>
+    </div>
+
+    <a href="stores.html" class="back-link">
+        ← العودة إلى جميع المتاجر
+    </a>
 
 </section>
 
@@ -137,9 +159,7 @@
 
 <script type="module">
 
-// =================================
-// الاتصال بقاعدة بيانات Firebase
-// =================================
+// الاتصال بقاعدة البيانات
 
 import { db } from "./firebase.js";
 
@@ -153,54 +173,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 
-// =================================
-// قراءة معرّف المتجر من الرابط
-// =================================
-
-const params = new URLSearchParams(window.location.search);
-
-const requestedStoreId = params.get("storeId");
-
-const localStores = JSON.parse(
-    localStorage.getItem("silatiStores") || "[]"
-);
-
-const localProducts = JSON.parse(
-    localStorage.getItem("silatiProducts") || "[]"
-);
-
-
-// =================================
-// المنتجات الأساسية القديمة
-// =================================
-
-const defaultProducts = [
-    {
-        name: "أرز",
-        price: 5000,
-        icon: "🍚"
-    },
-    {
-        name: "حليب",
-        price: 3000,
-        icon: "🥛"
-    },
-    {
-        name: "خبز",
-        price: 1000,
-        icon: "🍞"
-    },
-    {
-        name: "سكر",
-        price: 4000,
-        icon: "🍬"
-    }
-];
-
-
-// =================================
 // عناصر الصفحة
-// =================================
 
 const titleElement = document.getElementById("storeTitle");
 const welcomeElement = document.getElementById("storeWelcome");
@@ -210,32 +183,37 @@ const container = document.getElementById("productsContainer");
 let currentStore = null;
 
 
-// =================================
-// تحميل بيانات المتجر من Firestore
-// =================================
+// قراءة معرّف المتجر من الرابط
+// نقبل id أو storeId
+
+const params = new URLSearchParams(window.location.search);
+
+const requestedStoreId =
+    params.get("id") ||
+    params.get("storeId");
+
+
+// تحميل بيانات المتجر
 
 async function loadStore() {
 
+    if (!requestedStoreId) {
+
+        showError(
+            "لم يتم تحديد المتجر",
+            "ارجع إلى قائمة المتاجر واختر المتجر الذي تريد تصفحه."
+        );
+
+        return;
+    }
+
     try {
 
-        let storeId = requestedStoreId;
-
-        // إذا لم يوجد معرّف في الرابط نستخدم أول متجر محلي
-        if (!storeId && localStores.length > 0) {
-            storeId = String(localStores[0].id);
-        }
-
-        if (!storeId) {
-
-            showError(
-                "لم يتم تحديد المتجر.",
-                "ارجع إلى قائمة المتاجر واختر متجراً."
-            );
-
-            return;
-        }
-
-        const storeRef = doc(db, "stores", String(storeId));
+        const storeRef = doc(
+            db,
+            "stores",
+            String(requestedStoreId)
+        );
 
         const storeSnapshot = await getDoc(storeRef);
 
@@ -262,7 +240,9 @@ async function loadStore() {
 
         detailsElement.textContent =
             (currentStore.type || "") +
-            (currentStore.region ? " | " + currentStore.region : "");
+            (currentStore.region
+                ? " | " + currentStore.region
+                : "");
 
         await loadProducts();
 
@@ -272,7 +252,7 @@ async function loadStore() {
 
         showError(
             "تعذر تحميل المتجر",
-            "تحقق من اتصال الإنترنت ثم أعد المحاولة."
+            "حدث خطأ أثناء الاتصال بقاعدة البيانات. تحقق من الإنترنت وحاول مجدداً."
         );
 
     }
@@ -280,9 +260,7 @@ async function loadStore() {
 }
 
 
-// =================================
-// تحميل المنتجات من Firestore
-// =================================
+// تحميل المنتجات من Firebase
 
 async function loadProducts() {
 
@@ -295,44 +273,23 @@ async function loadProducts() {
 
         const productsQuery = query(
             productsRef,
-            where("storeId", "==", currentStore.id)
+            where("storeId", "==", String(currentStore.id))
         );
 
-        const productsSnapshot = await getDocs(productsQuery);
+        const snapshot = await getDocs(productsQuery);
 
-        let products = [];
+        const products = [];
 
-        productsSnapshot.forEach(productDoc => {
+        snapshot.forEach(productDoc => {
+
+            const data = productDoc.data();
 
             products.push({
                 id: productDoc.id,
-                ...productDoc.data()
+                ...data
             });
 
         });
-
-
-        // المنتجات الأساسية القديمة
-        // تظهر في بقالة البركة فقط
-
-        if (
-            String(currentStore.name).trim() === "بقالة البركة"
-        ) {
-
-            defaultProducts.forEach(defaultProduct => {
-
-                const alreadyExists = products.some(product =>
-                    String(product.name).trim() === defaultProduct.name
-                );
-
-                if (!alreadyExists) {
-                    products.unshift(defaultProduct);
-                }
-
-            });
-
-        }
-
 
         displayProducts(products);
 
@@ -340,45 +297,38 @@ async function loadProducts() {
 
         console.error("خطأ تحميل المنتجات:", error);
 
-        // محاولة عرض المنتجات المحلية عند تعذر الاتصال
-        const fallbackProducts = localProducts.filter(product =>
-            String(product.storeId) === String(currentStore.id)
-        );
-
-        if (fallbackProducts.length > 0) {
-
-            displayProducts(fallbackProducts);
-
-        } else {
-
-            container.innerHTML =
-                '<div class="empty-message">تعذر تحميل المنتجات. تحقق من اتصال الإنترنت.</div>';
-
-        }
+        container.innerHTML =
+            '<div class="empty-message">' +
+            'تعذر تحميل المنتجات من قاعدة البيانات.<br>' +
+            'يرجى المحاولة مرة أخرى.' +
+            '</div>';
 
     }
 
 }
 
 
-// =================================
 // عرض المنتجات
-// =================================
 
 function displayProducts(products) {
 
     container.innerHTML = "";
 
     products = products.filter(product =>
+
         product.name &&
         Number.isFinite(Number(product.price)) &&
         Number(product.price) > 0
+
     );
 
     if (products.length === 0) {
 
         container.innerHTML =
-            '<div class="empty-message">لا توجد منتجات في هذا المتجر حالياً.</div>';
+            '<div class="empty-message">' +
+            'لا توجد منتجات في هذا المتجر حالياً.<br>' +
+            'سيتم عرض المنتجات هنا عندما يضيفها التاجر.' +
+            '</div>';
 
         return;
     }
@@ -392,35 +342,43 @@ function displayProducts(products) {
 }
 
 
-// =================================
 // إنشاء بطاقة المنتج
-// =================================
 
 function createProductCard(product) {
 
     const card = document.createElement("div");
+
     card.className = "store-card";
+
+
+    // اسم المنتج
 
     const title = document.createElement("h3");
 
     title.textContent =
         (product.icon || "📦") + " " + product.name;
 
+
+    // السعر
+
     const priceElement = document.createElement("p");
+
     priceElement.className = "product-price";
 
     const price = Number(product.price);
 
     priceElement.textContent =
-        "السعر: " + price.toLocaleString() + " جنيه";
+        "السعر: " + price.toLocaleString("ar") + " جنيه";
 
 
     // اختيار الكمية
 
     const quantityLabel = document.createElement("label");
+
     quantityLabel.textContent = "اختر الكمية:";
 
     const quantitySelect = document.createElement("select");
+
     quantitySelect.className = "quantity-select";
 
     for (let i = 1; i <= 20; i++) {
@@ -428,6 +386,7 @@ function createProductCard(product) {
         const option = document.createElement("option");
 
         option.value = i;
+
         option.textContent = i;
 
         quantitySelect.appendChild(option);
@@ -447,7 +406,9 @@ function createProductCard(product) {
 
         if (typeof window.addToCart !== "function") {
 
-            alert("تعذر تشغيل السلة. تحقق من ملف app.js.");
+            alert(
+                "تعذر تشغيل السلة. تحقق من ملف app.js."
+            );
 
             return;
         }
@@ -464,9 +425,13 @@ function createProductCard(product) {
 
 
     card.appendChild(title);
+
     card.appendChild(priceElement);
+
     card.appendChild(quantityLabel);
+
     card.appendChild(quantitySelect);
+
     card.appendChild(button);
 
     container.appendChild(card);
@@ -474,9 +439,7 @@ function createProductCard(product) {
 }
 
 
-// =================================
-// عرض رسالة الخطأ
-// =================================
+// رسائل الخطأ
 
 function showError(title, message) {
 
@@ -487,14 +450,14 @@ function showError(title, message) {
     detailsElement.textContent = "";
 
     container.innerHTML =
-        '<div class="empty-message">' + message + '</div>';
+        '<div class="empty-message">' +
+        message +
+        '</div>';
 
 }
 
 
-// =================================
-// بدء تشغيل الصفحة
-// =================================
+// تشغيل الصفحة
 
 loadStore();
 
