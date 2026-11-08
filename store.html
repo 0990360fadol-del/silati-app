@@ -16,6 +16,7 @@
 
 body {
     margin: 0;
+    padding-bottom: 90px;
     background: #f1f5f3;
     font-family: Arial, sans-serif;
     color: #26332e;
@@ -47,9 +48,9 @@ body {
 }
 
 .store-info {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
+    background: linear-gradient(135deg, white, #e3f5ed);
+    padding: 22px;
+    border-radius: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px #00000012;
 }
@@ -59,12 +60,45 @@ body {
     margin-top: 0;
 }
 
+.store-info p {
+    color: #66736c;
+    line-height: 1.8;
+}
+
+.search-box {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 18px;
+    border: 1px solid #dce9e2;
+    border-radius: 12px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+}
+
+.search-box:focus {
+    border-color: #087f5b;
+    box-shadow: 0 0 0 3px #087f5b18;
+}
+
 .store-card {
     background: white;
-    padding: 15px;
-    margin: 12px 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px #00000012;
+    padding: 17px;
+    margin: 13px 0;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px #0000000c;
+    animation: appear .35s ease both;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .store-card h3 {
@@ -74,7 +108,7 @@ body {
 .product-price {
     font-weight: bold;
     color: #087f5b;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .quantity-select {
@@ -88,23 +122,39 @@ body {
     font-size: 16px;
 }
 
-.store-card button {
+.store-card button.add-button {
     width: 100%;
     background: #087f5b;
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 7px;
+    padding: 13px;
+    border-radius: 9px;
     cursor: pointer;
     font-size: 16px;
+}
+
+.favorite-btn {
+    background: #fff0f0;
+    color: #e53935;
+    border: none;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 7px 0 12px;
+}
+
+.favorite-btn.saved {
+    background: #ffe1e1;
 }
 
 .empty-message {
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
-    line-height: 1.8;
+    line-height: 1.9;
+    color: #777;
 }
 
 .back-link {
@@ -113,6 +163,73 @@ body {
     margin: 20px;
     color: #087f5b;
     text-decoration: none;
+}
+
+/* شريط التنقل السفلي */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255,255,255,.97);
+    border-top: 1px solid #e5eee9;
+    box-shadow: 0 -3px 15px #00000012;
+    padding: 9px 4px;
+    padding-bottom: calc(9px + env(safe-area-inset-bottom));
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #89958f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+}
+
+.nav-icon {
+    position: relative;
+    font-size: 23px;
+}
+
+.nav-item.active {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -12px;
+    background: #e53935;
+    color: white;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 20px;
+    font-size: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-badge.show {
+    display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 </style>
 </head>
@@ -141,12 +258,23 @@ body {
 
     </div>
 
+    <h3>🔍 ابحث في منتجات المتجر</h3>
+
+    <input
+        type="search"
+        id="productSearch"
+        class="search-box"
+        placeholder="اكتب اسم المنتج..."
+    >
+
     <h3>📦 منتجات المتجر</h3>
 
     <div id="productsContainer">
+
         <div class="empty-message">
             جارٍ تحميل المنتجات...
         </div>
+
     </div>
 
     <a href="stores.html" class="back-link">
@@ -155,36 +283,127 @@ body {
 
 </section>
 
+<!-- شريط التنقل -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span>الرئيسية</span>
+    </a>
+
+    <a href="stores.html" class="nav-item">
+        <span class="nav-icon">🏪</span>
+        <span>المتاجر</span>
+    </a>
+
+    <a href="cart.html" class="nav-item">
+        <span class="nav-icon">
+            🛒
+            <span class="cart-badge" id="cartBadge">0</span>
+        </span>
+        <span>السلة</span>
+    </a>
+
+    <a href="my-orders.html" class="nav-item">
+        <span class="nav-icon">📦</span>
+        <span>طلباتي</span>
+    </a>
+
+    <a href="login.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>حسابي</span>
+    </a>
+
+</nav>
+
 <script src="app.js"></script>
 
-<script type="module">
+<script>
 
-// الاتصال بقاعدة البيانات
+/* قراءة البيانات المحفوظة */
 
-import { db } from "./firebase.js";
+function readStorage(key, fallback) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return value === null ? fallback : value;
+    } catch (error) {
+        return fallback;
+    }
+}
 
-import {
-    doc,
-    getDoc,
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+/* عداد السلة */
 
+function updateCartBadge() {
 
-// عناصر الصفحة
+    const cart = readStorage("silatiCart", []);
+
+    const count = Array.isArray(cart)
+        ? cart.reduce((sum, item) =>
+            sum + Math.max(0, Number(item.quantity) || 0), 0)
+        : 0;
+
+    const badge = document.getElementById("cartBadge");
+
+    badge.textContent = count > 99 ? "99+" : count;
+
+    badge.classList.toggle("show", count > 0);
+}
+
+updateCartBadge();
+
+/* المفضلة */
+
+function getFavorites() {
+    const list = readStorage("silatiFavorites", []);
+    return Array.isArray(list) ? list : [];
+}
+
+function isFavorite(id) {
+    return getFavorites().some(item =>
+        item.type === "product" && item.id === id
+    );
+}
+
+function toggleFavorite(id) {
+
+    let favorites = getFavorites();
+
+    const index = favorites.findIndex(item =>
+        item.type === "product" && item.id === id
+    );
+
+    if (index >= 0) {
+        favorites.splice(index, 1);
+    } else {
+        favorites.push({
+            type: "product",
+            id: id
+        });
+    }
+
+    localStorage.setItem(
+        "silatiFavorites",
+        JSON.stringify(favorites)
+    );
+
+    displayProducts(currentProducts);
+}
+
+/* بيانات المتجر */
+
+let currentStore = null;
+let currentProducts = [];
+
+/* عناصر الصفحة */
 
 const titleElement = document.getElementById("storeTitle");
 const welcomeElement = document.getElementById("storeWelcome");
 const detailsElement = document.getElementById("storeDetails");
 const container = document.getElementById("productsContainer");
+const searchInput = document.getElementById("productSearch");
 
-let currentStore = null;
-
-
-// قراءة معرّف المتجر من الرابط
-// نقبل id أو storeId
+/* معرّف المتجر */
 
 const params = new URLSearchParams(window.location.search);
 
@@ -192,8 +411,7 @@ const requestedStoreId =
     params.get("id") ||
     params.get("storeId");
 
-
-// تحميل بيانات المتجر
+/* تحميل المتجر */
 
 async function loadStore() {
 
@@ -236,12 +454,12 @@ async function loadStore() {
             "🏪 " + currentStore.name;
 
         welcomeElement.textContent =
-            "مرحباً بك في " + currentStore.name;
+            "مرحباً بك في " + currentStore.name + " 💚";
 
         detailsElement.textContent =
-            (currentStore.type || "") +
+            (currentStore.type || "متجر عام") +
             (currentStore.region
-                ? " | " + currentStore.region
+                ? " | 📍 " + currentStore.region
                 : "");
 
         await loadProducts();
@@ -252,15 +470,13 @@ async function loadStore() {
 
         showError(
             "تعذر تحميل المتجر",
-            "حدث خطأ أثناء الاتصال بقاعدة البيانات. تحقق من الإنترنت وحاول مجدداً."
+            "حدث خطأ أثناء الاتصال بقاعدة البيانات."
         );
 
     }
-
 }
 
-
-// تحميل المنتجات من Firebase
+/* تحميل المنتجات */
 
 async function loadProducts() {
 
@@ -278,62 +494,60 @@ async function loadProducts() {
 
         const snapshot = await getDocs(productsQuery);
 
-        const products = [];
+        currentProducts = [];
 
         snapshot.forEach(productDoc => {
 
             const data = productDoc.data();
 
-            products.push({
+            currentProducts.push({
                 id: productDoc.id,
                 ...data
             });
 
         });
 
-        displayProducts(products);
+        displayProducts(currentProducts);
 
     } catch (error) {
 
         console.error("خطأ تحميل المنتجات:", error);
 
         container.innerHTML =
-            '<div class="empty-message">' +
-            'تعذر تحميل المنتجات من قاعدة البيانات.<br>' +
-            'يرجى المحاولة مرة أخرى.' +
-            '</div>';
+            '<div class="empty-message">تعذر تحميل المنتجات من قاعدة البيانات.</div>';
 
     }
 
 }
 
-
-// عرض المنتجات
+/* عرض المنتجات */
 
 function displayProducts(products) {
 
     container.innerHTML = "";
 
-    products = products.filter(product =>
+    const search = searchInput.value.trim().toLowerCase();
 
-        product.name &&
-        Number.isFinite(Number(product.price)) &&
-        Number(product.price) > 0
+    const filtered = products.filter(product => {
 
-    );
+        const valid =
+            product.name &&
+            Number.isFinite(Number(product.price)) &&
+            Number(product.price) > 0;
 
-    if (products.length === 0) {
+        return valid &&
+            product.name.toLowerCase().includes(search);
+    });
+
+    if (filtered.length === 0) {
 
         container.innerHTML =
-            '<div class="empty-message">' +
-            'لا توجد منتجات في هذا المتجر حالياً.<br>' +
-            'سيتم عرض المنتجات هنا عندما يضيفها التاجر.' +
-            '</div>';
+            '<div class="empty-message">لا توجد منتجات تطابق بحثك حالياً.</div>';
 
         return;
     }
 
-    products.forEach(product => {
+    filtered.forEach(product => {
 
         createProductCard(product);
 
@@ -341,8 +555,7 @@ function displayProducts(products) {
 
 }
 
-
-// إنشاء بطاقة المنتج
+/* بطاقة المنتج */
 
 function createProductCard(product) {
 
@@ -350,28 +563,39 @@ function createProductCard(product) {
 
     card.className = "store-card";
 
-
-    // اسم المنتج
-
     const title = document.createElement("h3");
 
     title.textContent =
         (product.icon || "📦") + " " + product.name;
 
-
-    // السعر
-
     const priceElement = document.createElement("p");
 
     priceElement.className = "product-price";
 
-    const price = Number(product.price);
-
     priceElement.textContent =
-        "السعر: " + price.toLocaleString("ar") + " جنيه";
+        "السعر: " +
+        Number(product.price).toLocaleString("ar") +
+        " جنيه";
 
+    const favoriteButton = document.createElement("button");
 
-    // اختيار الكمية
+    favoriteButton.className = "favorite-btn";
+
+    function updateFavoriteButton() {
+
+        const saved = isFavorite(product.id);
+
+        favoriteButton.textContent =
+            saved ? "❤️ في المفضلة" : "🤍 أضف للمفضلة";
+
+        favoriteButton.classList.toggle("saved", saved);
+    }
+
+    updateFavoriteButton();
+
+    favoriteButton.onclick = () => {
+        toggleFavorite(product.id);
+    };
 
     const quantityLabel = document.createElement("label");
 
@@ -386,17 +610,14 @@ function createProductCard(product) {
         const option = document.createElement("option");
 
         option.value = i;
-
         option.textContent = i;
 
         quantitySelect.appendChild(option);
-
     }
 
-
-    // زر الإضافة للسلة
-
     const button = document.createElement("button");
+
+    button.className = "add-button";
 
     button.textContent = "أضف إلى السلة 🛒";
 
@@ -406,40 +627,40 @@ function createProductCard(product) {
 
         if (typeof window.addToCart !== "function") {
 
-            alert(
-                "تعذر تشغيل السلة. تحقق من ملف app.js."
-            );
+            alert("تعذر تشغيل السلة. تحقق من ملف app.js.");
 
             return;
         }
 
         window.addToCart(
             product.name,
-            price,
+            Number(product.price),
             quantity,
             currentStore.id,
             currentStore.name
         );
 
+        updateCartBadge();
+
     });
 
-
     card.appendChild(title);
-
     card.appendChild(priceElement);
-
+    card.appendChild(favoriteButton);
     card.appendChild(quantityLabel);
-
     card.appendChild(quantitySelect);
-
     card.appendChild(button);
 
     container.appendChild(card);
-
 }
 
+/* البحث */
 
-// رسائل الخطأ
+searchInput.addEventListener("input", function() {
+    displayProducts(currentProducts);
+});
+
+/* الأخطاء */
 
 function showError(title, message) {
 
@@ -450,16 +671,58 @@ function showError(title, message) {
     detailsElement.textContent = "";
 
     container.innerHTML =
-        '<div class="empty-message">' +
-        message +
-        '</div>';
+        '<div class="empty-message">' + message + '</div>';
 
 }
 
+window.addEventListener("storage", updateCartBadge);
 
-// تشغيل الصفحة
+</script>
 
-loadStore();
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+window.db = db;
+
+/* تشغيل تحميل المتجر بعد تجهيز Firebase */
+
+window.addEventListener("silatiFirebaseReady", () => {});
+
+</script>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+/* توفير دوال Firebase للصفحة */
+
+window.doc = doc;
+window.getDoc = getDoc;
+window.collection = collection;
+window.getDocs = getDocs;
+window.query = query;
+window.where = where;
+
+window.dispatchEvent(new Event("silatiFirebaseReady"));
 
 </script>
 
