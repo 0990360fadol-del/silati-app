@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التاجر | سِلّتي</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f3;
+    color: #26332e;
+}
+
+header {
+    background: #087f5b;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h2 { margin: 5px; }
+
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.box {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #00000010;
+}
+
+h3 { color: #087f5b; margin-top: 0; }
+
+input, select {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 4px 0;
+}
+
+.save {
+    background: #087f5b;
+    color: white;
+    width: 100%;
+}
+
+.new-store {
+    background: #1976d2;
+    color: white;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.edit {
+    background: #1976d2;
+    color: white;
+    margin: 4px;
+}
+
+.delete {
+    background: #d32f2f;
+    color: white;
+    margin: 4px;
+}
+
+.product, .order {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+.product h4 { margin: 5px 0; }
+
+.price {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.back {
+    display: block;
+    text-align: center;
+    color: #087f5b;
+    margin: 20px;
+    text-decoration: none;
+}
+
+.note {
+    background: #e8f5e9;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.order-status {
+    font-weight: bold;
+    color: #087f5b;
+}
+
+.order-items {
+    background: #f7faf8;
+    padding: 10px;
+    border-radius: 8px;
+    line-height: 1.9;
+}
+
+.customer-info {
+    background: #edf7f2;
+    border-right: 4px solid #087f5b;
+    padding: 13px;
+    border-radius: 8px;
+    margin: 12px 0;
+    line-height: 2;
+}
+
+.customer-info h4 {
+    margin: 0 0 8px;
+    color: #087f5b;
+}
+
+.customer-info p {
+    margin: 3px 0;
+    overflow-wrap: anywhere;
+}
+
+.phone-link {
+    color: #087f5b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 15px;
+}
+
+#connectionStatus {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    background: #fff3cd;
+    color: #795900;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.cloud-label {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #087f5b;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.local-label {
+    display: inline-block;
+    background: #fff3cd;
+    color: #795900;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin: 5px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>🏪 سِلّتي</h2>
+    <p>لوحة إدارة التاجر</p>
+</header>
+
+<div class="container">
+
+    <div id="connectionStatus">
+        جارٍ التحقق من حساب التاجر والاتصال بقاعدة البيانات...
+    </div>
+
+    <div class="box">
+        <h3>🏪 اختيار المتجر</h3>
+
+        <label>اختر المتجر الذي تريد إدارته</label>
+
+        <select id="storeSelect">
+            <option value="">اختر متجراً</option>
+        </select>
+
+        <p class="note">
+            يمكنك إدارة عدة متاجر من هذه الصفحة،
+            ولكل متجر منتجاته وطلباته الخاصة.
+        </p>
+    </div>
+
+    <div class="box">
+        <h3>🏪 بيانات المتجر</h3>
+
+        <label>اسم المتجر</label>
+        <input id="storeName" placeholder="مثلاً: بقالة البركة">
+
+        <label>نوع النشاط</label>
+        <select id="storeType">
+            <option value="">اختر نوع المتجر</option>
+            <option>بقالة</option>
+            <option>خضروات وفواكه</option>
+            <option>مخبوزات</option>
+            <option>حلويات</option>
+            <option>مطاعم</option>
+            <option>عصائر ومشروبات</option>
+            <option>أخرى</option>
+        </select>
+
+        <label>المنطقة</label>
+        <select id="storeRegion">
+            <option value="">اختر منطقتك</option>
+            <option>الحاج يوسف</option>
+            <option>الوحدة</option>
+            <option>دار السلام</option>
+            <option>الفيحاء</option>
+            <option>المايقوما</option>
+            <option>حي النصر</option>
+            <option>سوبا</option>
+            <option>عد بابكر</option>
+            <option>الشقلة</option>
+            <option>أم ضوابان</option>
+            <option>منطقة أخرى بشرق النيل</option>
+        </select>
+
+        <button class="save" onclick="saveStore()">
+            حفظ تعديلات المتجر
+        </button>
+
+        <button class="new-store" onclick="createStore()">
+            ➕ تسجيل متجر جديد
+        </button>
+    </div>
+
+    <div class="box">
+        <h3>➕ إضافة منتج جديد</h3>
+
+        <label>اسم المنتج</label>
+        <input id="productName" placeholder="مثلاً: أرز">
+
+        <label>سعر المنتج بالجنيه</label>
+        <input id="productPrice" type="number" min="1"
+        placeholder="مثلاً: 5000">
+
+        <button class="save" onclick="saveProduct()">
+            حفظ المنتج
+        </button>
+
+        <input type="hidden" id="editId">
+
+        <button class="delete" onclick="cancelEdit()"
+        id="cancelEdit" style="display:none;">
+            إلغاء التعديل
+        </button>
+    </div>
+
+    <div class="box">
+        <h3>📦 منتجات المتجر المحدد</h3>
+        <div id="productsList">
+            اختر متجراً لعرض منتجاته.
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>🛎️ طلبات الزبائن</h3>
+
+        <p class="note">
+            الطلبات السحابية تظهر هنا عند وصولها من الزبائن.
+            يمكنك تحديث حالة الطلب، وسيتم حفظ التحديث في Firebase.
+        </p>
+
+        <div id="ordersList">
+            اختر متجراً لعرض طلباته.
+        </div>
+    </div>
+
+</div>
+
+<a href="stores.html" class="back">عرض جميع المتاجر</a>
+<a href="index.html" class="back">العودة إلى الصفحة الرئيسية</a>
+
+<script type="module">
+
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc,
+    getDocs,
+    collection,
+    query,
+    where,
+    setDoc,
+    updateDoc,
+    deleteDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+function readData(key) {
+    try {
+        const data = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+let stores = readData("silatiStores");
+let products = readData("silatiProducts");
+let orders = readData("silatiOrders");
+
+let cloudOrders = [];
+let activeStoreId = "";
+let currentUser = null;
+let accountReady = false;
+
+function showMessage(message, success = false) {
+    const box = document.getElementById("connectionStatus");
+    box.textContent = message;
+    box.style.background = success ? "#e8f5e9" : "#fff3cd";
+    box.style.color = success ? "#087f5b" : "#795900";
+}
+
+function saveStoresData() {
+    localStorage.setItem("silatiStores", JSON.stringify(stores));
+}
+
+function saveProductsData() {
+    localStorage.setItem("silatiProducts", JSON.stringify(products));
+}
+
+function saveOrdersData() {
+    localStorage.setItem("silatiOrders", JSON.stringify(orders));
+}
+
+function createId() {
+    return Date.now().toString() +
+        Math.random().toString(36).substring(2, 8);
+}
+
+function refreshOrders() {
+    orders = readData("silatiOrders");
+}
+
+// نقل المتاجر
+async function migrateStores() {
+    let moved = 0;
+    let skipped = 0;
+    let failed = 0;
+
+    for (const store of stores) {
+        try {
+            const storeId = String(store.id);
+            const storeRef = doc(db, "stores", storeId);
+            const snapshot = await getDoc(storeRef);
+
+            if (snapshot.exists()) {
+                if (snapshot.data().ownerUid === currentUser.uid) {
+                    await updateDoc(storeRef, {
+                        name: store.name,
+                        type: store.type || "",
+                        region: store.region || "",
+                        updatedAt: serverTimestamp()
+                    });
+                    moved++;
+                } else {
+                    skipped++;
+                }
+            } else {
+                await setDoc(storeRef, {
+                    id: storeId,
+                    name: store.name,
+                    type: store.type || "",
+                    region: store.region || "",
+                    ownerUid: currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+                moved++;
+            }
+        } catch (error) {
+            console.error("خطأ نقل متجر:", error);
+            failed++;
+        }
+    }
+
+    return { moved, skipped, failed };
+}
+
+// نقل المنتجات
+async function migrateProducts() {
+    let moved = 0;
+    let skipped = 0;
+    let failed = 0;
+
+    for (const product of products) {
+        try {
+            const storeId = String(product.storeId);
+            const store = stores.find(
+                s => String(s.id) === storeId
+            );
+
+            if (!store) {
+                skipped++;
+                continue;
+            }
+
+            const productId = String(product.id);
+
+            if (!productId || productId === "undefined") {
+                skipped++;
+                continue;
+            }
+
+            const price = Number(product.price);
+
+            if (!product.name || !Number.isFinite(price) || price <= 0) {
+                skipped++;
+                continue;
+            }
+
+            const productRef = doc(db, "products", productId);
+            const snapshot = await getDoc(productRef);
+
+            const data = {
+                id: productId,
+                storeId,
+                name: product.name,
+                price,
+                icon: product.icon || "📦",
+                updatedAt: serverTimestamp()
+            };
+
+            if (snapshot.exists()) {
+                if (String(snapshot.data().storeId) !== storeId) {
+                    skipped++;
+                    continue;
+                }
+                await updateDoc(productRef, data);
+            } else {
+                data.createdAt = serverTimestamp();
+                await setDoc(productRef, data);
+            }
+
+            moved++;
+        } catch (error) {
+            console.error("خطأ نقل منتج:", error);
+            failed++;
+        }
+    }
+
+    return { moved, skipped, failed };
+}
+
+// تحميل المنتجات
+async function loadCloudProducts() {
+    const result = [];
+
+    for (const store of stores) {
+        const storeId = String(store.id);
+
+        const q = query(
+            collection(db, "products"),
+            where("storeId", "==", storeId)
+        );
+
+        const snapshot = await getDocs(q);
+
+        snapshot.forEach(item => {
+            const data = item.data();
+
+            result.push({
+                id: data.id || item.id,
+                storeId: String(data.storeId),
+                name: data.name,
+                price: Number(data.price),
+                icon: data.icon || "📦"
+            });
+        });
+    }
+
+    products = result;
+    saveProductsData();
+}
+
+// تحميل الطلبات القديمة والجديدة
+async function loadCloudOrders(storeId) {
+    cloudOrders = [];
+
+    const q = query(
+        collection(db, "orders"),
+        where("storeId", "==", String(storeId))
+    );
+
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(item => {
+        const data = item.data();
+
+        cloudOrders.push({
+            ...data,
+            id: item.id,
+            storeId: String(data.storeId),
+            _cloud: true
+        });
+    });
+
+    return cloudOrders;
+}
+
+// التحقق من حساب التاجر
+onAuthStateChanged(auth, async function(user) {
+    if (!user) {
+        showMessage("يجب تسجيل الدخول أولاً.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        currentUser = user;
+
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
+
+        if (!userSnapshot.exists()) {
+            showMessage("لم يتم العثور على بيانات حسابك.");
+            return;
+        }
+
+        if (userSnapshot.data().role !== "merchant") {
+            showMessage("هذا الحساب ليس حساب تاجر.");
+            return;
+        }
+
+        showMessage("تم التحقق من حساب التاجر. جارٍ تجهيز البيانات...", true);
+
+        const storeResult = await migrateStores();
+        const productResult = await migrateProducts();
+
+        await loadCloudProducts();
+
+        accountReady = true;
+        initialize();
+
+        showMessage(
+            "تم الاتصال بقاعدة البيانات بنجاح 💚\n" +
+            "المتاجر المحدّثة: " + storeResult.moved + "\n" +
+            "المنتجات المحدّثة: " + productResult.moved + "\n" +
+            "العمليات المتعثرة: " +
+            (storeResult.failed + productResult.failed),
+            storeResult.failed === 0 && productResult.failed === 0
+        );
+
+    } catch (error) {
+        console.error(error);
+        showMessage(
+            "تعذر الاتصال بقاعدة البيانات: " +
+            (error.code || error.message)
+        );
+    }
+});
+
+// قائمة المتاجر
+function renderStoreSelect() {
+    const select = document.getElementById("storeSelect");
+    select.innerHTML = '<option value="">اختر متجراً</option>';
+
+    stores.forEach(store => {
+        const option = document.createElement("option");
+        option.value = store.id;
+        option.textContent = store.name + " - " + (store.region || "");
+        select.appendChild(option);
+    });
+
+    select.value = activeStoreId;
+}
+
+// اختيار متجر
+async function selectStore() {
+    activeStoreId = document.getElementById("storeSelect").value;
+
+    const store = stores.find(
+        s => String(s.id) === String(activeStoreId)
+    );
+
+    if (store) {
+        document.getElementById("storeName").value = store.name;
+        document.getElementById("storeType").value = store.type || "";
+        document.getElementById("storeRegion").value = store.region || "";
+    } else {
+        clearStoreForm();
+    }
+
+    cancelEdit();
+    renderProducts();
+    await renderOrders();
+}
+
+function clearStoreForm() {
+    document.getElementById("storeName").value = "";
+    document.getElementById("storeType").value = "";
+    document.getElementById("storeRegion").value = "";
+}
+
+// حفظ المتجر
+async function saveStore() {
+    if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
+    if (!activeStoreId) return alert("اختر متجراً أولاً.");
+
+    const name = document.getElementById("storeName").value.trim();
+    const type = document.getElementById("storeType").value;
+    const region = document.getElementById("storeRegion").value;
+
+    if (!name || !type || !region) {
+        return alert("يرجى إكمال بيانات المتجر.");
+    }
+
+    const store = stores.find(
+        s => String(s.id) === String(activeStoreId)
+    );
+
+    if (!store) return;
+
+    try {
+        const storeRef = doc(db, "stores", String(store.id));
+        const snapshot = await getDoc(storeRef);
+
+        if (!snapshot.exists() ||
+            snapshot.data().ownerUid !== currentUser.uid) {
+            return alert("لا يمكن تعديل هذا المتجر.");
+        }
+
+        await updateDoc(storeRef, {
+            name,
+            type,
+            region,
+            updatedAt: serverTimestamp()
+        });
+
+        store.name = name;
+        store.type = type;
+        store.region = region;
+
+        saveStoresData();
+        renderStoreSelect();
+
+        alert("تم تحديث بيانات المتجر بنجاح 💚");
+    } catch (error) {
+        alert("تعذر تحديث المتجر: " + error.message);
+    }
+}
+
+// إنشاء متجر
+async function createStore() {
+    if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
+
+    const name = document.getElementById("storeName").value.trim();
+    const type = document.getElementById("storeType").value;
+    const region = document.getElementById("storeRegion").value;
+
+    if (!name || !type || !region) {
+        return alert("أكمل بيانات المتجر أولاً.");
+    }
+
+    const store = {
+        id: createId(),
+        name,
+        type,
+        region
+    };
+
+    try {
+        await setDoc(doc(db, "stores", String(store.id)), {
+            ...store,
+            ownerUid: currentUser.uid,
+            createdAt: serverTimestamp()
+        });
+
+        stores.push(store);
+        saveStoresData();
+
+        activeStoreId = store.id;
+        renderStoreSelect();
+
+        document.getElementById("storeSelect").value = activeStoreId;
+
+        await selectStore();
+
+        alert("تم تسجيل المتجر في السحابة بنجاح 💚");
+    } catch (error) {
+        alert("تعذر تسجيل المتجر: " + error.message);
+    }
+}
+
+// حفظ منتج
+async function saveProduct() {
+    if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
+    if (!activeStoreId) return alert("اختر متجراً أولاً.");
+
+    const name = document.getElementById("productName").value.trim();
+    const price = Number(document.getElementById("productPrice").value);
+    const editId = document.getElementById("editId").value;
+
+    if (!name || !Number.isFinite(price) || price <= 0) {
+        return alert("أدخل اسم المنتج وسعراً صحيحاً.");
+    }
+
+    try {
+        const productId = editId || createId();
+        const productRef = doc(db, "products", String(productId));
+
+        const productData = {
+            id: String(productId),
+            storeId: String(activeStoreId),
+            name,
+            price,
+            icon: "📦",
+            updatedAt: serverTimestamp()
+        };
+
+        if (editId) {
+            const oldProduct = products.find(
+                p => String(p.id) === String(editId) &&
+                     String(p.storeId) === String(activeStoreId)
+            );
+
+            if (!oldProduct) return alert("المنتج غير موجود.");
+
+            await updateDoc(productRef, productData);
+
+            oldProduct.name = name;
+            oldProduct.price = price;
+        } else {
+            productData.createdAt = serverTimestamp();
+            await setDoc(productRef, productData);
+
+            products.push({
+                id: productId,
+                storeId: activeStoreId,
+                name,
+                price,
+                icon: "📦"
+            });
+        }
+
+        saveProductsData();
+        cancelEdit();
+        renderProducts();
+
+        alert("تم حفظ المنتج في السحابة بنجاح 💚");
+    } catch (error) {
+        alert("تعذر حفظ المنتج: " + error.message);
+    }
+}
+
+// عرض المنتجات
+function renderProducts() {
+    const container = document.getElementById("productsList");
+    container.innerHTML = "";
+
+    if (!activeStoreId) {
+        container.textContent = "اختر متجراً لعرض منتجاته.";
+        return;
+    }
+
+    const list = products.filter(
+        p => String(p.storeId) === String(activeStoreId)
+    );
+
+    if (list.length === 0) {
+        container.textContent = "لا توجد منتجات حالياً.";
+        return;
+    }
+
+    list.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product";
+
+        const title = document.createElement("h4");
+        title.textContent = (product.icon || "📦") + " " + product.name;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = Number(product.price).toLocaleString() + " جنيه";
+
+        const editButton = document.createElement("button");
+        editButton.className = "edit";
+        editButton.textContent = "تعديل";
+        editButton.onclick = () => editProduct(product.id);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete";
+        deleteButton.textContent = "حذف";
+        deleteButton.onclick = () => deleteProduct(product.id);
+
+        card.append(title, price, editButton, deleteButton);
+        container.appendChild(card);
+    });
+}
+
+// تعديل منتج
+function editProduct(id) {
+    const product = products.find(
+        p => String(p.id) === String(id) &&
+             String(p.storeId) === String(activeStoreId)
+    );
+
+    if (!product) return;
+
+    document.getElementById("productName").value = product.name;
+    document.getElementById("productPrice").value = product.price;
+    document.getElementById("editId").value = product.id;
+    document.getElementById("cancelEdit").style.display = "inline-block";
+
+    window.scrollTo({ top: 300, behavior: "smooth" });
+}
+
+// إلغاء التعديل
+function cancelEdit() {
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("editId").value = "";
+    document.getElementById("cancelEdit").style.display = "none";
+}
+
+// حذف منتج
+async function deleteProduct(id) {
+    if (!confirm("هل تريد حذف هذا المنتج؟")) return;
+    if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
+
+    try {
+        const product = products.find(
+            p => String(p.id) === String(id) &&
+                 String(p.storeId) === String(activeStoreId)
+        );
+
+        if (!product) return alert("المنتج غير موجود.");
+
+        await deleteDoc(doc(db, "products", String(id)));
+
+        products = products.filter(
+            p => !(String(p.id) === String(id) &&
+                   String(p.storeId) === String(activeStoreId))
+        );
+
+        saveProductsData();
+        renderProducts();
+
+        alert("تم حذف المنتج بنجاح.");
+    } catch (error) {
+        alert("تعذر حذف المنتج: " + error.message);
+    }
+}
+
+// بيانات الزبون
+function renderCustomerInfo(customer) {
+    const box = document.createElement("div");
+    box.className = "customer-info";
+
+    const heading = document.createElement("h4");
+    heading.textContent = "👤 بيانات الزبون والتوصيل";
+    box.appendChild(heading);
+
+    if (!customer) {
+        const line = document.createElement("p");
+        line.textContent = "لا توجد بيانات زبون مسجلة لهذا الطلب.";
+        box.appendChild(line);
+        return box;
+    }
+
+    const fields = [
+        ["الاسم", customer.name],
+        ["الهاتف", customer.phone],
+        ["المنطقة", customer.region],
+        ["العنوان", customer.address],
+        ["ملاحظة", customer.note]
+    ];
+
+    fields.forEach(([label, value]) => {
+        if (!value && label === "ملاحظة") return;
+
+        const line = document.createElement("p");
+
+        if (label === "الهاتف" && value) {
+            line.append("الهاتف: ");
+
+            const link = document.createElement("a");
+            link.className = "phone-link";
+            link.href = "tel:" + String(value).replace(/[^\d+]/g, "");
+            link.textContent = value;
+
+            line.appendChild(link);
+        } else {
+            line.textContent = label + ": " + (value || "غير متوفر");
+        }
+
+        box.appendChild(line);
+    });
+
+    return box;
+}
+
+// تاريخ الطلب
+function formatOrderDate(order) {
+    if (order.date) return order.date;
+
+    const value = order.createdAt;
+
+    if (value && typeof value.toDate === "function") {
+        return value.toDate().toLocaleString("ar");
+    }
+
+    if (value instanceof Date) {
+        return value.toLocaleString("ar");
+    }
+
+    return "غير محدد";
+}
+
+// دمج الطلبات ومنع التكرار
+function getCombinedOrders() {
+    refreshOrders();
+
+    const map = new Map();
+
+    orders
+        .filter(o => String(o.storeId) === String(activeStoreId))
+        .forEach(order => {
+            map.set(String(order.id), {
+                ...order,
+                _cloud: false
+            });
+        });
+
+    cloudOrders.forEach(order => {
+        map.set(String(order.id), {
+            ...order,
+            _cloud: true
+        });
+    });
+
+    return Array.from(map.values()).reverse();
+}
+
+// عرض الطلبات
+async function renderOrders() {
+    const container = document.getElementById("ordersList");
+    container.innerHTML = "";
+
+    if (!activeStoreId) {
+        container.textContent = "اختر متجراً لعرض طلباته.";
+        return;
+    }
+
+    container.textContent = "جارٍ تحميل الطلبات من السحابة...";
+
+    let cloudError = null;
+
+    try {
+        await loadCloudOrders(activeStoreId);
+    } catch (error) {
+        console.error("خطأ تحميل الطلبات:", error);
+        cloudOrders = [];
+        cloudError = error;
+    }
+
+    const list = getCombinedOrders();
+    container.innerHTML = "";
+
+    if (cloudError) {
+        const warning = document.createElement("p");
+        warning.className = "empty";
+        warning.textContent =
+            "تعذر تحميل الطلبات السحابية: " +
+            (cloudError.code || cloudError.message);
+        container.appendChild(warning);
+    }
+
+    if (list.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = cloudError
+            ? "لا توجد طلبات محلية لعرضها."
+            : "لا توجد طلبات لهذا المتجر حتى الآن.";
+
+        container.appendChild(empty);
+        return;
+    }
+
+    list.forEach(order => {
+        const card = document.createElement("div");
+        card.className = "order";
+
+        const title = document.createElement("h4");
+        title.textContent = "🧾 طلب رقم: " + order.id;
+
+        const label = document.createElement("span");
+        label.className = order._cloud ? "cloud-label" : "local-label";
+        label.textContent = order._cloud
+            ? "☁️ طلب سحابي"
+            : "طلب محلي قديم";
+
+        const date = document.createElement("p");
+        date.textContent = "التاريخ: " + formatOrderDate(order);
+
+        const status = document.createElement("p");
+        status.className = "order-status";
+        status.textContent = "الحالة: " + (order.status || "جديد");
+
+        const customerBox = renderCustomerInfo(order.customer);
+
+        const itemsBox = document.createElement("div");
+        itemsBox.className = "order-items";
+
+        const itemsTitle = document.createElement("strong");
+        itemsTitle.textContent = "📦 المنتجات المطلوبة:";
+        itemsBox.appendChild(itemsTitle);
+
+        (order.items || []).forEach(item => {
+            const line = document.createElement("p");
+            const quantity = Number(item.quantity || 0);
+            const price = Number(item.price || 0);
+
+            line.textContent =
+                (item.name || "منتج") +
+                " × " + quantity +
+                " = " + (price * quantity).toLocaleString() +
+                " جنيه";
+
+            itemsBox.appendChild(line);
+        });
+
+        const total = document.createElement("p");
+        total.className = "price";
+        total.textContent =
+            "💰 إجمالي الطلب: " +
+            Number(order.total || 0).toLocaleString() +
+            " جنيه";
+
+        const select = document.createElement("select");
+
+        [
+            "جديد",
+            "قيد التجهيز",
+            "جاهز للتسليم",
+            "تم التسليم",
+            "ملغي"
+        ].forEach(value => {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = value;
+            select.appendChild(option);
+        });
+
+        select.value = order.status || "جديد";
+
+        const updateButton = document.createElement("button");
+        updateButton.className = "save";
+        updateButton.textContent = "تحديث حالة الطلب";
+
+        updateButton.onclick = async function() {
+            await updateOrderStatus(
+                order.id,
+                select.value,
+                order._cloud
+            );
+        };
+
+        card.append(
+            title,
+            label,
+            date,
+            status,
+            customerBox,
+            itemsBox,
+            total,
+            select,
+            updateButton
+        );
+
+        container.appendChild(card);
+    });
+}
+
+// تحديث حالة الطلب
+async function updateOrderStatus(orderId, newStatus, isCloud) {
+    if (!accountReady) {
+        alert("انتظر حتى يتم التحقق من حسابك.");
+        return;
+    }
+
+    const allowed = [
+        "جديد",
+        "قيد التجهيز",
+        "جاهز للتسليم",
+        "تم التسليم",
+        "ملغي"
+    ];
+
+    if (!allowed.includes(newStatus)) {
+        alert("حالة الطلب غير صحيحة.");
+        return;
+    }
+
+    try {
+        if (isCloud) {
+            const orderRef = doc(db, "orders", String(orderId));
+
+            await updateDoc(orderRef, {
+                status: newStatus
+            });
+
+            const cloudOrder = cloudOrders.find(
+                o => String(o.id) === String(orderId)
+            );
+
+            if (cloudOrder) cloudOrder.status = newStatus;
+
+            const localOrder = orders.find(
+                o => String(o.id) === String(orderId)
+            );
+
+            if (localOrder) {
+                localOrder.status = newStatus;
+                saveOrdersData();
+            }
+
+            alert("تم تحديث حالة الطلب في السحابة بنجاح 💚");
+        } else {
+            const localOrder = orders.find(
+                o => String(o.id) === String(orderId)
+            );
+
+            if (!localOrder) {
+                alert("لم يتم العثور على الطلب المحلي.");
+                return;
+            }
+
+            localOrder.status = newStatus;
+            saveOrdersData();
+
+            alert(
+                "تم تحديث الطلب المحلي فقط.\n" +
+                "هذا الطلب غير موجود في السحابة."
+            );
+        }
+
+        await renderOrders();
+    } catch (error) {
+        console.error(error);
+
+        alert(
+            "تعذر تحديث حالة الطلب.\n" +
+            (error.code || error.message)
+        );
+    }
+}
+
+// تشغيل الصفحة
+function initialize() {
+    if (stores.length > 0) {
+        activeStoreId = String(stores[0].id);
+    }
+
+    renderStoreSelect();
+
+    if (activeStoreId) {
+        document.getElementById("storeSelect").value = activeStoreId;
+        selectStore();
+    } else {
+        renderProducts();
+        renderOrders();
+    }
+}
+
+// ربط الأزرار
+window.selectStore = selectStore;
+window.saveStore = saveStore;
+window.createStore = createStore;
+window.saveProduct = saveProduct;
+window.cancelEdit = cancelEdit;
+window.editProduct = editProduct;
+window.deleteProduct = deleteProduct;
+
+document.getElementById("storeSelect").addEventListener(
+    "change",
+    selectStore
+);
+
+</script>
+
+</body>
+</html>

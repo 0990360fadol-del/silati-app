@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة سِلّتي</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f3;color:#26332d}
+header{background:#087f5b;color:white;padding:22px 15px;text-align:center}
+header h1{margin:0 0 8px}
+.container{max-width:1100px;margin:auto;padding:15px}
+.welcome,.section{background:white;padding:18px;border-radius:14px;margin-bottom:16px;box-shadow:0 2px 8px #0000000d}
+h2,h3{color:#087f5b}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;padding:17px 10px;border-radius:14px;text-align:center;box-shadow:0 2px 8px #0000000d}
+.icon{font-size:27px}
+.card h3{font-size:14px;margin:9px 0}
+.number{font-size:23px;color:#087f5b;font-weight:bold}
+.status{padding:12px;background:#e8f5ee;color:#087f5b;border-radius:9px;text-align:center;line-height:1.7}
+.search,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:9px;margin:8px 0;font-size:15px;background:white}
+.user-card,.order-card{border:1px solid #e5e5e5;border-radius:12px;padding:14px;margin-top:12px;background:white}
+.user-card h4,.order-card h4{margin:0 0 10px;color:#087f5b;font-size:17px;overflow-wrap:anywhere}
+.user-card p,.order-card p{margin:8px 0;font-size:14px;line-height:1.7;overflow-wrap:anywhere}
+.badge{display:inline-block;padding:6px 11px;border-radius:20px;background:#e8f5ee;color:#087f5b;font-size:12px}
+.order-status{display:inline-block;padding:7px 12px;border-radius:20px;background:#fff3cd;color:#856404;font-size:13px;margin:5px 0}
+.empty{text-align:center;color:#777;padding:20px}
+.logout{width:100%;padding:13px;border:0;border-radius:9px;background:#c0392b;color:white;font-size:16px;margin-top:15px}
+.save-status{width:100%;padding:12px;border:0;border-radius:9px;background:#087f5b;color:white;font-size:15px;margin-top:8px}
+.save-status:disabled{background:#999}
+.order-divider{border:0;border-top:1px solid #eee;margin:12px 0}
+footer{text-align:center;padding:20px;color:#777}
+@media(min-width:650px){.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🛒 سِلّتي</h1>
+<p>لوحة الإدارة العامة</p>
+</header>
+
+<div class="container">
+
+<div class="welcome">
+<h2>مرحباً بك في إدارة سِلّتي 👋</h2>
+<p>مركز التحكم والإشراف على التطبيق.</p>
+</div>
+
+<div class="stats">
+<div class="card"><div class="icon">🏪</div><h3>المتاجر</h3><div class="number" id="storesCount">...</div></div>
+<div class="card"><div class="icon">📦</div><h3>الطلبات</h3><div class="number" id="ordersCount">...</div></div>
+<div class="card"><div class="icon">👥</div><h3>المستخدمون</h3><div class="number" id="usersCount">...</div></div>
+<div class="card"><div class="icon">🚚</div><h3>المناديب</h3><div class="number" id="couriersCount">...</div></div>
+<div class="card"><div class="icon">🛍️</div><h3>المنتجات</h3><div class="number" id="productsCount">...</div></div>
+<div class="card"><div class="icon">💰</div><h3>العمولات</h3><div class="number" id="commissionCount">...</div></div>
+</div>
+
+<div class="section">
+<h3>📊 حالة النظام</h3>
+<div class="status" id="systemStatus">جارٍ الاتصال...</div>
+</div>
+
+<div class="section">
+<h3>👥 إدارة المستخدمين</h3>
+
+<input id="searchUser" class="search" type="search" placeholder="ابحث بالبريد أو الاسم">
+
+<select id="filterRole">
+<option value="all">جميع المستخدمين</option>
+<option value="customer">الزبائن</option>
+<option value="merchant">التجار</option>
+<option value="courier">المناديب</option>
+<option value="admin">المديرون</option>
+</select>
+
+<div id="usersList"><div class="empty">جارٍ التحميل...</div></div>
+</div>
+
+<div class="section">
+<h3>📦 إدارة جميع الطلبات</h3>
+
+<input id="searchOrder" class="search" type="search" placeholder="ابحث برقم الطلب أو اسم الزبون أو الهاتف">
+
+<select id="filterOrderStatus">
+<option value="all">جميع حالات الطلبات</option>
+<option value="جديد">جديد</option>
+<option value="قيد التجهيز">قيد التجهيز</option>
+<option value="جاهز للتسليم">جاهز للتسليم</option>
+<option value="تم التسليم">تم التسليم</option>
+<option value="ملغي">ملغي</option>
+</select>
+
+<div id="ordersList"><div class="empty">جارٍ تحميل الطلبات...</div></div>
+</div>
+
+<button class="logout" id="logoutBtn">تسجيل الخروج</button>
+
+</div>
+
+<footer>جميع الحقوق محفوظة © سِلّتي 2026</footer>
+
+<script type="module">
+
+import {auth,db} from "./firebase.js";
+
+import {
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+doc,
+getDoc,
+collection,
+onSnapshot,
+writeBatch,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+const $=id=>document.getElementById(id);
+
+let allUsers=[];
+let allOrders=[];
+let allStores=[];
+let unsubscribers=[];
+let isAdminVerified=false;
+
+const allowedStatuses=[
+"جديد",
+"قيد التجهيز",
+"جاهز للتسليم",
+"تم التسليم",
+"ملغي"
+];
+
+
+function stopListeners(){
+unsubscribers.forEach(fn=>fn());
+unsubscribers=[];
+}
+
+
+function showError(message){
+$("systemStatus").textContent=message;
+$("systemStatus").style.background="#fdecea";
+$("systemStatus").style.color="#b42318";
+}
+
+
+function watchCollection(name,callback){
+
+const unsubscribe=onSnapshot(
+collection(db,name),
+snapshot=>callback(snapshot),
+error=>showError("خطأ في تحميل "+name+": "+error.message)
+);
+
+unsubscribers.push(unsubscribe);
+}
+
+
+function roleName(role){
+
+const names={
+customer:"زبون",
+merchant:"تاجر",
+courier:"مندوب",
+admin:"مدير"
+};
+
+return names[role]||"غير محدد";
+}
+
+
+function safeText(value,fallback="غير متوفر"){
+
+if(value===undefined||value===null||value===""){
+return fallback;
+}
+
+return String(value);
+}
+
+
+function getStoreName(storeId){
+
+const store=allStores.find(item=>item.id===storeId);
+
+return store?safeText(store.name):"متجر غير معروف";
+}
+
+
+// المستخدمون
+
+function renderUsers(){
+
+const search=$("searchUser").value.trim().toLowerCase();
+const role=$("filterRole").value;
+
+const filtered=allUsers.filter(user=>{
+
+const email=String(user.email||"").toLowerCase();
+const name=String(user.name||"").toLowerCase();
+
+return (email.includes(search)||name.includes(search))
+&&(role==="all"||user.role===role);
+
+});
+
+$("usersList").innerHTML="";
+
+if(!filtered.length){
+
+$("usersList").innerHTML=
+'<div class="empty">لا توجد حسابات مطابقة.</div>';
+
+return;
+}
+
+filtered.forEach(user=>{
+
+const card=document.createElement("div");
+card.className="user-card";
+
+const title=document.createElement("h4");
+title.textContent=user.name||"مستخدم سِلّتي";
+
+const email=document.createElement("p");
+email.textContent="البريد: "+safeText(user.email);
+
+const badge=document.createElement("span");
+badge.className="badge";
+badge.textContent=roleName(user.role);
+
+const uid=document.createElement("p");
+uid.textContent="رقم الحساب: "+user.uid;
+
+card.append(title,email,badge,uid);
+
+$("usersList").appendChild(card);
+
+});
+
+}
+
+
+// ترتيب الطلبات
+
+function dateValue(value){
+
+if(!value)return 0;
+
+if(typeof value.toMillis==="function"){
+return value.toMillis();
+}
+
+if(typeof value==="number")return value;
+
+const parsed=new Date(value).getTime();
+
+return Number.isNaN(parsed)?0:parsed;
+
+}
+
+
+function orderTime(order){
+
+return Math.max(
+dateValue(order.createdAt),
+dateValue(order.deliveryDate)
+);
+
+}
+
+
+// الطلبات
+
+function renderOrders(){
+
+if(!isAdminVerified)return;
+
+const search=$("searchOrder").value.trim().toLowerCase();
+const status=$("filterOrderStatus").value;
+
+const filtered=allOrders.filter(order=>{
+
+const searchable=[
+order.id,
+order.customerName,
+order.name,
+order.customerPhone,
+order.phone,
+order.storeId,
+order.courierName,
+order.status
+].map(value=>String(value||"").toLowerCase()).join(" ");
+
+return searchable.includes(search)
+&&(status==="all"||order.status===status);
+
+});
+
+filtered.sort((a,b)=>orderTime(b)-orderTime(a));
+
+$("ordersList").innerHTML="";
+
+if(!filtered.length){
+
+$("ordersList").innerHTML=
+'<div class="empty">لا توجد طلبات مطابقة.</div>';
+
+return;
+}
+
+filtered.forEach(order=>{
+
+const card=document.createElement("div");
+card.className="order-card";
+
+const title=document.createElement("h4");
+title.textContent="📦 طلب رقم: "+order.id;
+
+const state=document.createElement("div");
+state.className="order-status";
+state.textContent="الحالة الحالية: "+safeText(order.status);
+
+const details=[
+["👤 الزبون",order.customerName||order.name],
+["📞 الهاتف",order.customerPhone||order.phone],
+["📍 المنطقة",order.customerRegion||order.region],
+["🏠 العنوان",order.customerAddress||order.address],
+["🏪 المتجر",getStoreName(order.storeId)],
+["💵 قيمة الطلب",order.total??order.totalAmount??order.grandTotal??order.totalPrice],
+["🚚 المندوب",order.courierName],
+["💰 العمولة",order.commissionAmount],
+["📝 الملاحظة",order.customerNote||order.note]
+];
+
+card.append(title,state);
+
+details.forEach(([label,value])=>{
+
+const p=document.createElement("p");
+
+if(label==="💰 العمولة"){
+
+p.textContent=label+": "+
+Number(value||0).toLocaleString("en-US")+" جنيه";
+
+}else{
+
+p.textContent=label+": "+safeText(
+value,
+label==="📝 الملاحظة"?"لا توجد":"غير متوفر"
+);
+
+}
+
+card.appendChild(p);
+
+});
+
+const divider=document.createElement("hr");
+divider.className="order-divider";
+card.appendChild(divider);
+
+
+// التدخل الإداري
+
+const label=document.createElement("p");
+label.textContent="🛠️ التدخل الإداري: تغيير حالة الطلب";
+card.appendChild(label);
+
+const select=document.createElement("select");
+select.className="search";
+
+allowedStatuses.forEach(value=>{
+
+const option=document.createElement("option");
+
+option.value=value;
+option.textContent=value;
+
+if(value===order.status){
+option.selected=true;
+}
+
+select.appendChild(option);
+
+});
+
+card.appendChild(select);
+
+
+const button=document.createElement("button");
+
+button.className="save-status";
+button.textContent="حفظ الحالة الجديدة";
+
+
+button.onclick=async()=>{
+
+const newStatus=select.value;
+
+if(newStatus===order.status){
+
+alert("الحالة المختارة هي الحالة الحالية بالفعل.");
+return;
+
+}
+
+const confirmed=confirm(
+"هل تريد تغيير حالة الطلب إلى: "+newStatus+"؟"
+);
+
+if(!confirmed)return;
+
+button.disabled=true;
+button.textContent="جارٍ الحفظ والتسجيل...";
+
+try{
+
+// إنشاء رقم خاص بسجل الرقابة
+
+const logRef=doc(collection(db,"adminLogs"));
+
+const orderRef=doc(db,"orders",order.id);
+
+// تنفيذ تحديث الطلب وسجل الرقابة معاً
+
+const batch=writeBatch(db);
+
+batch.update(orderRef,{
+
+status:newStatus,
+lastAdminLogId:logRef.id
+
+});
+
+batch.set(logRef,{
+
+orderId:order.id,
+
+oldStatus:order.status||"غير محدد",
+newStatus:newStatus,
+
+changedBy:auth.currentUser.uid,
+
+changedByEmail:auth.currentUser.email||null,
+
+changedByRole:"admin",
+
+changedAt:serverTimestamp()
+
+});
+
+await batch.commit();
+
+alert(
+"تم تحديث حالة الطلب وتسجيل العملية في سجل الرقابة الإدارية بنجاح."
+);
+
+}catch(error){
+
+console.error("Admin status error:",error);
+
+alert(
+"تعذر تحديث الطلب:\n"+
+(error.message||"حدث خطأ غير معروف")
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent="حفظ الحالة الجديدة";
+
+}
+
+};
+
+
+card.appendChild(button);
+
+$("ordersList").appendChild(card);
+
+});
+
+}
+
+
+// التحقق من المدير
+
+onAuthStateChanged(auth,async user=>{
+
+stopListeners();
+isAdminVerified=false;
+
+if(!user){
+
+location.href="login.html";
+return;
+
+}
+
+try{
+
+const adminSnapshot=await getDoc(
+doc(db,"users",user.uid)
+);
+
+if(!adminSnapshot.exists()||
+adminSnapshot.data().role!=="admin"){
+
+showError("هذا الحساب لا يملك صلاحية المدير.");
+return;
+
+}
+
+isAdminVerified=true;
+
+$("systemStatus").textContent=
+"تم التحقق من المدير. جارٍ تحميل البيانات...";
+
+
+// المتاجر
+
+watchCollection("stores",snapshot=>{
+
+$("storesCount").textContent=snapshot.size;
+
+allStores=snapshot.docs.map(item=>({
+
+id:item.id,
+...item.data()
+
+}));
+
+renderOrders();
+
+});
+
+
+// الطلبات
+
+watchCollection("orders",snapshot=>{
+
+$("ordersCount").textContent=snapshot.size;
+
+allOrders=snapshot.docs.map(item=>({
+
+id:item.id,
+...item.data()
+
+}));
+
+let total=0;
+
+snapshot.forEach(item=>{
+
+const data=item.data();
+
+if(data.status==="تم التسليم"){
+
+total+=Number(data.commissionAmount||0);
+
+}
+
+});
+
+$("commissionCount").textContent=
+total.toLocaleString("en-US")+" ج";
+
+renderOrders();
+
+});
+
+
+// المستخدمون
+
+watchCollection("users",snapshot=>{
+
+$("usersCount").textContent=snapshot.size;
+
+allUsers=snapshot.docs.map(item=>({
+
+uid:item.id,
+...item.data()
+
+}));
+
+$("couriersCount").textContent=
+allUsers.filter(user=>user.role==="courier").length;
+
+renderUsers();
+
+});
+
+
+// المنتجات
+
+watchCollection("products",snapshot=>{
+
+$("productsCount").textContent=snapshot.size;
+
+});
+
+
+$("systemStatus").textContent=
+"متصل بالسحابة بنجاح. البيانات تتحدث تلقائياً.";
+
+}catch(error){
+
+showError("تعذر تحميل البيانات: "+error.message);
+
+}
+
+});
+
+
+// البحث والتصفية
+
+$("searchUser").addEventListener("input",renderUsers);
+
+$("filterRole").addEventListener("change",renderUsers);
+
+$("searchOrder").addEventListener("input",renderOrders);
+
+$("filterOrderStatus").addEventListener("change",renderOrders);
+
+
+// تسجيل الخروج
+
+$("logoutBtn").onclick=async()=>{
+
+stopListeners();
+
+await signOut(auth);
+
+location.href="login.html";
+
+};
+
+</script>
+
+</body>
+</html>
