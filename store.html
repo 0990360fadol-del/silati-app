@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>متجر سِلّتي</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f1f5f3;
+            font-family: Arial, sans-serif;
+            color: #26332e;
+        }
+
+        .header {
+            background: #087f5b;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .stores {
+            max-width: 750px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .store-info {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        .store-info h2 {
+            color: #087f5b;
+            margin-top: 0;
+        }
+
+        .store-card {
+            background: white;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        .store-card h3 {
+            color: #087f5b;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #087f5b;
+        }
+
+        .quantity-select {
+            display: block;
+            width: 100%;
+            padding: 11px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            background: white;
+            font-size: 16px;
+        }
+
+        .store-card button {
+            width: 100%;
+            background: #087f5b;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">🛒 سِلّتي</div>
+
+    <div class="cart">
+        <a href="cart.html">🛍️ السلة</a>
+    </div>
+
+</header>
+
+<section class="stores">
+
+    <div class="store-info">
+        <h2 id="storeTitle">🏪 جاري تحميل المتجر...</h2>
+        <p id="storeWelcome"></p>
+        <p id="storeDetails"></p>
+    </div>
+
+    <h3>📦 منتجات المتجر</h3>
+
+    <div id="productsContainer"></div>
+
+</section>
+
+<script src="app.js"></script>
+
+<script type="module">
+
+// =================================
+// الاتصال بقاعدة بيانات Firebase
+// =================================
+
+import { db } from "./firebase.js";
+
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+// =================================
+// قراءة معرّف المتجر من الرابط
+// =================================
+
+const params = new URLSearchParams(window.location.search);
+
+const requestedStoreId = params.get("storeId");
+
+const localStores = JSON.parse(
+    localStorage.getItem("silatiStores") || "[]"
+);
+
+const localProducts = JSON.parse(
+    localStorage.getItem("silatiProducts") || "[]"
+);
+
+
+// =================================
+// المنتجات الأساسية القديمة
+// =================================
+
+const defaultProducts = [
+    {
+        name: "أرز",
+        price: 5000,
+        icon: "🍚"
+    },
+    {
+        name: "حليب",
+        price: 3000,
+        icon: "🥛"
+    },
+    {
+        name: "خبز",
+        price: 1000,
+        icon: "🍞"
+    },
+    {
+        name: "سكر",
+        price: 4000,
+        icon: "🍬"
+    }
+];
+
+
+// =================================
+// عناصر الصفحة
+// =================================
+
+const titleElement = document.getElementById("storeTitle");
+const welcomeElement = document.getElementById("storeWelcome");
+const detailsElement = document.getElementById("storeDetails");
+const container = document.getElementById("productsContainer");
+
+let currentStore = null;
+
+
+// =================================
+// تحميل بيانات المتجر من Firestore
+// =================================
+
+async function loadStore() {
+
+    try {
+
+        let storeId = requestedStoreId;
+
+        // إذا لم يوجد معرّف في الرابط نستخدم أول متجر محلي
+        if (!storeId && localStores.length > 0) {
+            storeId = String(localStores[0].id);
+        }
+
+        if (!storeId) {
+
+            showError(
+                "لم يتم تحديد المتجر.",
+                "ارجع إلى قائمة المتاجر واختر متجراً."
+            );
+
+            return;
+        }
+
+        const storeRef = doc(db, "stores", String(storeId));
+
+        const storeSnapshot = await getDoc(storeRef);
+
+        if (!storeSnapshot.exists()) {
+
+            showError(
+                "المتجر غير موجود",
+                "لم نتمكن من العثور على بيانات هذا المتجر."
+            );
+
+            return;
+        }
+
+        currentStore = {
+            id: storeSnapshot.id,
+            ...storeSnapshot.data()
+        };
+
+        titleElement.textContent =
+            "🏪 " + currentStore.name;
+
+        welcomeElement.textContent =
+            "مرحباً بك في " + currentStore.name;
+
+        detailsElement.textContent =
+            (currentStore.type || "") +
+            (currentStore.region ? " | " + currentStore.region : "");
+
+        await loadProducts();
+
+    } catch (error) {
+
+        console.error("خطأ تحميل المتجر:", error);
+
+        showError(
+            "تعذر تحميل المتجر",
+            "تحقق من اتصال الإنترنت ثم أعد المحاولة."
+        );
+
+    }
+
+}
+
+
+// =================================
+// تحميل المنتجات من Firestore
+// =================================
+
+async function loadProducts() {
+
+    container.innerHTML =
+        '<div class="empty-message">جاري تحميل المنتجات...</div>';
+
+    try {
+
+        const productsRef = collection(db, "products");
+
+        const productsQuery = query(
+            productsRef,
+            where("storeId", "==", currentStore.id)
+        );
+
+        const productsSnapshot = await getDocs(productsQuery);
+
+        let products = [];
+
+        productsSnapshot.forEach(productDoc => {
+
+            products.push({
+                id: productDoc.id,
+                ...productDoc.data()
+            });
+
+        });
+
+
+        // المنتجات الأساسية القديمة
+        // تظهر في بقالة البركة فقط
+
+        if (
+            String(currentStore.name).trim() === "بقالة البركة"
+        ) {
+
+            defaultProducts.forEach(defaultProduct => {
+
+                const alreadyExists = products.some(product =>
+                    String(product.name).trim() === defaultProduct.name
+                );
+
+                if (!alreadyExists) {
+                    products.unshift(defaultProduct);
+                }
+
+            });
+
+        }
+
+
+        displayProducts(products);
+
+    } catch (error) {
+
+        console.error("خطأ تحميل المنتجات:", error);
+
+        // محاولة عرض المنتجات المحلية عند تعذر الاتصال
+        const fallbackProducts = localProducts.filter(product =>
+            String(product.storeId) === String(currentStore.id)
+        );
+
+        if (fallbackProducts.length > 0) {
+
+            displayProducts(fallbackProducts);
+
+        } else {
+
+            container.innerHTML =
+                '<div class="empty-message">تعذر تحميل المنتجات. تحقق من اتصال الإنترنت.</div>';
+
+        }
+
+    }
+
+}
+
+
+// =================================
+// عرض المنتجات
+// =================================
+
+function displayProducts(products) {
+
+    container.innerHTML = "";
+
+    products = products.filter(product =>
+        product.name &&
+        Number.isFinite(Number(product.price)) &&
+        Number(product.price) > 0
+    );
+
+    if (products.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty-message">لا توجد منتجات في هذا المتجر حالياً.</div>';
+
+        return;
+    }
+
+    products.forEach(product => {
+
+        createProductCard(product);
+
+    });
+
+}
+
+
+// =================================
+// إنشاء بطاقة المنتج
+// =================================
+
+function createProductCard(product) {
+
+    const card = document.createElement("div");
+    card.className = "store-card";
+
+    const title = document.createElement("h3");
+
+    title.textContent =
+        (product.icon || "📦") + " " + product.name;
+
+    const priceElement = document.createElement("p");
+    priceElement.className = "product-price";
+
+    const price = Number(product.price);
+
+    priceElement.textContent =
+        "السعر: " + price.toLocaleString() + " جنيه";
+
+
+    // اختيار الكمية
+
+    const quantityLabel = document.createElement("label");
+    quantityLabel.textContent = "اختر الكمية:";
+
+    const quantitySelect = document.createElement("select");
+    quantitySelect.className = "quantity-select";
+
+    for (let i = 1; i <= 20; i++) {
+
+        const option = document.createElement("option");
+
+        option.value = i;
+        option.textContent = i;
+
+        quantitySelect.appendChild(option);
+
+    }
+
+
+    // زر الإضافة للسلة
+
+    const button = document.createElement("button");
+
+    button.textContent = "أضف إلى السلة 🛒";
+
+    button.addEventListener("click", function() {
+
+        const quantity = Number(quantitySelect.value);
+
+        if (typeof window.addToCart !== "function") {
+
+            alert("تعذر تشغيل السلة. تحقق من ملف app.js.");
+
+            return;
+        }
+
+        window.addToCart(
+            product.name,
+            price,
+            quantity,
+            currentStore.id,
+            currentStore.name
+        );
+
+    });
+
+
+    card.appendChild(title);
+    card.appendChild(priceElement);
+    card.appendChild(quantityLabel);
+    card.appendChild(quantitySelect);
+    card.appendChild(button);
+
+    container.appendChild(card);
+
+}
+
+
+// =================================
+// عرض رسالة الخطأ
+// =================================
+
+function showError(title, message) {
+
+    titleElement.textContent = title;
+
+    welcomeElement.textContent = message;
+
+    detailsElement.textContent = "";
+
+    container.innerHTML =
+        '<div class="empty-message">' + message + '</div>';
+
+}
+
+
+// =================================
+// بدء تشغيل الصفحة
+// =================================
+
+loadStore();
+
+</script>
+
+</body>
+</html>

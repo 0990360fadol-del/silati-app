@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>تسجيل الدخول | سِلّتي</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f3;
+    color: #26332d;
+    padding: 20px;
+}
+
+.container {
+    max-width: 420px;
+    margin: 45px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px #00000012;
+}
+
+h1 {
+    text-align: center;
+    color: #087f5b;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    direction: ltr;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #087f5b;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.secondary {
+    background: #e8f3ee;
+    color: #087f5b;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#message {
+    text-align: center;
+    margin-top: 18px;
+    line-height: 1.7;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #087f5b;
+    text-decoration: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>سِلّتي 🛒</h1>
+
+    <p class="subtitle">
+        أهلاً بك في عالم التسوق السهل
+    </p>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="البريد الإلكتروني"
+        autocomplete="email"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="كلمة المرور"
+        autocomplete="current-password"
+    >
+
+    <button id="loginBtn">
+        تسجيل الدخول
+    </button>
+
+    <button id="registerBtn" class="secondary">
+        إنشاء حساب جديد
+    </button>
+
+    <p id="message"></p>
+
+    <a href="index.html">العودة إلى الصفحة الرئيسية</a>
+
+</div>
+
+<script type="module">
+
+// استيراد خدمات Firebase
+import { auth, db } from "./firebase.js";
+
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const message = document.getElementById("message");
+
+const loginBtn = document.getElementById("loginBtn");
+const registerBtn = document.getElementById("registerBtn");
+
+
+function showMessage(text, color = "#087f5b") {
+    message.textContent = text;
+    message.style.color = color;
+}
+
+
+function getUserData() {
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+        showMessage(
+            "يرجى إدخال البريد الإلكتروني وكلمة المرور",
+            "red"
+        );
+        return null;
+    }
+
+    if (password.length < 6) {
+        showMessage(
+            "كلمة المرور يجب ألا تقل عن 6 أحرف",
+            "red"
+        );
+        return null;
+    }
+
+    return { email, password };
+}
+
+
+// ==================================
+// إنشاء حساب جديد وحفظ بياناته
+// ==================================
+
+registerBtn.addEventListener("click", async () => {
+
+    const data = getUserData();
+
+    if (!data) return;
+
+    try {
+
+        loginBtn.disabled = true;
+        registerBtn.disabled = true;
+
+        showMessage("جارٍ إنشاء الحساب...");
+
+        // إنشاء الحساب في Firebase Authentication
+        const result = await createUserWithEmailAndPassword(
+            auth,
+            data.email,
+            data.password
+        );
+
+        const user = result.user;
+
+        showMessage("تم إنشاء الحساب، جارٍ حفظ بياناتك...");
+
+        // حفظ بيانات المستخدم في Firestore
+        await setDoc(
+            doc(db, "users", user.uid),
+            {
+                uid: user.uid,
+                email: user.email,
+                role: "customer",
+                createdAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+
+        showMessage(
+            "تم إنشاء حسابك وحفظ بياناتك بنجاح! 🎉"
+        );
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1800);
+
+    } catch (error) {
+
+        console.error("خطأ إنشاء الحساب:", error);
+
+        showMessage(
+            "حدث خطأ: " + error.message,
+            "red"
+        );
+
+    } finally {
+
+        loginBtn.disabled = false;
+        registerBtn.disabled = false;
+
+    }
+
+});
+
+
+// ==================================
+// تسجيل الدخول
+// ==================================
+
+loginBtn.addEventListener("click", async () => {
+
+    const data = getUserData();
+
+    if (!data) return;
+
+    try {
+
+        loginBtn.disabled = true;
+        registerBtn.disabled = true;
+
+        showMessage("جارٍ تسجيل الدخول...");
+
+        await signInWithEmailAndPassword(
+            auth,
+            data.email,
+            data.password
+        );
+
+        showMessage("تم تسجيل الدخول بنجاح! 🎉");
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+
+    } catch (error) {
+
+        console.error("خطأ تسجيل الدخول:", error);
+
+        showMessage(
+            "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.",
+            "red"
+        );
+
+    } finally {
+
+        loginBtn.disabled = false;
+        registerBtn.disabled = false;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

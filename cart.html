@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>سلة المشتريات | سِلّتي</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f1f5f3;
+            font-family: Arial, sans-serif;
+            color: #26332e;
+        }
+
+        .header {
+            background: #087f5b;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .stores {
+            max-width: 750px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .stores h2 {
+            color: #087f5b;
+        }
+
+        .store-card,
+        .customer-card {
+            background: white;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        .store-card h3 {
+            color: #087f5b;
+        }
+
+        .cart-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .cart-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .total-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 25px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        .total-card h2 {
+            color: #087f5b;
+        }
+
+        .customer-card h2 {
+            color: #087f5b;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5ded9;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #087f5b;
+        }
+
+        .checkout-button {
+            width: 100%;
+            background: #087f5b;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .checkout-button:disabled {
+            background: #888;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 25px;
+            color: #087f5b;
+            text-decoration: none;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .required-note {
+            color: #777;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">🛒 سِلّتي</div>
+    <a href="index.html">الرئيسية</a>
+</header>
+
+<section class="stores">
+
+    <h2>🛍️ سلة مشترياتك</h2>
+
+    <p>راجع منتجاتك وكمياتك قبل تأكيد الطلب.</p>
+
+    <div id="cartItems"></div>
+
+    <div class="total-card">
+        <h3>💰 إجمالي الفاتورة</h3>
+        <h2 id="total">0 جنيه</h2>
+    </div>
+
+    <div class="customer-card">
+
+        <h2>👤 بيانات الزبون والتوصيل</h2>
+
+        <p class="required-note">
+            يرجى إدخال البيانات التالية حتى يتمكن التاجر من التواصل معك.
+        </p>
+
+        <div class="form-group">
+            <label for="customerName">الاسم الكامل *</label>
+            <input type="text" id="customerName"
+                   placeholder="اكتب اسمك الكامل">
+        </div>
+
+        <div class="form-group">
+            <label for="customerPhone">رقم الهاتف *</label>
+            <input type="tel" id="customerPhone"
+                   placeholder="مثال: 09xxxxxxxx"
+                   inputmode="tel">
+        </div>
+
+        <div class="form-group">
+            <label for="customerRegion">المنطقة والحي *</label>
+            <input type="text" id="customerRegion"
+                   placeholder="مثال: شرق النيل - الحاج يوسف">
+        </div>
+
+        <div class="form-group">
+            <label for="customerAddress">العنوان بالتفصيل *</label>
+            <textarea id="customerAddress"
+                      placeholder="اكتب أقرب معلم أو وصف مكان السكن"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="customerNote">ملاحظة إضافية (اختياري)</label>
+            <textarea id="customerNote"
+                      placeholder="أي تفاصيل إضافية تريد إبلاغ التاجر بها"></textarea>
+        </div>
+
+        <button
+            class="checkout-button"
+            id="checkoutButton"
+            onclick="checkout()">
+            تأكيد الطلب ✓
+        </button>
+
+    </div>
+
+    <a href="stores.html" class="back-link">
+        ➜ العودة إلى المتاجر
+    </a>
+
+</section>
+
+<script src="app.js"></script>
+
+<script type="module">
+
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+    doc,
+    collection,
+    getDoc,
+    writeBatch,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+// انتظار معرفة المستخدم
+
+function waitForUser() {
+
+    return new Promise(resolve => {
+
+        let unsubscribe = () => {};
+
+        unsubscribe = onAuthStateChanged(auth, user => {
+
+            unsubscribe();
+
+            resolve(user);
+
+        });
+
+    });
+
+}
+
+
+// ==================================
+// تأكيد الطلب
+// ==================================
+
+async function checkout() {
+
+    const button = document.getElementById("checkoutButton");
+
+    if (button.disabled) return;
+
+    try {
+
+        const cartItems = window.getCartItems();
+
+        if (!cartItems || cartItems.length === 0) {
+
+            alert("السلة فارغة!");
+
+            return;
+        }
+
+        const customer = window.getCustomerData();
+
+        if (!customer) return;
+
+        const user = await waitForUser();
+
+        if (!user) {
+
+            alert("يرجى تسجيل الدخول أولاً.");
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        // التحقق من حساب الزبون
+
+        const userRef = doc(db, "users", user.uid);
+
+        const userSnapshot = await getDoc(userRef);
+
+        if (
+            !userSnapshot.exists() ||
+            userSnapshot.data().role !== "customer"
+        ) {
+
+            alert("هذا الحساب غير مسجل كحساب زبون.");
+
+            return;
+        }
+
+        // التحقق من المنتجات
+
+        for (const item of cartItems) {
+
+            if (
+                !item.storeId ||
+                !item.name ||
+                !Number.isFinite(Number(item.price)) ||
+                Number(item.price) <= 0 ||
+                !Number.isInteger(Number(item.quantity)) ||
+                Number(item.quantity) <= 0
+            ) {
+
+                alert("يوجد منتج ببيانات غير صحيحة في السلة.");
+
+                return;
+            }
+
+        }
+
+        button.disabled = true;
+
+        button.textContent = "جاري إرسال الطلب...";
+
+
+        // تقسيم المنتجات حسب المتجر
+
+        const groups = {};
+
+        cartItems.forEach(item => {
+
+            const key = String(item.storeId);
+
+            if (!groups[key]) {
+
+                groups[key] = {
+                    storeId: key,
+                    storeName: item.storeName,
+                    ownerUid: "",
+                    items: []
+                };
+
+            }
+
+            groups[key].items.push({
+
+                name: item.name,
+
+                price: Number(item.price),
+
+                quantity: Number(item.quantity)
+
+            });
+
+        });
+
+
+        // ==================================
+        // التحقق من المتاجر وقراءة مالك كل متجر
+        // ==================================
+
+        const groupList = Object.values(groups);
+
+        for (const group of groupList) {
+
+            const storeRef = doc(db, "stores", group.storeId);
+
+            const storeSnapshot = await getDoc(storeRef);
+
+            if (!storeSnapshot.exists()) {
+
+                throw new Error(
+                    "المتجر " + group.storeName +
+                    " غير موجود في قاعدة البيانات."
+                );
+
+            }
+
+            const storeData = storeSnapshot.data();
+
+            group.storeName =
+                storeData.name || group.storeName;
+
+            // إضافة معرّف صاحب المتجر
+
+            group.ownerUid = storeData.ownerUid;
+
+            if (!group.ownerUid) {
+
+                throw new Error(
+                    "لم يتم تحديد صاحب المتجر: " +
+                    group.storeName
+                );
+
+            }
+
+        }
+
+
+        // ==================================
+        // تجهيز الطلبات للحفظ
+        // ==================================
+
+        const batch = writeBatch(db);
+
+        const newOrders = [];
+
+        groupList.forEach(group => {
+
+            const total = group.items.reduce(
+                (sum, item) =>
+                    sum + item.price * item.quantity,
+                0
+            );
+
+            const orderRef = doc(collection(db, "orders"));
+
+            const orderData = {
+
+                id: orderRef.id,
+
+                customerId: user.uid,
+
+                storeId: group.storeId,
+
+                // الحقل الجديد
+                ownerUid: group.ownerUid,
+
+                storeName: group.storeName,
+
+                customer: {
+
+                    name: customer.name,
+
+                    phone: customer.phone,
+
+                    region: customer.region,
+
+                    address: customer.address,
+
+                    note: customer.note
+
+                },
+
+                items: group.items,
+
+                total: total,
+
+                status: "جديد",
+
+                date: new Date().toLocaleString("ar"),
+
+                createdAt: serverTimestamp()
+
+            };
+
+            batch.set(orderRef, orderData);
+
+            newOrders.push(orderData);
+
+        });
+
+
+        // حفظ جميع الطلبات
+
+        await batch.commit();
+
+
+        // ==================================
+        // حفظ نسخة محلية احتياطية
+        // ==================================
+
+        try {
+
+            const oldOrders = JSON.parse(
+                localStorage.getItem("silatiOrders") || "[]"
+            );
+
+            const safeOrders = Array.isArray(oldOrders)
+                ? oldOrders
+                : [];
+
+            const localOrders = newOrders.map(order => {
+
+                const copy = { ...order };
+
+                delete copy.createdAt;
+
+                return copy;
+
+            });
+
+            localStorage.setItem(
+                "silatiOrders",
+                JSON.stringify(safeOrders.concat(localOrders))
+            );
+
+        } catch (error) {
+
+            console.warn("تعذر حفظ النسخة المحلية:", error);
+
+        }
+
+
+        // تفريغ السلة بعد نجاح الحفظ
+
+        window.clearCartAfterCheckout();
+
+        const finalTotal = newOrders.reduce(
+            (sum, order) => sum + order.total,
+            0
+        );
+
+        alert(
+
+            "تم تسجيل طلبك بنجاح 💚\n\n" +
+
+            "مرحباً " + customer.name + "\n" +
+
+            "عدد الطلبات: " + newOrders.length + "\n" +
+
+            "إجمالي الفاتورة: " +
+
+            finalTotal.toLocaleString() + " جنيه\n\n" +
+
+            "تم إرسال طلبك إلى قاعدة البيانات السحابية."
+
+        );
+
+    } catch (error) {
+
+        console.error("خطأ إرسال الطلب:", error);
+
+        alert(
+
+            "تعذر إرسال الطلب.\n\n" +
+
+            (error.code === "permission-denied"
+                ? "لا توجد صلاحية لحفظ الطلب. تحقق من قواعد Firestore."
+                : error.message || "تحقق من اتصال الإنترنت وحاول مجدداً.")
+
+            + "\n\nلم يتم تفريغ السلة."
+
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent = "تأكيد الطلب ✓";
+
+    }
+
+}
+
+
+// إتاحة الدالة لزر الصفحة
+
+window.checkout = checkout;
+
+
+// عرض السلة عند فتح الصفحة
+
+window.renderCart();
+
+</script>
+
+</body>
+</html>
