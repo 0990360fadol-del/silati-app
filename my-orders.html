@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>طلباتي | سِلّتي</title>
 
 <style>
@@ -14,93 +13,211 @@
 
 body {
     margin: 0;
+    padding: 0 0 90px;
     font-family: Arial, sans-serif;
     background: #f1f5f3;
-    color: #26332e;
+    color: #26332d;
 }
 
 header {
     background: #087f5b;
     color: white;
-    padding: 17px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 22px 16px;
+    text-align: center;
 }
 
-header a {
-    color: white;
-    text-decoration: none;
+header h2 {
+    margin: 0 0 7px;
+}
+
+header p {
+    margin: 0;
+    font-size: 13px;
+    opacity: .9;
 }
 
 .container {
-    max-width: 750px;
-    margin: 20px auto;
+    max-width: 650px;
+    margin: auto;
     padding: 15px;
-}
-
-h2 {
-    color: #087f5b;
-}
-
-.order-card {
-    background: white;
-    padding: 17px;
-    margin: 15px 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px #00000012;
-}
-
-.order-card h3 {
-    color: #087f5b;
-}
-
-.status {
-    padding: 9px;
-    border-radius: 7px;
-    background: #e8f5e9;
-    color: #087f5b;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.items {
-    background: #f5f7f6;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 12px 0;
-}
-
-.total {
-    font-size: 19px;
-    font-weight: bold;
-    color: #087f5b;
 }
 
 .message {
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
     margin-top: 20px;
+    color: #64736b;
+}
+
+.order-card {
+    background: white;
+    border-radius: 15px;
+    padding: 17px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    animation: appear .35s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #edf1ee;
+    padding-bottom: 12px;
+}
+
+.order-head h3 {
+    margin: 0;
+    color: #087f5b;
+    font-size: 17px;
+}
+
+.status-badge {
+    background: #e7f5ed;
+    color: #087f5b;
+    border-radius: 20px;
+    padding: 7px 11px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.status-badge.cancelled {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.order-info {
+    line-height: 1.9;
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.order-info p {
+    margin: 4px 0;
+}
+
+.items {
+    background: #f7faf8;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.total {
+    color: #087f5b;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.tracking {
+    margin-top: 18px;
+    padding: 15px 12px;
+    background: #f8faf9;
+    border-radius: 12px;
+}
+
+.tracking h4 {
+    margin: 0 0 18px;
+    color: #26332d;
+}
+
+.track-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    min-height: 49px;
+}
+
+.track-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 23px;
+    height: 27px;
+    width: 2px;
+    background: #dce5df;
+}
+
+.track-step.done:not(:last-child)::after {
+    background: #087f5b;
+}
+
+.track-dot {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    background: #e1e8e3;
+    color: #7d8981;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    z-index: 1;
+}
+
+.track-step.done .track-dot {
+    background: #087f5b;
+    color: white;
+}
+
+.track-label {
+    padding-top: 3px;
+    font-size: 13px;
+    color: #929c95;
+}
+
+.track-step.done .track-label {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.track-step.current .track-label {
+    color: #26332d;
+    font-weight: bold;
+}
+
+.cancel-message {
+    color: #c62828;
+    background: #ffebee;
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 13px;
+    margin-top: 12px;
 }
 
 button {
+    border: none;
+    border-radius: 9px;
+    padding: 12px 18px;
     background: #087f5b;
     color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    margin-top: 12px;
 }
 
-.back {
-    display: block;
-    text-align: center;
-    margin: 25px;
-    color: #087f5b;
-    text-decoration: none;
+button:active {
+    transform: scale(.97);
 }
 </style>
 </head>
@@ -108,23 +225,17 @@ button {
 <body>
 
 <header>
-    <strong>🛒 سِلّتي</strong>
-    <a href="index.html">الرئيسية</a>
+    <h2>📦 طلباتي</h2>
+    <p>تابع طلباتك من المتجر حتى باب منزلك 💚</p>
 </header>
 
 <div class="container">
 
-    <h2>📦 طلباتي</h2>
-
-    <p>تابع طلباتك وحالة تجهيزها من المتاجر.</p>
-
-    <div id="ordersList" class="message">
-        جاري تحميل طلباتك...
+    <div id="message" class="message">
+        جارٍ تحميل طلباتك...
     </div>
 
-    <a href="stores.html" class="back">
-        العودة إلى المتاجر
-    </a>
+    <div id="ordersContainer"></div>
 
 </div>
 
@@ -144,157 +255,275 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 
-const ordersList = document.getElementById("ordersList");
+const message = document.getElementById("message");
+const container = document.getElementById("ordersContainer");
 
-let stopListening = null;
+let unsubscribeOrders = null;
 
 
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-    })[char]);
+const steps = [
+    "جديد",
+    "قيد التجهيز",
+    "جاهز للتسليم",
+    "المندوب في الطريق",
+    "تم التسليم"
+];
+
+
+function normalizeStatus(status) {
+
+    if (status === "في الطريق" ||
+        status === "جاري التوصيل") {
+        return "المندوب في الطريق";
+    }
+
+    return status || "جديد";
 }
 
 
-function renderOrders(orders) {
+function formatDate(order) {
 
-    if (orders.length === 0) {
+    try {
 
-        ordersList.className = "message";
+        if (order.createdAt && order.createdAt.toDate) {
+            return order.createdAt.toDate().toLocaleString("ar");
+        }
 
-        ordersList.innerHTML =
-            "لا توجد طلبات مسجلة في حسابك حالياً.";
+        if (order.date) {
+            return order.date;
+        }
+
+        return "غير محدد";
+
+    } catch (error) {
+        return "غير محدد";
+    }
+}
+
+
+function createTracking(status) {
+
+    status = normalizeStatus(status);
+
+    if (status === "ملغي") {
+        return `
+            <div class="cancel-message">
+                ❌ تم إلغاء هذا الطلب.
+            </div>
+        `;
+    }
+
+    let currentIndex = steps.indexOf(status);
+
+    if (currentIndex < 0) {
+        currentIndex = 0;
+    }
+
+    return `
+        <div class="tracking">
+            <h4>🚚 مراحل توصيل طلبك</h4>
+
+            ${steps.map((step, index) => {
+
+                const done = index <= currentIndex;
+
+                const current = index === currentIndex;
+
+                return `
+                    <div class="track-step
+                        ${done ? "done" : ""}
+                        ${current ? "current" : ""}">
+
+                        <div class="track-dot">
+                            ${done ? "✓" : ""}
+                        </div>
+
+                        <div class="track-label">
+                            ${step}
+                            ${current ? " ← الحالة الحالية" : ""}
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("")}
+
+        </div>
+    `;
+}
+
+
+function renderOrder(order) {
+
+    const status = normalizeStatus(order.status);
+
+    const card = document.createElement("div");
+    card.className = "order-card";
+
+    const head = document.createElement("div");
+    head.className = "order-head";
+
+    const title = document.createElement("h3");
+    title.textContent = "🏪 " + (order.storeName || "متجر سِلّتي");
+
+    const badge = document.createElement("span");
+    badge.className = "status-badge";
+
+    if (status === "ملغي") {
+        badge.classList.add("cancelled");
+    }
+
+    badge.textContent = status;
+
+    head.append(title, badge);
+
+    const info = document.createElement("div");
+    info.className = "order-info";
+
+    const id = document.createElement("p");
+    id.textContent = "رقم الطلب: " + (order.id || "غير محدد");
+
+    const date = document.createElement("p");
+    date.textContent = "تاريخ الطلب: " + formatDate(order);
+
+    info.append(id, date);
+
+    const itemsBox = document.createElement("div");
+    itemsBox.className = "items";
+
+    const itemsTitle = document.createElement("strong");
+    itemsTitle.textContent = "🛍️ المنتجات";
+
+    itemsBox.appendChild(itemsTitle);
+
+    if (Array.isArray(order.items)) {
+
+        order.items.forEach(item => {
+
+            const line = document.createElement("div");
+
+            line.textContent =
+                (item.name || "منتج") +
+                " × " +
+                (Number(item.quantity) || 1) +
+                " = " +
+                (
+                    (Number(item.price) || 0) *
+                    (Number(item.quantity) || 1)
+                ).toLocaleString("ar") +
+                " جنيه";
+
+            itemsBox.appendChild(line);
+        });
+
+    }
+
+    const total = document.createElement("div");
+    total.className = "total";
+
+    total.textContent =
+        "الإجمالي: " +
+        (Number(order.total) || 0).toLocaleString("ar") +
+        " جنيه";
+
+    const tracking = document.createElement("div");
+    tracking.innerHTML = createTracking(status);
+
+    card.append(head, info, itemsBox, total, tracking);
+
+    container.appendChild(card);
+}
+
+
+function showOrders(snapshot) {
+
+    container.innerHTML = "";
+
+    if (snapshot.empty) {
+
+        message.style.display = "block";
+        message.textContent = "ليس لديك طلبات حتى الآن 🛒";
 
         return;
     }
 
-    ordersList.className = "";
+    message.style.display = "none";
 
-    ordersList.innerHTML = orders.map(order => {
+    const orders = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+    }));
 
-        const customer = order.customer || {};
+    orders.sort((a, b) => {
 
-        const items = Array.isArray(order.items)
-            ? order.items
-            : [];
+        const dateA = a.createdAt?.toMillis
+            ? a.createdAt.toMillis()
+            : 0;
 
-        const itemsHTML = items.map(item => `
-            <div>
-                ${escapeHTML(item.name)}
-                × ${escapeHTML(item.quantity)}
-                <br>
-                السعر: ${Number(item.price || 0).toLocaleString("ar")} جنيه
-            </div>
-            <hr>
-        `).join("");
+        const dateB = b.createdAt?.toMillis
+            ? b.createdAt.toMillis()
+            : 0;
 
-        return `
+        return dateB - dateA;
+    });
 
-        <div class="order-card">
-
-            <h3>🏪 ${escapeHTML(order.storeName || "متجر")}</h3>
-
-            <p>
-                رقم الطلب:
-                ${escapeHTML(order.id)}
-            </p>
-
-            <div class="status">
-                الحالة: ${escapeHTML(order.status || "جديد")}
-            </div>
-
-            <div class="items">
-
-                <strong>المنتجات:</strong>
-
-                ${itemsHTML}
-
-            </div>
-
-            <p class="total">
-                الإجمالي:
-                ${Number(order.total || 0).toLocaleString("ar")}
-                جنيه
-            </p>
-
-            <p>
-                تاريخ الطلب:
-                ${escapeHTML(order.date || "غير محدد")}
-            </p>
-
-        </div>
-
-        `;
-
-    }).join("");
-
+    orders.forEach(renderOrder);
 }
 
 
 onAuthStateChanged(auth, user => {
 
-    if (stopListening) {
-        stopListening();
-        stopListening = null;
+    if (unsubscribeOrders) {
+        unsubscribeOrders();
+        unsubscribeOrders = null;
     }
 
     if (!user) {
 
-        ordersList.className = "message";
+        message.style.display = "block";
+        message.textContent = "يرجى تسجيل الدخول لعرض طلباتك.";
 
-        ordersList.innerHTML = `
-            يجب تسجيل الدخول لمشاهدة طلباتك.
-            <br><br>
-            <button onclick="location.href='login.html'">
-                تسجيل الدخول
-            </button>
-        `;
+        const loginButton = document.createElement("button");
+        loginButton.textContent = "تسجيل الدخول";
+        loginButton.onclick = () => {
+            location.href = "login.html";
+        };
+
+        message.appendChild(loginButton);
 
         return;
     }
 
-    ordersList.className = "message";
-    ordersList.textContent = "جاري تحميل طلباتك...";
+    message.style.display = "block";
+    message.textContent = "جارٍ تحميل طلباتك...";
 
     const ordersQuery = query(
         collection(db, "orders"),
         where("customerId", "==", user.uid)
     );
 
-    stopListening = onSnapshot(
+    unsubscribeOrders = onSnapshot(
         ordersQuery,
 
         snapshot => {
-
-            const orders = snapshot.docs.map(doc => doc.data());
-
-            orders.sort((a, b) =>
-                String(b.date || "").localeCompare(String(a.date || ""))
-            );
-
-            renderOrders(orders);
-
+            showOrders(snapshot);
         },
 
         error => {
 
-            console.error(error);
+            console.error("Orders error:", error);
 
-            ordersList.className = "message";
-
-            ordersList.textContent =
-                "تعذر تحميل الطلبات. تحقق من اتصال الإنترنت وصلاحيات قاعدة البيانات.";
-
+            message.style.display = "block";
+            message.textContent =
+                "تعذر تحميل الطلبات. تحقق من الاتصال أو صلاحيات Firestore.";
         }
     );
 
 });
 
 </script>
+
 <script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
