@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سِلّتي | طلبك لحد بابك</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body><header class="header">
+    <div class="logo">🛒 سِلّتي</div>
+    <div class="cart">
+        <a href="cart.html">🛍️ سلة المشتريات</a>
+    </div>
+</header><div id="userLocation" style="text-align:center;padding:12px;color:#087f5b;background:white;">
+    📍 جاري تحديد منطقتك...
+</div><section class="welcome">
+    <h1>أهلاً بك في سِلّتي 💚</h1>
+    <p>كل احتياجاتك من محلات الحي لحد باب بيتك</p><input type="search" placeholder="ابحث عن منتجك هنا...">
+
+</section><section class="categories">
+    <h2>تسوق حسب القسم</h2><div class="category-list">
+    <div class="category">🥬<p>بقالة</p></div>
+    <div class="category">🍗<p>مطاعم</p></div>
+    <div class="category">🥟<p>فطائر</p></div>
+    <div class="category">🧃<p>عصائر</p></div>
+    <div class="category">🍰<p>حلويات</p></div>
+</div>
+
+</section><section class="stores">
+    <h2>متاجرنا</h2><div class="store-card">
+    <h3>🏪 بقالة البركة</h3>
+    <p>كل احتياجات المنزل في مكان واحد</p>
+    <a href="store.html">تصفح المنتجات</a>
+</div>
+
+<div class="store-card">
+    <h3>🏪 بقالة الأمانة</h3>
+    <p>جودة وسرعة في الخدمة</p>
+    <a href="store.html">تصفح المنتجات</a>
+</div>
+
+</section><footer>
+    <p>سِلّتي 💚 طلبك من دكانك لحد بابك</p>
+</footer><script>
+const savedLocation = JSON.parse(
+    localStorage.getItem("silatiLocation") || "null"
+);
+
+const locationBox = document.getElementById("userLocation");
+
+if (savedLocation && locationBox) {
+    locationBox.innerHTML =
+        "📍 منطقتك: " + savedLocation.city +
+        " - " + savedLocation.area;
+} else if (locationBox) {
+    locationBox.innerHTML =
+        '📍 <a href="location.html">اختر منطقتك</a>';
+}
+</script></body>
+</html>
