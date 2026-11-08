@@ -123,4 +123,123 @@ color: white;
 text-align: center;
 padding: 20px;
 margin-top: 25px;
+}/* =================================
+   SILATI MOTION SYSTEM
+   نظام الحركات والانتقالات
+================================= */
+
+/* ظهور الصفحة */
+body {
+    animation: silatiPageIn 0.45s ease both;
+}
+
+@keyframes silatiPageIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ظهور البطاقات */
+.store-card,
+.product-card,
+.card {
+    animation: silatiCardIn 0.5s ease both;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+@keyframes silatiCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تفاعل البطاقات */
+.store-card:active,
+.product-card:active,
+.card:active {
+    transform: scale(0.98);
+}
+
+/* الأزرار */
+button,
+.btn,
+a.button {
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+button:active,
+.btn:active {
+    transform: scale(0.95);
+    opacity: 0.85;
+}
+
+/* حقول الإدخال */
+input,
+select,
+textarea {
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #087f5b;
+    box-shadow: 0 0 0 3px rgba(8,127,91,0.12);
+}
+
+/* الصور */
+img {
+    transition: transform 0.3s ease;
+}
+
+/* رسائل النجاح والتنبيه */
+.alert,
+.success-message,
+.empty-message {
+    animation: silatiMessageIn 0.4s ease both;
+}
+
+@keyframes silatiMessageIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* تحسين الانتقال */
+html {
+    scroll-behavior: smooth;
+}
+
+/* احترام تفضيلات تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
