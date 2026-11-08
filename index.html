@@ -1,59 +1,311 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سِلّتي | طلبك لحد بابك</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سِلّتي | طلبك لحد بابك</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f1f5f3;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background: #087f5b;
+    color: white;
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+}
+
+.welcome {
+    background: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.welcome h1 {
+    color: #087f5b;
+}
+
+.welcome p {
+    color: #666;
+}
+
+.location {
+    background: white;
+    text-align: center;
+    padding: 13px;
+    color: #087f5b;
+}
+
+.categories,
+.stores {
+    padding: 18px;
+}
+
+.categories h2,
+.stores h2 {
+    color: #087f5b;
+}
+
+.category-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category {
+    background: white;
+    padding: 13px;
+    border-radius: 12px;
+    text-align: center;
+    flex: 1;
+    min-width: 75px;
+}
+
+.store-card {
+    background: white;
+    padding: 17px;
+    margin-bottom: 13px;
+    border-radius: 12px;
+    box-shadow: 0 2px 7px #0000000c;
+}
+
+.store-card h3 {
+    color: #087f5b;
+}
+
+.store-card p {
+    color: #666;
+}
+
+.store-card a,
+.all-stores {
+    display: block;
+    background: #087f5b;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.all-stores {
+    margin: 15px 0;
+    font-size: 17px;
+}
+
+#loading {
+    text-align: center;
+    padding: 20px;
+    color: #087f5b;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #087f5b;
+}
+</style>
+
 </head>
-<body><header class="header">
+
+<body>
+
+<header class="header">
+
     <div class="logo">🛒 سِلّتي</div>
-    <div class="cart">
-        <a href="cart.html">🛍️ سلة المشتريات</a>
-    </div>
-</header><div id="userLocation" style="text-align:center;padding:12px;color:#087f5b;background:white;">
+
+    <a href="cart.html">
+        🛍️ سلة المشتريات
+    </a>
+
+</header>
+
+
+<div class="location" id="userLocation">
     📍 جاري تحديد منطقتك...
-</div><section class="welcome">
+</div>
+
+
+<section class="welcome">
+
     <h1>أهلاً بك في سِلّتي 💚</h1>
-    <p>كل احتياجاتك من محلات الحي لحد باب بيتك</p><input type="search" placeholder="ابحث عن منتجك هنا...">
 
-</section><section class="categories">
-    <h2>تسوق حسب القسم</h2><div class="category-list">
-    <div class="category">🥬<p>بقالة</p></div>
-    <div class="category">🍗<p>مطاعم</p></div>
-    <div class="category">🥟<p>فطائر</p></div>
-    <div class="category">🧃<p>عصائر</p></div>
-    <div class="category">🍰<p>حلويات</p></div>
-</div>
+    <p>
+        كل احتياجاتك من محلات الحي لحد باب بيتك
+    </p>
 
-</section><section class="stores">
-    <h2>متاجرنا</h2><div class="store-card">
-    <h3>🏪 بقالة البركة</h3>
-    <p>كل احتياجات المنزل في مكان واحد</p>
-    <a href="store.html">تصفح المنتجات</a>
-</div>
+</section>
 
-<div class="store-card">
-    <h3>🏪 بقالة الأمانة</h3>
-    <p>جودة وسرعة في الخدمة</p>
-    <a href="store.html">تصفح المنتجات</a>
-</div>
 
-</section><footer>
+<section class="categories">
+
+    <h2>تسوق حسب القسم</h2>
+
+    <div class="category-list">
+
+        <div class="category">🥬<p>بقالة</p></div>
+        <div class="category">🍗<p>مطاعم</p></div>
+        <div class="category">🥟<p>فطائر</p></div>
+        <div class="category">🧃<p>عصائر</p></div>
+        <div class="category">🍰<p>حلويات</p></div>
+
+    </div>
+
+</section>
+
+
+<section class="stores">
+
+    <h2>🏪 متاجر سِلّتي</h2>
+
+    <a class="all-stores" href="stores.html">
+        تصفح جميع المتاجر ←
+    </a>
+
+    <div id="storesList">
+
+        <p id="loading">
+            جارٍ تحميل المتاجر...
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
     <p>سِلّتي 💚 طلبك من دكانك لحد بابك</p>
-</footer><script>
+
+</footer>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+/* عرض المنطقة */
+
 const savedLocation = JSON.parse(
     localStorage.getItem("silatiLocation") || "null"
 );
 
 const locationBox = document.getElementById("userLocation");
 
-if (savedLocation && locationBox) {
+if (savedLocation) {
+
+    locationBox.textContent =
+        "📍 منطقتك: " +
+        (savedLocation.city || "شرق النيل") +
+        " - " +
+        (savedLocation.area || "");
+
+} else {
+
     locationBox.innerHTML =
-        "📍 منطقتك: " + savedLocation.city +
-        " - " + savedLocation.area;
-} else if (locationBox) {
-    locationBox.innerHTML =
-        '📍 <a href="location.html">اختر منطقتك</a>';
+        '📍 <a href="location.html" style="color:#087f5b">اختر منطقتك</a>';
+
 }
-</script></body>
+
+
+/* تحميل المتاجر من Firebase */
+
+const storesList = document.getElementById("storesList");
+
+async function loadStores() {
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, "stores")
+        );
+
+        storesList.innerHTML = "";
+
+        if (snapshot.empty) {
+
+            storesList.innerHTML =
+                "<p>لا توجد متاجر مسجلة حالياً.</p>";
+
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+
+            const store = docSnap.data();
+
+            const card = document.createElement("div");
+
+            card.className = "store-card";
+
+            const title = document.createElement("h3");
+            title.textContent = "🏪 " + (store.name || "متجر");
+
+            const type = document.createElement("p");
+            type.textContent = "القسم: " + (store.type || "عام");
+
+            const region = document.createElement("p");
+            region.textContent = "المنطقة: " + (store.region || "شرق النيل");
+
+            const link = document.createElement("a");
+            link.href = "store.html?id=" + encodeURIComponent(docSnap.id);
+            link.textContent = "تصفح المنتجات";
+
+            card.appendChild(title);
+            card.appendChild(type);
+            card.appendChild(region);
+            card.appendChild(link);
+
+            storesList.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        console.error("خطأ تحميل المتاجر:", error);
+
+        storesList.innerHTML =
+            "<p style='color:red'>تعذر تحميل المتاجر. يرجى المحاولة لاحقاً.</p>";
+
+    }
+
+}
+
+loadStores();
+
+</script>
+
+</body>
 </html>
