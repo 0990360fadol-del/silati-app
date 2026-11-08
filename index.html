@@ -16,7 +16,7 @@
 
 body {
     margin: 0;
-    padding-bottom: 90px;
+    padding-bottom: 85px;
     background: #f1f5f3;
     font-family: Arial, sans-serif;
 }
@@ -141,18 +141,18 @@ footer {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 99999;
 
     display: flex;
     justify-content: space-around;
     align-items: center;
 
-    background: rgba(255,255,255,0.97);
+    background: #ffffff;
     border-top: 1px solid #e5eee9;
-    box-shadow: 0 -3px 15px #00000012;
+    box-shadow: 0 -3px 15px #00000018;
 
-    padding: 9px 4px;
-    padding-bottom: calc(9px + env(safe-area-inset-bottom));
+    padding: 10px 4px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
 }
 
 .nav-item {
@@ -164,7 +164,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 
     font-size: 11px;
     transition: 0.25s ease;
@@ -182,11 +182,11 @@ footer {
 }
 
 .nav-item.active .nav-icon {
-    transform: translateY(-4px) scale(1.12);
+    transform: translateY(-3px) scale(1.1);
 }
 
 .nav-item:active .nav-icon {
-    transform: scale(0.85);
+    transform: scale(0.9);
 }
 
 .cart-badge {
@@ -293,7 +293,9 @@ footer {
 </footer>
 
 
-<!-- شريط التنقل السفلي -->
+<!-- =================================
+     شريط التنقل السفلي
+================================= -->
 
 <nav class="bottom-nav">
 
@@ -330,9 +332,7 @@ footer {
 
 <script>
 
-/* =================================
-   عداد السلة
-================================= */
+/* عداد السلة */
 
 function updateCartBadge() {
 
@@ -366,13 +366,17 @@ function updateCartBadge() {
 updateCartBadge();
 
 
-/* =================================
-   عرض المنطقة
-================================= */
+/* عرض المنطقة */
 
-const savedLocation = JSON.parse(
-    localStorage.getItem("silatiLocation") || "null"
-);
+let savedLocation = null;
+
+try {
+    savedLocation = JSON.parse(
+        localStorage.getItem("silatiLocation") || "null"
+    );
+} catch (error) {
+    savedLocation = null;
+}
 
 const locationBox = document.getElementById("userLocation");
 
@@ -391,11 +395,6 @@ if (savedLocation) {
 
 }
 
-
-/* =================================
-   تحميل المتاجر من Firebase
-================================= */
-
 </script>
 
 
@@ -408,6 +407,8 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
+
+/* تحميل المتاجر من Firebase */
 
 const storesList = document.getElementById("storesList");
 
