@@ -199,109 +199,109 @@ button {
 
 <div class="container">
 
-    <div id="connectionStatus">
-        جارٍ التحقق من حساب التاجر والاتصال بقاعدة البيانات...
+<div id="connectionStatus">
+    جارٍ التحقق من حساب التاجر والاتصال بقاعدة البيانات...
+</div>
+
+<div class="box">
+    <h3>🏪 اختيار المتجر</h3>
+
+    <label>اختر المتجر الذي تريد إدارته</label>
+
+    <select id="storeSelect">
+        <option value="">اختر متجراً</option>
+    </select>
+
+    <p class="note">
+        يمكنك إدارة عدة متاجر من هذه الصفحة،
+        ولكل متجر منتجاته وطلباته الخاصة.
+    </p>
+</div>
+
+<div class="box">
+    <h3>🏪 بيانات المتجر</h3>
+
+    <label>اسم المتجر</label>
+    <input id="storeName" placeholder="مثلاً: بقالة البركة">
+
+    <label>نوع النشاط</label>
+    <select id="storeType">
+        <option value="">اختر نوع المتجر</option>
+        <option>بقالة</option>
+        <option>خضروات وفواكه</option>
+        <option>مخبوزات</option>
+        <option>حلويات</option>
+        <option>مطاعم</option>
+        <option>عصائر ومشروبات</option>
+        <option>أخرى</option>
+    </select>
+
+    <label>المنطقة</label>
+    <select id="storeRegion">
+        <option value="">اختر منطقتك</option>
+        <option>الحاج يوسف</option>
+        <option>الوحدة</option>
+        <option>دار السلام</option>
+        <option>الفيحاء</option>
+        <option>المايقوما</option>
+        <option>حي النصر</option>
+        <option>سوبا</option>
+        <option>عد بابكر</option>
+        <option>الشقلة</option>
+        <option>أم ضوابان</option>
+        <option>منطقة أخرى بشرق النيل</option>
+    </select>
+
+    <button class="save" onclick="saveStore()">
+        حفظ تعديلات المتجر
+    </button>
+
+    <button class="new-store" onclick="createStore()">
+        ➕ تسجيل متجر جديد
+    </button>
+</div>
+
+<div class="box">
+    <h3>➕ إضافة منتج جديد</h3>
+
+    <label>اسم المنتج</label>
+    <input id="productName" placeholder="مثلاً: أرز">
+
+    <label>سعر المنتج بالجنيه</label>
+    <input id="productPrice" type="number" min="1"
+    placeholder="مثلاً: 5000">
+
+    <button class="save" onclick="saveProduct()">
+        حفظ المنتج
+    </button>
+
+    <input type="hidden" id="editId">
+
+    <button class="delete" onclick="cancelEdit()"
+    id="cancelEdit" style="display:none;">
+        إلغاء التعديل
+    </button>
+</div>
+
+<div class="box">
+    <h3>📦 منتجات المتجر المحدد</h3>
+    <div id="productsList">
+        اختر متجراً لعرض منتجاته.
     </div>
+</div>
 
-    <div class="box">
-        <h3>🏪 اختيار المتجر</h3>
+<div class="box">
+    <h3>🛎️ طلبات الزبائن</h3>
 
-        <label>اختر المتجر الذي تريد إدارته</label>
+    <p class="note">
+        الطلبات السحابية تظهر هنا عند وصولها من الزبائن.
+        يمكنك تحديث حالة الطلب، وسيتم حفظ التحديث في Firebase.
+    </p>
 
-        <select id="storeSelect">
-            <option value="">اختر متجراً</option>
-        </select>
-
-        <p class="note">
-            يمكنك إدارة عدة متاجر من هذه الصفحة،
-            ولكل متجر منتجاته وطلباته الخاصة.
-        </p>
+    <div id="ordersList">
+        اختر متجراً لعرض طلباته.
     </div>
-
-    <div class="box">
-        <h3>🏪 بيانات المتجر</h3>
-
-        <label>اسم المتجر</label>
-        <input id="storeName" placeholder="مثلاً: بقالة البركة">
-
-        <label>نوع النشاط</label>
-        <select id="storeType">
-            <option value="">اختر نوع المتجر</option>
-            <option>بقالة</option>
-            <option>خضروات وفواكه</option>
-            <option>مخبوزات</option>
-            <option>حلويات</option>
-            <option>مطاعم</option>
-            <option>عصائر ومشروبات</option>
-            <option>أخرى</option>
-        </select>
-
-        <label>المنطقة</label>
-        <select id="storeRegion">
-            <option value="">اختر منطقتك</option>
-            <option>الحاج يوسف</option>
-            <option>الوحدة</option>
-            <option>دار السلام</option>
-            <option>الفيحاء</option>
-            <option>المايقوما</option>
-            <option>حي النصر</option>
-            <option>سوبا</option>
-            <option>عد بابكر</option>
-            <option>الشقلة</option>
-            <option>أم ضوابان</option>
-            <option>منطقة أخرى بشرق النيل</option>
-        </select>
-
-        <button class="save" onclick="saveStore()">
-            حفظ تعديلات المتجر
-        </button>
-
-        <button class="new-store" onclick="createStore()">
-            ➕ تسجيل متجر جديد
-        </button>
-    </div>
-
-    <div class="box">
-        <h3>➕ إضافة منتج جديد</h3>
-
-        <label>اسم المنتج</label>
-        <input id="productName" placeholder="مثلاً: أرز">
-
-        <label>سعر المنتج بالجنيه</label>
-        <input id="productPrice" type="number" min="1"
-        placeholder="مثلاً: 5000">
-
-        <button class="save" onclick="saveProduct()">
-            حفظ المنتج
-        </button>
-
-        <input type="hidden" id="editId">
-
-        <button class="delete" onclick="cancelEdit()"
-        id="cancelEdit" style="display:none;">
-            إلغاء التعديل
-        </button>
-    </div>
-
-    <div class="box">
-        <h3>📦 منتجات المتجر المحدد</h3>
-        <div id="productsList">
-            اختر متجراً لعرض منتجاته.
-        </div>
-    </div>
-
-    <div class="box">
-        <h3>🛎️ طلبات الزبائن</h3>
-
-        <p class="note">
-            الطلبات السحابية تظهر هنا عند وصولها من الزبائن.
-            يمكنك تحديث حالة الطلب، وسيتم حفظ التحديث في Firebase.
-        </p>
-
-        <div id="ordersList">
-            اختر متجراً لعرض طلباته.
-        </div>
-    </div>
+</div>
 
 </div>
 
@@ -1075,6 +1075,7 @@ async function renderOrders() {
             "جديد",
             "قيد التجهيز",
             "جاهز للتسليم",
+            "المندوب في الطريق",
             "تم التسليم",
             "ملغي"
         ].forEach(value => {
@@ -1125,6 +1126,7 @@ async function updateOrderStatus(orderId, newStatus, isCloud) {
         "جديد",
         "قيد التجهيز",
         "جاهز للتسليم",
+        "المندوب في الطريق",
         "تم التسليم",
         "ملغي"
     ];
@@ -1220,6 +1222,8 @@ document.getElementById("storeSelect").addEventListener(
 );
 
 </script>
+
 <script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
