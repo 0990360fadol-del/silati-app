@@ -7,15 +7,15 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f3;color:#26332e}
-header{background:#087f5b;color:white;padding:22px 15px;text-align:center}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f3;color:#26332e;padding-bottom:85px}
+header{background:linear-gradient(135deg,#087f5b,#045b42);color:white;padding:22px 15px;text-align:center}
 header h2{margin:5px;font-size:25px}
 .container{max-width:750px;margin:20px auto;padding:15px}
-.box{background:white;padding:18px;margin-bottom:18px;border-radius:12px;box-shadow:0 2px 8px #00000010}
+.box{background:white;padding:18px;margin-bottom:18px;border-radius:14px;box-shadow:0 2px 9px #00000010}
 h3{color:#087f5b;margin-top:0}
 input{width:100%;padding:14px;border:1px solid #ddd;border-radius:8px;font-size:16px;margin:8px 0 12px}
 button{border:none;padding:13px;border-radius:8px;cursor:pointer;font-size:16px;width:100%;margin-top:10px}
-button:disabled{opacity:.6;cursor:not-allowed}
+button:disabled{opacity:.5;cursor:not-allowed}
 .save,.delivered{background:#087f5b;color:white}
 .receive{background:#1976d2;color:white}
 .refresh{background:#e8f5e9;color:#087f5b}
@@ -60,7 +60,7 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div class="box">
 <h3>👤 بيانات المندوب</h3>
 <label>اسم المندوب</label>
-<input type="text" id="courierName" placeholder="أدخل اسمك">
+<input type="text" id="courierName" maxlength="60" placeholder="أدخل اسمك">
 <button class="save" id="saveButton">حفظ بياناتي</button>
 <p class="small-note">عمولة المندوب: 3,000 جنيه عن كل طلب يتم تسليمه.</p>
 </div>
@@ -88,7 +88,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <h3>📦 الطلبات الجاهزة للتوصيل</h3>
 <span class="count" id="readyCount">0</span>
 </div>
-<div id="readyOrders"><p class="empty">جارٍ تحميل الطلبات...</p></div>
+<div id="readyOrders">
+<p class="empty">جارٍ تحميل الطلبات...</p>
+</div>
 </div>
 
 <div class="box">
@@ -175,8 +177,12 @@ function saveCourier() {
         return;
     }
 
-    courierName = name;
+    if (name.length > 60) {
+        alert("الاسم طويل جداً.");
+        return;
+    }
 
+    courierName = name;
     localStorage.setItem("silatiCourierName", name);
 
     alert("تم حفظ اسم المندوب بنجاح 💚");
@@ -201,7 +207,7 @@ function startCloudListeners() {
 
     showMessage("جارٍ الاتصال بالسحابة وتحميل الطلبات...");
 
-    // الطلبات الجاهزة
+    // الطلبات الجاهزة للتوصيل
 
     const readyQuery = query(
         collection(db, "orders"),
@@ -215,8 +221,7 @@ function startCloudListeners() {
 
             readyOrders = snapshot.docs.map(item => ({
                 ...item.data(),
-                id: item.id,
-                _cloud: true
+                id: item.id
             }));
 
             readyLoaded = true;
@@ -236,16 +241,11 @@ function startCloudListeners() {
         }
     );
 
-    // الطلبات الخاصة بهذا المندوب
-    // نحدد الهوية والحالات معاً لتوافق قواعد Firestore
+    // جميع الطلبات المسجلة باسم هذا المندوب
 
     const assignedQuery = query(
         collection(db, "orders"),
-        where("courierUid", "==", currentUser.uid),
-        where("status", "in", [
-            "جاهز للتسليم",
-            "تم التسليم"
-        ])
+        where("courierUid", "==", currentUser.uid)
     );
 
     stopAssignedListener = onSnapshot(
@@ -255,8 +255,7 @@ function startCloudListeners() {
 
             assignedOrders = snapshot.docs.map(item => ({
                 ...item.data(),
-                id: item.id,
-                _cloud: true
+                id: item.id
             }));
 
             assignedLoaded = true;
@@ -282,9 +281,10 @@ function updateConnectionMessage() {
     if (readyLoaded && assignedLoaded) {
 
         showMessage(
-            "✅ تم الاتصال بالسحابة بنجاح. " +
-            "الطلبات الجاهزة: " + readyOrders.length +
-            "، طلباتك: " + assignedOrders.length
+            "✅ متصل بالسحابة بنجاح. الطلبات الجاهزة: " +
+            readyOrders.length +
+            "، طلباتك: " +
+            assignedOrders.length
         );
     }
 }
@@ -309,11 +309,11 @@ function getAllOrders() {
 
 function renderOrders() {
 
+    if (!currentUser) return;
+
     const readyContainer = document.getElementById("readyOrders");
     const myContainer = document.getElementById("myOrders");
     const doneContainer = document.getElementById("doneOrders");
-
-    if (!currentUser) return;
 
     readyContainer.innerHTML = "";
     myContainer.innerHTML = "";
@@ -376,7 +376,9 @@ function renderOrders() {
     );
 
     done.sort((a, b) =>
-        String(b.deliveryDate || "").localeCompare(String(a.deliveryDate || ""))
+        String(b.deliveryDate || "").localeCompare(
+            String(a.deliveryDate || "")
+        )
     );
 
     done.forEach(order =>
@@ -444,6 +446,12 @@ function createOrderCard(order, type) {
         customerBox.appendChild(p);
     });
 
+    if (customer.note) {
+        const note = document.createElement("p");
+        note.textContent = "📝 ملاحظة الزبون: " + customer.note;
+        customerBox.appendChild(note);
+    }
+
     const itemsBox = document.createElement("div");
     itemsBox.className = "items";
 
@@ -454,8 +462,11 @@ function createOrderCard(order, type) {
     (order.items || []).forEach(item => {
 
         const p = document.createElement("p");
+
         p.textContent =
-            (item.name || "منتج") + " × " + (item.quantity || 1);
+            (item.name || "منتج") +
+            " × " +
+            (item.quantity || 1);
 
         itemsBox.appendChild(p);
     });
@@ -497,7 +508,8 @@ function createOrderCard(order, type) {
         const commission = document.createElement("p");
         commission.className = "commission";
         commission.textContent =
-            "💵 عمولة هذا الطلب: " + formatMoney(order.commissionAmount);
+            "💵 عمولة هذا الطلب: " +
+            formatMoney(order.commissionAmount);
 
         card.append(deliveredDate, commission);
     }
@@ -554,7 +566,10 @@ async function receiveOrder(orderId) {
 
         console.error(error);
 
-        alert("تعذر استلام الطلب:\n" + (error.code || error.message));
+        alert(
+            "تعذر استلام الطلب:\n" +
+            (error.code || error.message)
+        );
 
     } finally {
 
@@ -614,7 +629,10 @@ async function confirmDelivery(orderId) {
 
         console.error(error);
 
-        alert("تعذر تأكيد التسليم:\n" + (error.code || error.message));
+        alert(
+            "تعذر تأكيد التسليم:\n" +
+            (error.code || error.message)
+        );
 
     } finally {
 
@@ -628,7 +646,10 @@ async function confirmDelivery(orderId) {
 // ==================================
 
 document.getElementById("refreshButton").onclick = function() {
-    if (currentUser) startCloudListeners();
+
+    if (currentUser) {
+        startCloudListeners();
+    }
 };
 
 // ==================================
@@ -680,7 +701,8 @@ onAuthStateChanged(auth, async user => {
         console.error(error);
 
         showMessage(
-            "تعذر التحقق من الحساب: " + (error.code || error.message),
+            "تعذر التحقق من الحساب: " +
+            (error.code || error.message),
             true
         );
 
@@ -703,13 +725,22 @@ function renderEmpty() {
     document.getElementById("doneOrders").innerHTML =
         '<p class="empty">لا توجد بيانات للعرض.</p>';
 
-    ["readyCount","myCount","doneCount","deliveredCount","activeCount"]
-        .forEach(id => document.getElementById(id).textContent = "0");
+    [
+        "readyCount",
+        "myCount",
+        "doneCount",
+        "deliveredCount",
+        "activeCount"
+    ].forEach(id => {
+        document.getElementById(id).textContent = "0";
+    });
 
     document.getElementById("totalProfit").textContent = "0 جنيه";
 }
 
 </script>
-    <script src="bottom-nav.js" defer></script>
+
+<script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
