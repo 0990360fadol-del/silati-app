@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
-<head>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>سِلّتي | طلبك لحد بابك</title>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>سِلّتي | طلبك لحد بابك</title><link rel="stylesheet" href="style.css"><style>
 * {
     box-sizing: border-box;
 }
@@ -21,6 +12,12 @@
     --bg: #f4f7f5;
     --text: #26332d;
     --muted: #7c8982;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
 body {
@@ -36,30 +33,53 @@ body {
 ================================= */
 
 .splash-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    padding: 20px !important;
+
+    z-index: 2147483647 !important;
+
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+
+    overflow: hidden !important;
+
     background:
         radial-gradient(circle at 50% 35%, #ffffff20, transparent 35%),
-        linear-gradient(145deg, #087f5b, #06432f);
-    color: white;
+        linear-gradient(145deg, #087f5b, #06432f) !important;
+
+    color: white !important;
+
     opacity: 1;
     visibility: visible;
-    transition: opacity .65s ease, visibility .65s ease;
+
+    transition:
+        opacity .65s ease,
+        visibility .65s ease;
 }
 
 .splash-screen.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 .splash-content {
+    width: 100%;
+    max-width: 350px;
     text-align: center;
+    margin: auto !important;
     animation: splashAppear .9s ease both;
 }
 
@@ -567,229 +587,167 @@ footer {
         transition: none !important;
     }
 }
-</style>
+</style></head><body><!-- شاشة افتتاحية سِلّتي --><div class="splash-screen" id="splashScreen"><div class="splash-content">
 
-</head>
+    <div class="splash-logo">🛒 سِلّتي</div>
 
-<body>
+    <div class="splash-check">
 
-<!-- شاشة افتتاحية سِلّتي -->
-
-<div class="splash-screen" id="splashScreen">
-
-    <div class="splash-content">
-
-        <div class="splash-logo">🛒 سِلّتي</div>
-
-        <div class="splash-check">
-
-            <svg viewBox="0 0 60 60" aria-label="تم">
-
-                <path d="M12 31 L25 44 L49 17"></path>
-
-            </svg>
-
-        </div>
-
-        <h2 class="splash-title">طلبك لحد بابك</h2>
-
-        <p class="splash-subtitle">
-            تسوّق بسهولة... ونوصّل ليك 💚
-        </p>
-
-        <div class="splash-line"></div>
+        <svg viewBox="0 0 60 60" aria-label="تم">
+            <path d="M12 31 L25 44 L49 17"></path>
+        </svg>
 
     </div>
 
+    <h2 class="splash-title">طلبك لحد بابك</h2>
+
+    <p class="splash-subtitle">
+        تسوّق بسهولة... ونوصّل ليك 💚
+    </p>
+
+    <div class="splash-line"></div>
+
 </div>
 
-<!-- الرأس -->
+</div><!-- الرأس --><header class="header"><div class="logo">🛒 سِلّتي</div>
 
-<header class="header">
+<a href="cart.html">🛍️ سلة المشتريات</a>
 
-    <div class="logo">🛒 سِلّتي</div>
-
-    <a href="cart.html">🛍️ سلة المشتريات</a>
-
-</header>
-
-<!-- المنطقة -->
-
-<div class="location" id="userLocation">
+</header><!-- المنطقة --><div class="location" id="userLocation">
     📍 جاري تحميل المنطقة...
-</div>
+</div><!-- الواجهة الترحيبية --><section class="hero"><div class="hero-content">
 
-<!-- الواجهة الترحيبية -->
+    <h1>كل احتياجاتك أقرب إليك 💚</h1>
 
-<section class="hero">
-
-    <div class="hero-content">
-
-        <h1>كل احتياجاتك أقرب إليك 💚</h1>
-
-        <p>
-            تسوق من متاجر حيك بسهولة،
-            واختر احتياجاتك واطلبها حتى باب بيتك.
-        </p>
-
-        <a href="stores.html" class="hero-btn">
-            ابدأ التسوق الآن ←
-        </a>
-
-    </div>
-
-</section>
-
-<!-- البحث -->
-
-<section class="search-section">
-
-    <div class="search-wrapper">
-
-        <span class="search-icon">⌕</span>
-
-        <input
-            type="search"
-            id="searchInput"
-            class="search-box"
-            placeholder="ابحث عن متجر أو منتج..."
-            autocomplete="off"
-        >
-
-    </div>
-
-    <p class="search-hint">
-        🔍 ابحث عن احتياجاتك في متاجر شرق النيل
+    <p>
+        تسوق من متاجر حيك بسهولة،
+        واختر احتياجاتك واطلبها حتى باب بيتك.
     </p>
 
-</section>
-
-<!-- الأقسام -->
-
-<section class="content-section">
-
-    <div class="section-heading">
-        <h2>🧺 تسوق حسب القسم</h2>
-        <span>اكتشف المزيد</span>
-    </div>
-
-    <div class="category-list" id="categoryList">
-
-        <div class="category" data-category="بقالة">
-            <span class="category-icon">🥬</span>
-            <span class="category-name">بقالة</span>
-        </div>
-
-        <div class="category" data-category="خضروات وفواكه">
-            <span class="category-icon">🍎</span>
-            <span class="category-name">خضروات وفواكه</span>
-        </div>
-
-        <div class="category" data-category="مخبوزات">
-            <span class="category-icon">🥖</span>
-            <span class="category-name">مخبوزات</span>
-        </div>
-
-        <div class="category" data-category="مطاعم">
-            <span class="category-icon">🍗</span>
-            <span class="category-name">مطاعم</span>
-        </div>
-
-        <div class="category" data-category="عصائر ومشروبات">
-            <span class="category-icon">🧃</span>
-            <span class="category-name">عصائر</span>
-        </div>
-
-        <div class="category" data-category="حلويات">
-            <span class="category-icon">🍰</span>
-            <span class="category-name">حلويات</span>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- المفضلة -->
-
-<section class="content-section">
-
-    <div class="section-heading">
-        <h2>❤️ مفضلتي</h2>
-        <span>اختياراتك المحببة</span>
-    </div>
-
-    <p class="section-label">
-        متاجرك ومنتجاتك التي أحببتها
-    </p>
-
-    <div id="favoritesList" class="store-grid">
-
-        <div class="empty-message">
-            لم تضف شيئاً إلى المفضلة بعد ❤️
-        </div>
-
-    </div>
-
-</section>
-
-<!-- المنتجات -->
-
-<section class="content-section">
-
-    <div class="section-heading">
-
-        <h2 id="productsTitle">🛍️ منتجات متاجرنا</h2>
-
-        <span>اكتشف المنتجات</span>
-
-    </div>
-
-    <p class="section-label" id="productsHint">
-        تصفح المنتجات المتوفرة في متاجر سِلّتي
-    </p>
-
-    <div id="popularProducts" class="product-grid">
-
-        <div class="empty-message">
-            جارٍ تحميل المنتجات...
-        </div>
-
-    </div>
-
-</section>
-
-<!-- المتاجر -->
-
-<section class="content-section">
-
-    <div class="section-heading">
-        <h2>🏪 متاجر سِلّتي</h2>
-        <span>متاجر قريبة منك</span>
-    </div>
-
-    <a class="all-stores" href="stores.html">
-        تصفح جميع المتاجر ←
+    <a href="stores.html" class="hero-btn">
+        ابدأ التسوق الآن ←
     </a>
 
-    <div id="storesList" class="store-grid">
+</div>
 
-        <div class="empty-message">
-            جارٍ تحميل المتاجر...
-        </div>
+</section><!-- البحث --><section class="search-section"><div class="search-wrapper">
 
+    <span class="search-icon">⌕</span>
+
+    <input
+        type="search"
+        id="searchInput"
+        class="search-box"
+        placeholder="ابحث عن متجر أو منتج..."
+        autocomplete="off"
+    >
+
+</div>
+
+<p class="search-hint">
+    🔍 ابحث عن احتياجاتك في متاجر شرق النيل
+</p>
+
+</section><!-- الأقسام --><section class="content-section"><div class="section-heading">
+    <h2>🧺 تسوق حسب القسم</h2>
+    <span>اكتشف المزيد</span>
+</div>
+
+<div class="category-list" id="categoryList">
+
+    <div class="category" data-category="بقالة">
+        <span class="category-icon">🥬</span>
+        <span class="category-name">بقالة</span>
     </div>
 
-</section>
+    <div class="category" data-category="خضروات وفواكه">
+        <span class="category-icon">🍎</span>
+        <span class="category-name">خضروات وفواكه</span>
+    </div>
 
-<footer>
+    <div class="category" data-category="مخبوزات">
+        <span class="category-icon">🥖</span>
+        <span class="category-name">مخبوزات</span>
+    </div>
+
+    <div class="category" data-category="مطاعم">
+        <span class="category-icon">🍗</span>
+        <span class="category-name">مطاعم</span>
+    </div>
+
+    <div class="category" data-category="عصائر ومشروبات">
+        <span class="category-icon">🧃</span>
+        <span class="category-name">عصائر</span>
+    </div>
+
+    <div class="category" data-category="حلويات">
+        <span class="category-icon">🍰</span>
+        <span class="category-name">حلويات</span>
+    </div>
+
+</div>
+
+</section><!-- المفضلة --><section class="content-section"><div class="section-heading">
+    <h2>❤️ مفضلتي</h2>
+    <span>اختياراتك المحببة</span>
+</div>
+
+<p class="section-label">
+    متاجرك ومنتجاتك التي أحببتها
+</p>
+
+<div id="favoritesList" class="store-grid">
+
+    <div class="empty-message">
+        لم تضف شيئاً إلى المفضلة بعد ❤️
+    </div>
+
+</div>
+
+</section><!-- المنتجات --><section class="content-section"><div class="section-heading">
+
+    <h2 id="productsTitle">🛍️ منتجات متاجرنا</h2>
+
+    <span>اكتشف المنتجات</span>
+
+</div>
+
+<p class="section-label" id="productsHint">
+    تصفح المنتجات المتوفرة في متاجر سِلّتي
+</p>
+
+<div id="popularProducts" class="product-grid">
+
+    <div class="empty-message">
+        جارٍ تحميل المنتجات...
+    </div>
+
+</div>
+
+</section><!-- المتاجر --><section class="content-section"><div class="section-heading">
+    <h2>🏪 متاجر سِلّتي</h2>
+    <span>متاجر قريبة منك</span>
+</div>
+
+<a class="all-stores" href="stores.html">
+    تصفح جميع المتاجر ←
+</a>
+
+<div id="storesList" class="store-grid">
+
+    <div class="empty-message">
+        جارٍ تحميل المتاجر...
+    </div>
+
+</div>
+
+</section><footer>
     <strong>سِلّتي 💚</strong>
     <br>
     طلبك من دكانك لحد بابك
     <br>
     <small>تسوق محلياً... واستمتع بسهولة الطلب</small>
-</footer>
-
-<script>
+</footer><script>
 
 /* =================================
    إخفاء الشاشة الافتتاحية
@@ -1327,11 +1285,7 @@ window.addEventListener("storage", function() {
 
 });
 
-</script>
-
-<!-- تحميل بيانات Firebase -->
-
-<script type="module">
+</script><!-- تحميل بيانات Firebase --><script type="module">
 
 import { db } from "./firebase.js";
 
@@ -1408,9 +1362,5 @@ async function loadSilatiData() {
 
 loadSilatiData();
 
-</script>
-
-<script src="bottom-nav.js" defer></script>
-
-</body>
+</script><script src="bottom-nav.js" defer></script></body>
 </html>
