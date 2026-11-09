@@ -31,6 +31,146 @@ body {
     color: var(--text);
 }
 
+/* =================================
+   شاشة افتتاحية سِلّتي
+================================= */
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at 50% 35%, #ffffff20, transparent 35%),
+        linear-gradient(145deg, #087f5b, #06432f);
+    color: white;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .65s ease, visibility .65s ease;
+}
+
+.splash-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+    animation: splashAppear .9s ease both;
+}
+
+.splash-logo {
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    text-shadow: 0 4px 15px #00000025;
+}
+
+.splash-check {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 23px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 35px #00000025;
+    animation: checkPop .7s .35s ease both;
+}
+
+.splash-check svg {
+    width: 58px;
+    height: 58px;
+}
+
+.splash-check path {
+    fill: none;
+    stroke: #087f5b;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawCheck .7s .85s ease forwards;
+}
+
+.splash-title {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    letter-spacing: .3px;
+}
+
+.splash-subtitle {
+    font-size: 14px;
+    color: #d8f2e5;
+    margin: 0;
+}
+
+.splash-line {
+    width: 65px;
+    height: 3px;
+    border-radius: 10px;
+    background: #ffffff80;
+    margin: 24px auto 0;
+    overflow: hidden;
+}
+
+.splash-line::after {
+    content: "";
+    display: block;
+    width: 35%;
+    height: 100%;
+    background: white;
+    animation: loadingLine 1.2s ease-in-out infinite;
+}
+
+@keyframes splashAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes checkPop {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes drawCheck {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes loadingLine {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-300%);
+    }
+}
+
 /* الرأس */
 
 .header {
@@ -310,12 +450,6 @@ section.content-section {
     margin-bottom: 10px;
 }
 
-.product-price {
-    color: #087f5b !important;
-    font-size: 14px !important;
-    font-weight: bold;
-}
-
 /* المفضلة */
 
 .favorite-btn {
@@ -332,6 +466,12 @@ section.content-section {
 
 .favorite-btn.saved {
     background: #ffe0e0;
+}
+
+.product-price {
+    color: #087f5b !important;
+    font-size: 14px !important;
+    font-weight: bold;
 }
 
 /* الرسائل */
@@ -432,6 +572,36 @@ footer {
 </head>
 
 <body>
+
+<!-- شاشة افتتاحية سِلّتي -->
+
+<div class="splash-screen" id="splashScreen">
+
+    <div class="splash-content">
+
+        <div class="splash-logo">🛒 سِلّتي</div>
+
+        <div class="splash-check">
+
+            <svg viewBox="0 0 60 60" aria-label="تم">
+
+                <path d="M12 31 L25 44 L49 17"></path>
+
+            </svg>
+
+        </div>
+
+        <h2 class="splash-title">طلبك لحد بابك</h2>
+
+        <p class="splash-subtitle">
+            تسوّق بسهولة... ونوصّل ليك 💚
+        </p>
+
+        <div class="splash-line"></div>
+
+    </div>
+
+</div>
 
 <!-- الرأس -->
 
@@ -620,6 +790,25 @@ footer {
 </footer>
 
 <script>
+
+/* =================================
+   إخفاء الشاشة الافتتاحية
+================================= */
+
+window.addEventListener("load", function() {
+
+    setTimeout(function() {
+
+        const splash = document.getElementById("splashScreen");
+
+        if (splash) {
+            splash.classList.add("hide");
+        }
+
+    }, 2400);
+
+});
+
 
 /* =================================
    أدوات التخزين
@@ -1137,7 +1326,6 @@ window.addEventListener("storage", function() {
     renderFavorites();
 
 });
-
 
 </script>
 
