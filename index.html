@@ -14,261 +14,411 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding-bottom: 90px;
-    background: #f1f5f3;
-    font-family: Arial, sans-serif;
+:root {
+    --green: #087f5b;
+    --dark: #075c43;
+    --light: #e9f7ef;
+    --bg: #f4f7f5;
+    --text: #26332d;
+    --muted: #7c8982;
 }
 
+body {
+    margin: 0;
+    padding-bottom: 85px;
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+}
+
+/* الرأس */
+
 .header {
-    background: #087f5b;
+    background: linear-gradient(120deg, #087f5b, #075b42);
     color: white;
-    padding: 17px;
+    padding: 17px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 3px 12px #00000012;
 }
 
 .logo {
-    font-size: 23px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 .header a {
     color: white;
     text-decoration: none;
+    font-size: 13px;
+    background: #ffffff20;
+    padding: 10px 12px;
+    border-radius: 12px;
 }
 
-.welcome {
-    background: linear-gradient(135deg, #ffffff, #e3f5ed);
-    text-align: center;
-    padding: 30px 15px;
-}
-
-.welcome h1 {
-    color: #087f5b;
-}
-
-.welcome p {
-    color: #666;
-}
+/* الموقع */
 
 .location {
     background: white;
-    text-align: center;
-    padding: 13px;
-    color: #087f5b;
+    padding: 13px 18px;
+    color: var(--green);
+    font-size: 13px;
+    border-bottom: 1px solid #edf1ee;
+}
+
+/* الواجهة الترحيبية */
+
+.hero {
+    margin: 15px;
+    padding: 28px 21px;
+    min-height: 190px;
+    border-radius: 23px;
+    background:
+        radial-gradient(circle at 10% 15%, #ffffff30 0, transparent 30%),
+        linear-gradient(135deg, #087f5b, #064c38);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "🛒";
+    position: absolute;
+    left: 12px;
+    bottom: -22px;
+    font-size: 105px;
+    opacity: .15;
+    transform: rotate(-15deg);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 280px;
+}
+
+.hero h1 {
+    margin: 0 0 12px;
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+.hero p {
+    margin: 0;
+    line-height: 1.8;
+    font-size: 14px;
+    color: #e2f5eb;
+}
+
+.hero-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 11px 18px;
+    background: white;
+    color: var(--green);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 /* البحث */
 
 .search-section {
-    padding: 15px;
+    padding: 8px 15px 15px;
+}
+
+.search-wrapper {
+    background: white;
+    border: 1px solid #e1ebe5;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    box-shadow: 0 3px 12px #00000006;
+}
+
+.search-icon {
+    font-size: 21px;
+    color: var(--green);
 }
 
 .search-box {
     width: 100%;
-    padding: 15px;
-    border: 1px solid #dce9e2;
-    border-radius: 13px;
-    font-size: 15px;
-    background: white;
+    border: none;
     outline: none;
+    padding: 16px 11px;
+    font-size: 14px;
+    background: transparent;
+    font-family: inherit;
 }
 
-.search-box:focus {
-    border-color: #087f5b;
-    box-shadow: 0 0 0 3px #087f5b18;
+.search-wrapper:focus-within {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px #087f5b15;
 }
 
 .search-hint {
-    color: #888;
+    color: var(--muted);
     font-size: 12px;
-    margin: 8px 5px 0;
+    margin: 9px 5px 0;
 }
 
-.categories,
-.stores,
-.products-section,
-.favorites-section {
-    padding: 18px;
+/* الأقسام */
+
+section.content-section {
+    padding: 15px;
 }
 
-.categories h2,
-.stores h2,
-.products-section h2,
-.favorites-section h2 {
-    color: #087f5b;
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 18px;
+}
+
+.section-heading span {
+    color: var(--green);
+    font-size: 12px;
 }
 
 .category-list {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
 .category {
     background: white;
-    padding: 13px;
-    border-radius: 12px;
+    border: 1px solid #edf1ee;
+    border-radius: 16px;
+    padding: 15px 5px;
     text-align: center;
-    flex: 1;
-    min-width: 75px;
-    box-shadow: 0 2px 7px #00000008;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 3px 10px #00000005;
+}
+
+.category:active {
+    transform: scale(.96);
+}
+
+.category.active {
+    background: var(--light);
+    border: 1px solid var(--green);
+}
+
+.category-icon {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.category-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #43554b;
+}
+
+.category.active .category-name {
+    color: var(--green);
+}
+
+/* البطاقات */
+
+.store-grid,
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
 }
 
 .store-card,
 .product-card {
     background: white;
-    padding: 17px;
-    margin-bottom: 13px;
+    border: 1px solid #edf1ee;
+    border-radius: 17px;
+    padding: 14px;
+    box-shadow: 0 3px 12px #00000007;
+    min-width: 0;
+    transition: .2s;
+}
+
+.store-card:active,
+.product-card:active {
+    transform: scale(.98);
+}
+
+.store-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 14px;
-    box-shadow: 0 2px 7px #0000000c;
-    transition: transform .2s ease;
+    background: var(--light);
+    font-size: 26px;
+    margin-bottom: 10px;
 }
 
 .store-card h3,
 .product-card h3 {
-    color: #087f5b;
+    color: var(--green);
+    font-size: 15px;
+    margin: 5px 0 9px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .store-card p,
 .product-card p {
-    color: #666;
-    font-size: 14px;
+    color: var(--muted);
+    font-size: 12px;
+    margin: 6px 0;
+    line-height: 1.6;
 }
 
-.store-card a,
-.product-link,
-.all-stores {
+.store-link,
+.product-link {
     display: block;
-    background: #087f5b;
+    background: var(--green);
     color: white;
     text-decoration: none;
     text-align: center;
-    padding: 12px;
-    border-radius: 9px;
+    padding: 11px 5px;
+    border-radius: 10px;
     margin-top: 12px;
-}
-
-.all-stores {
-    margin: 15px 0;
-    font-size: 16px;
-}
-
-.favorite-btn {
-    background: #fff0f0;
-    color: #e53935;
-    border: none;
-    padding: 9px 13px;
-    border-radius: 9px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 8px;
-}
-
-.favorite-btn.saved {
-    background: #ffe1e1;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .product-icon {
-    font-size: 35px;
-    margin-bottom: 8px;
+    background: #f1f7f3;
+    border-radius: 14px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 43px;
+    margin-bottom: 10px;
 }
 
-.section-label {
-    color: #888;
-    font-size: 12px;
-    margin-top: -7px;
+.product-price {
+    color: #087f5b !important;
+    font-size: 14px !important;
+    font-weight: bold;
 }
+
+/* المفضلة */
+
+.favorite-btn {
+    width: 100%;
+    border: none;
+    background: #fff0f0;
+    color: #d83d3d;
+    padding: 9px;
+    border-radius: 9px;
+    margin-top: 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.favorite-btn.saved {
+    background: #ffe0e0;
+}
+
+/* الرسائل */
 
 .empty-message {
     background: white;
-    padding: 18px;
-    border-radius: 12px;
+    padding: 20px 12px;
+    border-radius: 15px;
     text-align: center;
-    color: #777;
-    line-height: 1.8;
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 13px;
+    border: 1px solid #edf1ee;
+    grid-column: 1 / -1;
 }
 
 #loading {
     text-align: center;
     padding: 20px;
-    color: #087f5b;
+    color: var(--green);
 }
+
+.section-label {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 7px 0 15px;
+}
+
+/* زر جميع المتاجر */
+
+.all-stores {
+    display: block;
+    text-align: center;
+    background: var(--light);
+    color: var(--green);
+    padding: 13px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* التذييل */
 
 footer {
     text-align: center;
-    padding: 20px;
-    color: #087f5b;
+    padding: 25px 15px;
+    color: var(--green);
+    font-size: 13px;
+    line-height: 1.8;
 }
 
-/* شريط التنقل */
+/* ظهور العناصر */
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 9999;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: rgba(255,255,255,0.97);
-    border-top: 1px solid #e5eee9;
-    box-shadow: 0 -3px 15px #00000012;
-    padding: 9px 4px;
-    padding-bottom: calc(9px + env(safe-area-inset-bottom));
+.store-card,
+.product-card,
+.category {
+    animation: fadeIn .35s ease;
 }
 
-.nav-item {
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    color: #89958f;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    transition: .25s ease;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.nav-icon {
-    position: relative;
-    font-size: 23px;
-    transition: transform .25s ease;
-}
+@media (min-width: 600px) {
+    .hero {
+        max-width: 750px;
+        margin: 20px auto;
+    }
 
-.nav-item.active {
-    color: #087f5b;
-    font-weight: bold;
-}
+    .search-section,
+    section.content-section {
+        max-width: 750px;
+        margin: auto;
+    }
 
-.nav-item.active .nav-icon {
-    transform: translateY(-4px) scale(1.12);
-}
-
-.cart-badge {
-    position: absolute;
-    top: -7px;
-    right: -12px;
-    background: #e53935;
-    color: white;
-    min-width: 17px;
-    height: 17px;
-    padding: 0 4px;
-    border-radius: 20px;
-    font-size: 10px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.cart-badge.show {
-    display: flex;
+    .category-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -278,87 +428,157 @@ footer {
     }
 }
 </style>
+
 </head>
 
 <body>
 
+<!-- الرأس -->
+
 <header class="header">
+
     <div class="logo">🛒 سِلّتي</div>
+
     <a href="cart.html">🛍️ سلة المشتريات</a>
+
 </header>
+
+<!-- المنطقة -->
 
 <div class="location" id="userLocation">
     📍 جاري تحميل المنطقة...
 </div>
 
-<section class="welcome">
-    <h1>أهلاً بك في سِلّتي 💚</h1>
-    <p>كل احتياجاتك من محلات الحي لحد باب بيتك</p>
+<!-- الواجهة الترحيبية -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>كل احتياجاتك أقرب إليك 💚</h1>
+
+        <p>
+            تسوق من متاجر حيك بسهولة،
+            واختر احتياجاتك واطلبها حتى باب بيتك.
+        </p>
+
+        <a href="stores.html" class="hero-btn">
+            ابدأ التسوق الآن ←
+        </a>
+
+    </div>
+
 </section>
 
-<!-- البحث الذكي -->
+<!-- البحث -->
 
 <section class="search-section">
 
-    <input
-        type="search"
-        id="searchInput"
-        class="search-box"
-        placeholder="🔍 ابحث عن متجر أو منتج..."
-        autocomplete="off"
-    >
+    <div class="search-wrapper">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            type="search"
+            id="searchInput"
+            class="search-box"
+            placeholder="ابحث عن متجر أو منتج..."
+            autocomplete="off"
+        >
+
+    </div>
 
     <p class="search-hint">
-        ابحث عن اسم المنتج أو المتجر أو القسم
+        🔍 ابحث عن احتياجاتك في متاجر شرق النيل
     </p>
 
 </section>
 
 <!-- الأقسام -->
 
-<section class="categories">
+<section class="content-section">
 
-    <h2>تسوق حسب القسم</h2>
+    <div class="section-heading">
+        <h2>🧺 تسوق حسب القسم</h2>
+        <span>اكتشف المزيد</span>
+    </div>
 
-    <div class="category-list">
-        <div class="category">🥬<p>بقالة</p></div>
-        <div class="category">🍗<p>مطاعم</p></div>
-        <div class="category">🥟<p>فطائر</p></div>
-        <div class="category">🧃<p>عصائر</p></div>
-        <div class="category">🍰<p>حلويات</p></div>
+    <div class="category-list" id="categoryList">
+
+        <div class="category" data-category="بقالة">
+            <span class="category-icon">🥬</span>
+            <span class="category-name">بقالة</span>
+        </div>
+
+        <div class="category" data-category="خضروات وفواكه">
+            <span class="category-icon">🍎</span>
+            <span class="category-name">خضروات وفواكه</span>
+        </div>
+
+        <div class="category" data-category="مخبوزات">
+            <span class="category-icon">🥖</span>
+            <span class="category-name">مخبوزات</span>
+        </div>
+
+        <div class="category" data-category="مطاعم">
+            <span class="category-icon">🍗</span>
+            <span class="category-name">مطاعم</span>
+        </div>
+
+        <div class="category" data-category="عصائر ومشروبات">
+            <span class="category-icon">🧃</span>
+            <span class="category-name">عصائر</span>
+        </div>
+
+        <div class="category" data-category="حلويات">
+            <span class="category-icon">🍰</span>
+            <span class="category-name">حلويات</span>
+        </div>
+
     </div>
 
 </section>
 
 <!-- المفضلة -->
 
-<section class="favorites-section">
+<section class="content-section">
 
-    <h2>❤️ مفضلتي</h2>
+    <div class="section-heading">
+        <h2>❤️ مفضلتي</h2>
+        <span>اختياراتك المحببة</span>
+    </div>
 
     <p class="section-label">
         متاجرك ومنتجاتك التي أحببتها
     </p>
 
-    <div id="favoritesList">
+    <div id="favoritesList" class="store-grid">
+
         <div class="empty-message">
             لم تضف شيئاً إلى المفضلة بعد ❤️
         </div>
+
     </div>
 
 </section>
 
-<!-- المنتجات الأكثر طلباً -->
+<!-- المنتجات -->
 
-<section class="products-section">
+<section class="content-section">
 
-    <h2>🔥 الأكثر طلباً</h2>
+    <div class="section-heading">
 
-    <p class="section-label">
-        المنتجات التي تحظى بإقبال الزبائن
+        <h2 id="productsTitle">🛍️ منتجات متاجرنا</h2>
+
+        <span>اكتشف المنتجات</span>
+
+    </div>
+
+    <p class="section-label" id="productsHint">
+        تصفح المنتجات المتوفرة في متاجر سِلّتي
     </p>
 
-    <div id="popularProducts">
+    <div id="popularProducts" class="product-grid">
 
         <div class="empty-message">
             جارٍ تحميل المنتجات...
@@ -370,98 +590,64 @@ footer {
 
 <!-- المتاجر -->
 
-<section class="stores">
+<section class="content-section">
 
-    <h2>🏪 متاجر سِلّتي</h2>
+    <div class="section-heading">
+        <h2>🏪 متاجر سِلّتي</h2>
+        <span>متاجر قريبة منك</span>
+    </div>
 
     <a class="all-stores" href="stores.html">
         تصفح جميع المتاجر ←
     </a>
 
-    <div id="storesList">
+    <div id="storesList" class="store-grid">
 
-        <p id="loading">
+        <div class="empty-message">
             جارٍ تحميل المتاجر...
-        </p>
+        </div>
 
     </div>
 
 </section>
 
 <footer>
-    <p>سِلّتي 💚 طلبك من دكانك لحد بابك</p>
+    <strong>سِلّتي 💚</strong>
+    <br>
+    طلبك من دكانك لحد بابك
+    <br>
+    <small>تسوق محلياً... واستمتع بسهولة الطلب</small>
 </footer>
-
-<!-- التنقل السفلي -->
-
-<nav class="bottom-nav">
-
-    <a href="index.html" class="nav-item active">
-        <span class="nav-icon">🏠</span>
-        <span>الرئيسية</span>
-    </a>
-
-    <a href="stores.html" class="nav-item">
-        <span class="nav-icon">🏪</span>
-        <span>المتاجر</span>
-    </a>
-
-    <a href="cart.html" class="nav-item">
-        <span class="nav-icon">
-            🛒
-            <span class="cart-badge" id="cartBadge">0</span>
-        </span>
-        <span>السلة</span>
-    </a>
-
-    <a href="my-orders.html" class="nav-item">
-        <span class="nav-icon">📦</span>
-        <span>طلباتي</span>
-    </a>
-
-    <a href="login.html" class="nav-item">
-        <span class="nav-icon">👤</span>
-        <span>حسابي</span>
-    </a>
-
-</nav>
 
 <script>
 
-/* أدوات التخزين */
+/* =================================
+   أدوات التخزين
+================================= */
 
 function readStorage(key, fallback) {
+
     try {
+
         const value = JSON.parse(localStorage.getItem(key));
+
         return value === null ? fallback : value;
+
     } catch (error) {
+
         return fallback;
+
     }
+
 }
 
-/* عداد السلة */
 
-function updateCartBadge() {
-
-    const cart = readStorage("silatiCart", []);
-
-    const count = Array.isArray(cart)
-        ? cart.reduce((sum, item) => {
-            return sum + Math.max(0, Number(item.quantity) || 0);
-        }, 0)
-        : 0;
-
-    const badge = document.getElementById("cartBadge");
-
-    badge.textContent = count > 99 ? "99+" : count;
-    badge.classList.toggle("show", count > 0);
-}
-
-updateCartBadge();
-
-/* المنطقة */
+/* =================================
+   المنطقة
+================================= */
 
 const savedLocation = readStorage("silatiLocation", null);
+
 const locationBox = document.getElementById("userLocation");
 
 if (savedLocation) {
@@ -475,22 +661,42 @@ if (savedLocation) {
 } else {
 
     locationBox.innerHTML =
-        '📍 <a href="location.html" style="color:#087f5b">اختر منطقتك</a>';
+        '📍 <a href="location.html" style="color:#087f5b;text-decoration:none">اختر منطقتك</a>';
 
 }
 
-/* المفضلة */
+
+/* =================================
+   البيانات
+================================= */
+
+let allStores = [];
+let allProducts = [];
+
+let activeCategory = "";
+
+
+/* =================================
+   المفضلة
+================================= */
 
 function getFavorites() {
+
     const list = readStorage("silatiFavorites", []);
+
     return Array.isArray(list) ? list : [];
+
 }
 
+
 function isFavorite(type, id) {
+
     return getFavorites().some(item =>
         item.type === type && item.id === id
     );
+
 }
+
 
 function toggleFavorite(type, id) {
 
@@ -501,9 +707,13 @@ function toggleFavorite(type, id) {
     );
 
     if (index >= 0) {
+
         favorites.splice(index, 1);
+
     } else {
+
         favorites.push({ type, id });
+
     }
 
     localStorage.setItem(
@@ -513,15 +723,14 @@ function toggleFavorite(type, id) {
 
     renderFavorites();
     renderStores();
-    renderPopularProducts();
+    renderProducts();
+
 }
 
-/* بيانات التطبيق */
 
-let allStores = [];
-let allProducts = [];
-
-/* أدوات إنشاء البطاقات */
+/* =================================
+   زر المفضلة
+================================= */
 
 function createFavoriteButton(type, id) {
 
@@ -530,26 +739,90 @@ function createFavoriteButton(type, id) {
     button.className = "favorite-btn";
 
     function updateButton() {
+
         const saved = isFavorite(type, id);
-        button.textContent = saved ? "❤️ تمت الإضافة" : "🤍 أضف للمفضلة";
+
+        button.textContent = saved
+            ? "❤️ تمت الإضافة للمفضلة"
+            : "🤍 أضف للمفضلة";
+
         button.classList.toggle("saved", saved);
+
     }
 
     updateButton();
 
     button.onclick = () => {
+
         toggleFavorite(type, id);
+
     };
 
     return button;
+
 }
 
-/* بطاقات المتاجر */
+
+/* =================================
+   إنشاء بطاقة متجر
+================================= */
+
+function createStoreCard(store) {
+
+    const card = document.createElement("div");
+
+    card.className = "store-card";
+
+    const icon = document.createElement("div");
+
+    icon.className = "store-icon";
+
+    icon.textContent = "🏪";
+
+    const title = document.createElement("h3");
+
+    title.textContent = store.name || "متجر سِلّتي";
+
+    const type = document.createElement("p");
+
+    type.textContent = "📂 " + (store.type || "متجر عام");
+
+    const region = document.createElement("p");
+
+    region.textContent = "📍 " + (store.region || "شرق النيل");
+
+    const link = document.createElement("a");
+
+    link.className = "store-link";
+
+    link.href =
+        "store.html?id=" + encodeURIComponent(store.id);
+
+    link.textContent = "تصفح المتجر ←";
+
+    card.append(icon, title, type, region);
+
+    card.appendChild(
+        createFavoriteButton("store", store.id)
+    );
+
+    card.appendChild(link);
+
+    return card;
+
+}
+
+
+/* =================================
+   عرض المتاجر
+================================= */
 
 function renderStores() {
 
     const container = document.getElementById("storesList");
-    const search = document.getElementById("searchInput").value.trim();
+
+    const search = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
 
     container.innerHTML = "";
 
@@ -561,61 +834,59 @@ function renderStores() {
             store.region
         ].join(" ").toLowerCase();
 
-        return text.includes(search.toLowerCase());
+        const matchesSearch = text.includes(search);
+
+        const matchesCategory =
+            !activeCategory ||
+            (store.type || "").includes(activeCategory);
+
+        return matchesSearch && matchesCategory;
+
     });
 
     if (filtered.length === 0) {
 
         container.innerHTML =
-            '<div class="empty-message">لا توجد متاجر تطابق بحثك حالياً.</div>';
+            '<div class="empty-message">لا توجد متاجر مطابقة حالياً.</div>';
 
         return;
+
     }
 
     filtered.forEach(store => {
 
-        const card = document.createElement("div");
-        card.className = "store-card";
-
-        const title = document.createElement("h3");
-        title.textContent = "🏪 " + (store.name || "متجر");
-
-        const type = document.createElement("p");
-        type.textContent = "القسم: " + (store.type || "عام");
-
-        const region = document.createElement("p");
-        region.textContent = "المنطقة: " + (store.region || "شرق النيل");
-
-        const link = document.createElement("a");
-        link.href = "store.html?id=" + encodeURIComponent(store.id);
-        link.textContent = "تصفح المنتجات";
-
-        card.append(title, type, region);
-        card.appendChild(createFavoriteButton("store", store.id));
-        card.appendChild(link);
-
-        container.appendChild(card);
+        container.appendChild(createStoreCard(store));
 
     });
+
 }
 
-/* بطاقات المنتجات */
+
+/* =================================
+   إنشاء بطاقة منتج
+================================= */
 
 function createProductCard(product) {
 
     const card = document.createElement("div");
+
     card.className = "product-card";
 
     const icon = document.createElement("div");
+
     icon.className = "product-icon";
+
     icon.textContent = product.icon || "🛍️";
 
     const title = document.createElement("h3");
+
     title.textContent = product.name || "منتج";
 
     const price = document.createElement("p");
+
+    price.className = "product-price";
+
     price.textContent =
-        "السعر: " +
         Number(product.price || 0).toLocaleString("ar") +
         " جنيه";
 
@@ -624,50 +895,120 @@ function createProductCard(product) {
     );
 
     const storeName = document.createElement("p");
+
     storeName.textContent =
-        "المتجر: " + (store ? store.name : "متجر سِلّتي");
+        "🏪 " + (store ? store.name : "متجر سِلّتي");
 
     const link = document.createElement("a");
+
     link.className = "product-link";
-    link.href = "store.html?id=" + encodeURIComponent(product.storeId);
+
+    link.href =
+        "store.html?id=" + encodeURIComponent(product.storeId);
+
     link.textContent = "عرض المنتج";
 
     card.append(icon, title, price, storeName);
-    card.appendChild(createFavoriteButton("product", product.id));
+
+    card.appendChild(
+        createFavoriteButton("product", product.id)
+    );
+
     card.appendChild(link);
 
     return card;
+
 }
 
-/* الأكثر طلباً */
 
-function renderPopularProducts() {
+/* =================================
+   عرض المنتجات
+================================= */
+
+function renderProducts() {
 
     const container = document.getElementById("popularProducts");
 
+    const title = document.getElementById("productsTitle");
+
+    const hint = document.getElementById("productsHint");
+
+    const search = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
+
     container.innerHTML = "";
 
-    const popular = [...allProducts]
-        .filter(product => Number(product.orderCount) > 0)
-        .sort((a, b) =>
-            Number(b.orderCount) - Number(a.orderCount)
-        )
-        .slice(0, 6);
+    let filtered = [...allProducts];
 
-    if (popular.length === 0) {
+    if (search) {
 
-        container.innerHTML =
-            '<div class="empty-message">سيظهر هنا الأكثر طلباً بعد تسجيل بيانات الطلبات 💚</div>';
+        filtered = filtered.filter(product => {
 
-        return;
+            const store = allStores.find(s =>
+                s.id === product.storeId
+            );
+
+            const text = [
+                product.name,
+                store ? store.name : ""
+            ].join(" ").toLowerCase();
+
+            return text.includes(search);
+
+        });
+
+        title.textContent = "🔍 نتائج البحث";
+
+        hint.textContent = "المنتجات المطابقة لما تبحث عنه";
+
+    } else {
+
+        title.textContent = "🛍️ منتجات متاجرنا";
+
+        hint.textContent = "تصفح المنتجات المتوفرة في متاجر سِلّتي";
+
     }
 
-    popular.forEach(product => {
+    if (activeCategory && !search) {
+
+        filtered = filtered.filter(product => {
+
+            const store = allStores.find(s =>
+                s.id === product.storeId
+            );
+
+            return store &&
+                (store.type || "").includes(activeCategory);
+
+        });
+
+        title.textContent = "🧺 منتجات قسم " + activeCategory;
+
+    }
+
+    filtered = filtered.slice(0, 12);
+
+    if (filtered.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty-message">لا توجد منتجات مطابقة حالياً. 💚</div>';
+
+        return;
+
+    }
+
+    filtered.forEach(product => {
+
         container.appendChild(createProductCard(product));
+
     });
+
 }
 
-/* عرض المفضلة */
+
+/* =================================
+   عرض المفضلة
+================================= */
 
 function renderFavorites() {
 
@@ -683,6 +1024,7 @@ function renderFavorites() {
             '<div class="empty-message">لم تضف شيئاً إلى المفضلة بعد ❤️</div>';
 
         return;
+
     }
 
     let found = 0;
@@ -691,106 +1033,111 @@ function renderFavorites() {
 
         if (item.type === "store") {
 
-            const store = allStores.find(s => s.id === item.id);
+            const store = allStores.find(s =>
+                s.id === item.id
+            );
 
             if (!store) return;
 
-            const card = document.createElement("div");
-            card.className = "store-card";
+            container.appendChild(createStoreCard(store));
 
-            const title = document.createElement("h3");
-            title.textContent = "🏪 " + store.name;
-
-            const region = document.createElement("p");
-            region.textContent = "المنطقة: " + (store.region || "شرق النيل");
-
-            const link = document.createElement("a");
-            link.href = "store.html?id=" + encodeURIComponent(store.id);
-            link.textContent = "زيارة المتجر";
-
-            card.append(title, region);
-            card.appendChild(createFavoriteButton("store", store.id));
-            card.appendChild(link);
-
-            container.appendChild(card);
             found++;
 
         }
 
         if (item.type === "product") {
 
-            const product = allProducts.find(p => p.id === item.id);
+            const product = allProducts.find(p =>
+                p.id === item.id
+            );
 
             if (!product) return;
 
             container.appendChild(createProductCard(product));
+
             found++;
+
         }
 
     });
 
     if (found === 0) {
+
         container.innerHTML =
             '<div class="empty-message">ستظهر مفضلتك هنا عند توفر بياناتها.</div>';
+
     }
+
 }
 
-/* البحث الفوري */
 
-document.getElementById("searchInput").addEventListener("input", function() {
+/* =================================
+   البحث الفوري
+================================= */
 
-    const value = this.value.trim();
+document.getElementById("searchInput")
+.addEventListener("input", function() {
 
     renderStores();
 
-    if (value) {
+    renderProducts();
 
-        const container = document.getElementById("popularProducts");
-        container.innerHTML = "";
+});
 
-        const matches = allProducts.filter(product => {
 
-            const store = allStores.find(s => s.id === product.storeId);
+/* =================================
+   الأقسام التفاعلية
+================================= */
 
-            const text = [
-                product.name,
-                store ? store.name : ""
-            ].join(" ").toLowerCase();
+document.querySelectorAll(".category")
+.forEach(category => {
 
-            return text.includes(value.toLowerCase());
-        });
+    category.addEventListener("click", () => {
 
-        if (matches.length === 0) {
+        const selected = category.dataset.category;
 
-            container.innerHTML =
-                '<div class="empty-message">لم نعثر على منتجات بهذا الاسم.</div>';
+        if (activeCategory === selected) {
+
+            activeCategory = "";
 
         } else {
 
-            matches.forEach(product => {
-                container.appendChild(createProductCard(product));
-            });
+            activeCategory = selected;
+
         }
 
-        document.querySelector(".products-section h2").textContent =
-            "🔍 نتائج المنتجات";
+        document.querySelectorAll(".category")
+        .forEach(item => {
 
-    } else {
+            item.classList.toggle(
+                "active",
+                item.dataset.category === activeCategory
+            );
 
-        document.querySelector(".products-section h2").textContent =
-            "🔥 الأكثر طلباً";
+        });
 
-        renderPopularProducts();
-    }
+        renderStores();
+
+        renderProducts();
+
+        document.querySelector(".content-section:nth-of-type(3)")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    });
 
 });
 
-/* تحديث المفضلة */
+
+/* =================================
+   تحديث المفضلة عند تغيير التخزين
+================================= */
 
 window.addEventListener("storage", function() {
-    updateCartBadge();
+
     renderFavorites();
+
 });
+
 
 </script>
 
@@ -805,11 +1152,14 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
+
 async function loadSilatiData() {
 
     const storesList = document.getElementById("storesList");
 
     try {
+
+        // تحميل المتاجر
 
         const storesSnapshot = await getDocs(
             collection(db, "stores")
@@ -828,6 +1178,9 @@ async function loadSilatiData() {
 
         renderStores();
 
+
+        // تحميل المنتجات
+
         const productsSnapshot = await getDocs(
             collection(db, "products")
         );
@@ -843,18 +1196,24 @@ async function loadSilatiData() {
 
         });
 
-        renderPopularProducts();
+
+        // تحديث الواجهة
+
+        renderProducts();
+
         renderFavorites();
+
 
     } catch (error) {
 
         console.error("Firebase Error:", error);
 
         storesList.innerHTML =
-            '<div class="empty-message">تعذر تحميل البيانات. تحقق من الاتصال وحاول مجدداً.</div>';
+            '<div class="empty-message">تعذر تحميل المتاجر. تحقق من الاتصال وحاول مجدداً.</div>';
 
         document.getElementById("popularProducts").innerHTML =
             '<div class="empty-message">تعذر تحميل المنتجات حالياً.</div>';
+
     }
 
 }
@@ -862,6 +1221,8 @@ async function loadSilatiData() {
 loadSilatiData();
 
 </script>
+
 <script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
