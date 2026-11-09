@@ -16,16 +16,16 @@
 
 body {
     margin: 0;
-    padding-bottom: 90px;
+    padding-bottom: 100px;
     background: #f1f5f3;
     font-family: Arial, sans-serif;
     color: #26332e;
 }
 
 .header {
-    background: #087f5b;
+    background: linear-gradient(135deg, #087f5b, #056346);
     color: white;
-    padding: 15px;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,9 +50,9 @@ body {
 .store-info {
     background: linear-gradient(135deg, white, #e3f5ed);
     padding: 22px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px #00000012;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px #0000000c;
 }
 
 .store-info h2 {
@@ -122,7 +122,7 @@ body {
     font-size: 16px;
 }
 
-.store-card button.add-button {
+.add-button {
     width: 100%;
     background: #087f5b;
     color: white;
@@ -160,69 +160,161 @@ body {
 .back-link {
     display: block;
     text-align: center;
-    margin: 20px;
+    margin: 22px;
     color: #087f5b;
     text-decoration: none;
 }
 
-/* شريط التنقل السفلي */
+/* قسم التقييمات */
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 9999;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: rgba(255,255,255,.97);
-    border-top: 1px solid #e5eee9;
-    box-shadow: 0 -3px 15px #00000012;
-    padding: 9px 4px;
-    padding-bottom: calc(9px + env(safe-area-inset-bottom));
-}
-
-.nav-item {
-    flex: 1;
+.rating-summary {
+    background: linear-gradient(135deg, #ffffff, #e8f7ef);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px 0;
     text-align: center;
-    text-decoration: none;
-    color: #89958f;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
+    box-shadow: 0 3px 12px #0000000c;
 }
 
-.nav-icon {
-    position: relative;
-    font-size: 23px;
-}
-
-.nav-item.active {
+.rating-summary h3 {
+    margin-top: 0;
     color: #087f5b;
+}
+
+.average-rating {
+    font-size: 38px;
     font-weight: bold;
+    color: #087f5b;
+    margin: 8px 0;
 }
 
-.cart-badge {
-    position: absolute;
-    top: -7px;
-    right: -12px;
-    background: #e53935;
-    color: white;
-    min-width: 17px;
-    height: 17px;
-    padding: 0 4px;
-    border-radius: 20px;
-    font-size: 10px;
-    display: none;
-    align-items: center;
-    justify-content: center;
+.rating-stars {
+    color: #f5a623;
+    font-size: 25px;
+    letter-spacing: 2px;
 }
 
-.cart-badge.show {
+.rating-count {
+    color: #75827b;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.review-form {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px #0000000c;
+}
+
+.review-form h3 {
+    color: #087f5b;
+    margin-top: 0;
+}
+
+.star-picker {
     display: flex;
+    gap: 8px;
+    justify-content: center;
+    direction: ltr;
+    margin: 15px 0;
+}
+
+.star-picker button {
+    background: none;
+    border: none;
+    font-size: 35px;
+    color: #d5d5d5;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.star-picker button.selected {
+    color: #f5a623;
+}
+
+.review-input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dce9e2;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    margin: 8px 0 12px;
+    outline: none;
+}
+
+.review-input:focus {
+    border-color: #087f5b;
+}
+
+.review-submit {
+    width: 100%;
+    background: #087f5b;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.review-submit:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.review-message {
+    text-align: center;
+    color: #087f5b;
+    line-height: 1.8;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.review-login {
+    display: inline-block;
+    background: #e5f5ed;
+    color: #087f5b;
+    padding: 11px 18px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.reviews-list {
+    margin-top: 18px;
+}
+
+.review-item {
+    background: white;
+    padding: 16px;
+    border-radius: 13px;
+    margin: 12px 0;
+    box-shadow: 0 2px 7px #00000009;
+}
+
+.review-item h4 {
+    margin: 0 0 8px;
+    color: #087f5b;
+}
+
+.review-item .rating-stars {
+    font-size: 18px;
+}
+
+.review-comment {
+    line-height: 1.8;
+    color: #59665f;
+    overflow-wrap: anywhere;
+}
+
+.review-date {
+    color: #999;
+    font-size: 12px;
+    margin-top: 8px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -232,6 +324,7 @@ body {
     }
 }
 </style>
+
 </head>
 
 <body>
@@ -246,6 +339,7 @@ body {
 
 </header>
 
+
 <section class="stores">
 
     <div class="store-info">
@@ -257,6 +351,106 @@ body {
         <p id="storeDetails"></p>
 
     </div>
+
+
+    <!-- تقييم المتجر -->
+
+    <section class="rating-summary">
+
+        <h3>⭐ تقييمات وآراء الزبائن</h3>
+
+        <div class="average-rating" id="averageRating">
+            --
+        </div>
+
+        <div class="rating-stars" id="averageStars">
+            ☆☆☆☆☆
+        </div>
+
+        <div class="rating-count" id="ratingCount">
+            جاري تحميل التقييمات...
+        </div>
+
+    </section>
+
+
+    <!-- نموذج إضافة التقييم -->
+
+    <section class="review-form">
+
+        <h3>✍️ شاركنا تجربتك مع المتجر</h3>
+
+        <div id="reviewAccess">
+
+            <p class="review-message">
+                يمكنك تسجيل الدخول لتقييم هذا المتجر.
+            </p>
+
+            <a href="login.html" class="review-login">
+                تسجيل الدخول
+            </a>
+
+        </div>
+
+
+        <form id="reviewForm" hidden>
+
+            <p style="text-align:center;color:#66736c">
+                اختر عدد النجوم:
+            </p>
+
+            <div class="star-picker" id="starPicker">
+
+                <button type="button" data-rating="1">★</button>
+                <button type="button" data-rating="2">★</button>
+                <button type="button" data-rating="3">★</button>
+                <button type="button" data-rating="4">★</button>
+                <button type="button" data-rating="5">★</button>
+
+            </div>
+
+            <textarea
+                id="reviewComment"
+                class="review-input"
+                rows="4"
+                maxlength="500"
+                placeholder="اكتب رأيك في المتجر..."
+            ></textarea>
+
+            <button
+                type="submit"
+                class="review-submit"
+                id="reviewSubmit"
+            >
+                إرسال التقييم ⭐
+            </button>
+
+        </form>
+
+        <div
+            id="reviewMessage"
+            class="review-message"
+        ></div>
+
+    </section>
+
+
+    <!-- قائمة التقييمات -->
+
+    <section>
+
+        <h3>💬 آراء الزبائن</h3>
+
+        <div id="reviewsList" class="reviews-list">
+
+            <div class="empty-message">
+                جاري تحميل التقييمات...
+            </div>
+
+        </div>
+
+    </section>
+
 
     <h3>🔍 ابحث في منتجات المتجر</h3>
 
@@ -283,56 +477,101 @@ body {
 
 </section>
 
-<!-- شريط التنقل -->
-
-<nav class="bottom-nav">
-
-    <a href="index.html" class="nav-item">
-        <span class="nav-icon">🏠</span>
-        <span>الرئيسية</span>
-    </a>
-
-    <a href="stores.html" class="nav-item">
-        <span class="nav-icon">🏪</span>
-        <span>المتاجر</span>
-    </a>
-
-    <a href="cart.html" class="nav-item">
-        <span class="nav-icon">
-            🛒
-            <span class="cart-badge" id="cartBadge">0</span>
-        </span>
-        <span>السلة</span>
-    </a>
-
-    <a href="my-orders.html" class="nav-item">
-        <span class="nav-icon">📦</span>
-        <span>طلباتي</span>
-    </a>
-
-    <a href="login.html" class="nav-item">
-        <span class="nav-icon">👤</span>
-        <span>حسابي</span>
-    </a>
-
-</nav>
 
 <script src="app.js"></script>
 
-<script>
 
-/* قراءة البيانات المحفوظة */
+<script type="module">
+
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+
+// ===================================
+// عناصر الصفحة
+// ===================================
+
+const titleElement = document.getElementById("storeTitle");
+const welcomeElement = document.getElementById("storeWelcome");
+const detailsElement = document.getElementById("storeDetails");
+
+const container = document.getElementById("productsContainer");
+const searchInput = document.getElementById("productSearch");
+
+const averageRatingElement = document.getElementById("averageRating");
+const averageStarsElement = document.getElementById("averageStars");
+const ratingCountElement = document.getElementById("ratingCount");
+
+const reviewsList = document.getElementById("reviewsList");
+
+const reviewForm = document.getElementById("reviewForm");
+const reviewAccess = document.getElementById("reviewAccess");
+const reviewMessage = document.getElementById("reviewMessage");
+const reviewComment = document.getElementById("reviewComment");
+const reviewSubmit = document.getElementById("reviewSubmit");
+
+const starPicker = document.getElementById("starPicker");
+
+
+// ===================================
+// متغيرات التطبيق
+// ===================================
+
+let currentStore = null;
+let currentProducts = [];
+let currentReviews = [];
+
+let currentUser = null;
+let currentRole = null;
+let currentUserReview = null;
+
+let selectedRating = 5;
+
+const params = new URLSearchParams(window.location.search);
+
+const requestedStoreId =
+    params.get("id") ||
+    params.get("storeId");
+
+
+// ===================================
+// التخزين المحلي
+// ===================================
 
 function readStorage(key, fallback) {
+
     try {
+
         const value = JSON.parse(localStorage.getItem(key));
+
         return value === null ? fallback : value;
+
     } catch (error) {
+
         return fallback;
+
     }
+
 }
 
-/* عداد السلة */
+
+// ===================================
+// عداد السلة
+// ===================================
 
 function updateCartBadge() {
 
@@ -345,25 +584,40 @@ function updateCartBadge() {
 
     const badge = document.getElementById("cartBadge");
 
+    if (!badge) return;
+
     badge.textContent = count > 99 ? "99+" : count;
 
     badge.classList.toggle("show", count > 0);
+
 }
 
 updateCartBadge();
 
-/* المفضلة */
+window.addEventListener("storage", updateCartBadge);
+
+
+// ===================================
+// المفضلة
+// ===================================
 
 function getFavorites() {
+
     const list = readStorage("silatiFavorites", []);
+
     return Array.isArray(list) ? list : [];
+
 }
 
+
 function isFavorite(id) {
+
     return getFavorites().some(item =>
         item.type === "product" && item.id === id
     );
+
 }
+
 
 function toggleFavorite(id) {
 
@@ -374,12 +628,16 @@ function toggleFavorite(id) {
     );
 
     if (index >= 0) {
+
         favorites.splice(index, 1);
+
     } else {
+
         favorites.push({
             type: "product",
             id: id
         });
+
     }
 
     localStorage.setItem(
@@ -388,30 +646,13 @@ function toggleFavorite(id) {
     );
 
     displayProducts(currentProducts);
+
 }
 
-/* بيانات المتجر */
 
-let currentStore = null;
-let currentProducts = [];
-
-/* عناصر الصفحة */
-
-const titleElement = document.getElementById("storeTitle");
-const welcomeElement = document.getElementById("storeWelcome");
-const detailsElement = document.getElementById("storeDetails");
-const container = document.getElementById("productsContainer");
-const searchInput = document.getElementById("productSearch");
-
-/* معرّف المتجر */
-
-const params = new URLSearchParams(window.location.search);
-
-const requestedStoreId =
-    params.get("id") ||
-    params.get("storeId");
-
-/* تحميل المتجر */
+// ===================================
+// تحميل بيانات المتجر
+// ===================================
 
 async function loadStore() {
 
@@ -423,6 +664,7 @@ async function loadStore() {
         );
 
         return;
+
     }
 
     try {
@@ -443,6 +685,7 @@ async function loadStore() {
             );
 
             return;
+
         }
 
         currentStore = {
@@ -462,7 +705,12 @@ async function loadStore() {
                 ? " | 📍 " + currentStore.region
                 : "");
 
-        await loadProducts();
+        await Promise.all([
+            loadProducts(),
+            loadReviews()
+        ]);
+
+        await updateReviewForm();
 
     } catch (error) {
 
@@ -474,14 +722,17 @@ async function loadStore() {
         );
 
     }
+
 }
 
-/* تحميل المنتجات */
+
+// ===================================
+// تحميل المنتجات
+// ===================================
 
 async function loadProducts() {
 
-    container.innerHTML =
-        '<div class="empty-message">جاري تحميل المنتجات...</div>';
+    container.textContent = "جاري تحميل المنتجات...";
 
     try {
 
@@ -513,14 +764,17 @@ async function loadProducts() {
 
         console.error("خطأ تحميل المنتجات:", error);
 
-        container.innerHTML =
-            '<div class="empty-message">تعذر تحميل المنتجات من قاعدة البيانات.</div>';
+        container.textContent =
+            "تعذر تحميل المنتجات من قاعدة البيانات.";
 
     }
 
 }
 
-/* عرض المنتجات */
+
+// ===================================
+// عرض المنتجات
+// ===================================
 
 function displayProducts(products) {
 
@@ -537,14 +791,22 @@ function displayProducts(products) {
 
         return valid &&
             product.name.toLowerCase().includes(search);
+
     });
 
     if (filtered.length === 0) {
 
-        container.innerHTML =
-            '<div class="empty-message">لا توجد منتجات تطابق بحثك حالياً.</div>';
+        const message = document.createElement("div");
+
+        message.className = "empty-message";
+
+        message.textContent =
+            "لا توجد منتجات تطابق بحثك حالياً.";
+
+        container.appendChild(message);
 
         return;
+
     }
 
     filtered.forEach(product => {
@@ -555,7 +817,10 @@ function displayProducts(products) {
 
 }
 
-/* بطاقة المنتج */
+
+// ===================================
+// بطاقة المنتج
+// ===================================
 
 function createProductCard(product) {
 
@@ -589,12 +854,15 @@ function createProductCard(product) {
             saved ? "❤️ في المفضلة" : "🤍 أضف للمفضلة";
 
         favoriteButton.classList.toggle("saved", saved);
+
     }
 
     updateFavoriteButton();
 
     favoriteButton.onclick = () => {
+
         toggleFavorite(product.id);
+
     };
 
     const quantityLabel = document.createElement("label");
@@ -613,6 +881,7 @@ function createProductCard(product) {
         option.textContent = i;
 
         quantitySelect.appendChild(option);
+
     }
 
     const button = document.createElement("button");
@@ -630,6 +899,7 @@ function createProductCard(product) {
             alert("تعذر تشغيل السلة. تحقق من ملف app.js.");
 
             return;
+
         }
 
         window.addToCart(
@@ -652,15 +922,498 @@ function createProductCard(product) {
     card.appendChild(button);
 
     container.appendChild(card);
+
 }
 
-/* البحث */
+
+// ===================================
+// البحث
+// ===================================
 
 searchInput.addEventListener("input", function() {
+
     displayProducts(currentProducts);
+
 });
 
-/* الأخطاء */
+
+// ===================================
+// نظام التقييمات
+// ===================================
+
+function starsText(rating) {
+
+    const number = Math.max(
+        0,
+        Math.min(5, Math.round(Number(rating) || 0))
+    );
+
+    return "★".repeat(number) +
+        "☆".repeat(5 - number);
+
+}
+
+
+// ===================================
+// تحميل تقييمات المتجر
+// ===================================
+
+async function loadReviews() {
+
+    try {
+
+        const reviewsRef = collection(db, "reviews");
+
+        const reviewsQuery = query(
+            reviewsRef,
+            where("storeId", "==", String(currentStore.id))
+        );
+
+        const snapshot = await getDocs(reviewsQuery);
+
+        currentReviews = [];
+
+        snapshot.forEach(reviewDoc => {
+
+            currentReviews.push({
+                id: reviewDoc.id,
+                ...reviewDoc.data()
+            });
+
+        });
+
+        // ترتيب الأحدث أولاً
+        currentReviews.sort((a, b) => {
+
+            const dateA = a.createdAt?.toMillis?.() || 0;
+            const dateB = b.createdAt?.toMillis?.() || 0;
+
+            return dateB - dateA;
+
+        });
+
+        displayReviews();
+
+    } catch (error) {
+
+        console.error("خطأ تحميل التقييمات:", error);
+
+        ratingCountElement.textContent =
+            "تعذر تحميل التقييمات حالياً.";
+
+        reviewsList.textContent =
+            "تعذر عرض آراء الزبائن.";
+
+    }
+
+}
+
+
+// ===================================
+// حساب المتوسط وعرض التقييمات
+// ===================================
+
+function displayReviews() {
+
+    const count = currentReviews.length;
+
+    const total = currentReviews.reduce(
+        (sum, review) => sum + Number(review.rating || 0),
+        0
+    );
+
+    const average = count ? total / count : 0;
+
+    averageRatingElement.textContent =
+        count ? average.toFixed(1) : "--";
+
+    averageStarsElement.textContent =
+        count ? starsText(average) : "☆☆☆☆☆";
+
+    ratingCountElement.textContent =
+        count
+            ? "بناءً على " + count + " تقييم من الزبائن"
+            : "لم يحصل المتجر على تقييمات بعد. كن أول من يقيّمه!";
+
+    reviewsList.innerHTML = "";
+
+    if (count === 0) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty-message";
+
+        empty.textContent =
+            "لا توجد آراء حتى الآن. يسعدنا أن تكون أول من يشارك تجربته 💚";
+
+        reviewsList.appendChild(empty);
+
+        return;
+
+    }
+
+    currentReviews.forEach(review => {
+
+        const item = document.createElement("div");
+
+        item.className = "review-item";
+
+        const name = document.createElement("h4");
+
+        name.textContent =
+            "👤 " + (review.userName || "زبون سِلّتي");
+
+        const stars = document.createElement("div");
+
+        stars.className = "rating-stars";
+
+        stars.textContent =
+            starsText(review.rating);
+
+        const comment = document.createElement("p");
+
+        comment.className = "review-comment";
+
+        comment.textContent =
+            review.comment || "لم يكتب تعليقاً.";
+
+        const date = document.createElement("div");
+
+        date.className = "review-date";
+
+        let dateText = "";
+
+        if (review.createdAt?.toDate) {
+
+            dateText = review.createdAt.toDate().toLocaleDateString("ar");
+
+        }
+
+        date.textContent = dateText;
+
+        item.appendChild(name);
+        item.appendChild(stars);
+        item.appendChild(comment);
+        item.appendChild(date);
+
+        reviewsList.appendChild(item);
+
+    });
+
+}
+
+
+// ===================================
+// التحقق من الحساب وصلاحيات التقييم
+// ===================================
+
+onAuthStateChanged(auth, async user => {
+
+    currentUser = user;
+    currentRole = null;
+    currentUserReview = null;
+
+    await updateReviewForm();
+
+});
+
+
+// ===================================
+// تجهيز نموذج التقييم
+// ===================================
+
+async function updateReviewForm() {
+
+    reviewForm.hidden = true;
+    reviewAccess.hidden = false;
+
+    if (!currentUser) {
+
+        reviewAccess.innerHTML = `
+            <p class="review-message">
+                سجل الدخول أولاً حتى تتمكن من تقييم المتجر.
+            </p>
+            <a href="login.html" class="review-login">
+                تسجيل الدخول
+            </a>
+        `;
+
+        return;
+
+    }
+
+    try {
+
+        const userRef = doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+        const userSnapshot = await getDoc(userRef);
+
+        if (!userSnapshot.exists()) {
+
+            reviewAccess.textContent =
+                "تعذر العثور على بيانات حسابك.";
+
+            return;
+
+        }
+
+        const userData = userSnapshot.data();
+
+        currentRole = userData.role;
+
+        if (currentRole !== "customer") {
+
+            reviewAccess.textContent =
+                currentRole === "merchant"
+                    ? "حساب التاجر لا يستطيع تقييم المتاجر."
+                    : "هذه الميزة متاحة لحسابات الزبائن فقط.";
+
+            return;
+
+        }
+
+        const reviewId =
+            currentStore.id + "_" + currentUser.uid;
+
+        const reviewRef = doc(
+            db,
+            "reviews",
+            reviewId
+        );
+
+        const reviewSnapshot = await getDoc(reviewRef);
+
+        if (reviewSnapshot.exists()) {
+
+            currentUserReview = reviewSnapshot.data();
+
+            selectedRating =
+                Number(currentUserReview.rating) || 5;
+
+            reviewComment.value =
+                currentUserReview.comment || "";
+
+            reviewSubmit.textContent =
+                "تحديث تقييمي ⭐";
+
+            reviewMessage.textContent =
+                "لديك تقييم سابق. يمكنك تعديله في أي وقت.";
+
+        } else {
+
+            currentUserReview = null;
+
+            selectedRating = 5;
+
+            reviewComment.value = "";
+
+            reviewSubmit.textContent =
+                "إرسال التقييم ⭐";
+
+            reviewMessage.textContent =
+                "يسعدنا معرفة رأيك في هذا المتجر.";
+
+        }
+
+        updateStarPicker();
+
+        reviewAccess.hidden = true;
+
+        reviewForm.hidden = false;
+
+    } catch (error) {
+
+        console.error("خطأ التحقق من حساب الزبون:", error);
+
+        reviewAccess.textContent =
+            "تعذر التحقق من صلاحية التقييم. حاول مرة أخرى.";
+
+    }
+
+}
+
+
+// ===================================
+// اختيار النجوم
+// ===================================
+
+function updateStarPicker() {
+
+    const buttons = starPicker.querySelectorAll("button");
+
+    buttons.forEach(button => {
+
+        const rating = Number(button.dataset.rating);
+
+        button.classList.toggle(
+            "selected",
+            rating <= selectedRating
+        );
+
+    });
+
+}
+
+
+starPicker.querySelectorAll("button").forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        selectedRating = Number(this.dataset.rating);
+
+        updateStarPicker();
+
+    });
+
+});
+
+
+// ===================================
+// إرسال أو تحديث التقييم
+// ===================================
+
+reviewForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    if (!currentUser || currentRole !== "customer" || !currentStore) {
+
+        reviewMessage.textContent =
+            "يجب تسجيل الدخول بحساب زبون أولاً.";
+
+        return;
+
+    }
+
+    const comment = reviewComment.value.trim();
+
+    if (selectedRating < 1 || selectedRating > 5) {
+
+        reviewMessage.textContent =
+            "يرجى اختيار عدد النجوم.";
+
+        return;
+
+    }
+
+    if (comment.length > 500) {
+
+        reviewMessage.textContent =
+            "التعليق طويل جداً. الحد الأقصى 500 حرف.";
+
+        return;
+
+    }
+
+    reviewSubmit.disabled = true;
+
+    reviewMessage.textContent =
+        "جارٍ حفظ تقييمك...";
+
+    try {
+
+        const reviewId =
+            currentStore.id + "_" + currentUser.uid;
+
+        const reviewRef = doc(
+            db,
+            "reviews",
+            reviewId
+        );
+
+        const existingSnapshot = await getDoc(reviewRef);
+
+        const userRef = doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+        const userSnapshot = await getDoc(userRef);
+
+        const userData = userSnapshot.exists()
+            ? userSnapshot.data()
+            : {};
+
+        // لا نعرض البريد الإلكتروني للزبائن
+        const userName =
+            currentUser.displayName ||
+            userData.displayName ||
+            userData.name ||
+            userData.fullName ||
+            "زبون سِلّتي";
+
+        const reviewData = {
+
+            storeId: String(currentStore.id),
+
+            userId: currentUser.uid,
+
+            userName: String(userName).slice(0, 60),
+
+            rating: selectedRating,
+
+            comment: comment,
+
+            updatedAt: serverTimestamp()
+
+        };
+
+        if (existingSnapshot.exists()) {
+
+            // تعديل التقييم السابق
+            await setDoc(
+                reviewRef,
+                reviewData,
+                { merge: true }
+            );
+
+            reviewMessage.textContent =
+                "تم تحديث تقييمك بنجاح 💚";
+
+        } else {
+
+            // إنشاء تقييم جديد
+            await setDoc(reviewRef, {
+
+                ...reviewData,
+
+                createdAt: serverTimestamp()
+
+            });
+
+            reviewMessage.textContent =
+                "شكراً لك! تم إرسال تقييمك بنجاح ⭐";
+
+        }
+
+        await loadReviews();
+
+        await updateReviewForm();
+
+    } catch (error) {
+
+        console.error("خطأ حفظ التقييم:", error);
+
+        reviewMessage.textContent =
+            "تعذر حفظ التقييم. تحقق من اتصالك بالإنترنت وحاول مجدداً.";
+
+    } finally {
+
+        reviewSubmit.disabled = false;
+
+    }
+
+});
+
+
+// ===================================
+// رسائل الأخطاء
+// ===================================
 
 function showError(title, message) {
 
@@ -670,61 +1423,21 @@ function showError(title, message) {
 
     detailsElement.textContent = "";
 
-    container.innerHTML =
-        '<div class="empty-message">' + message + '</div>';
+    container.textContent = message;
 
 }
 
-window.addEventListener("storage", updateCartBadge);
+
+// ===================================
+// تشغيل الصفحة
+// ===================================
+
+loadStore();
 
 </script>
 
-<script type="module">
 
-import { db } from "./firebase.js";
-
-import {
-    doc,
-    getDoc,
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
-
-window.db = db;
-
-/* تشغيل تحميل المتجر بعد تجهيز Firebase */
-
-window.addEventListener("silatiFirebaseReady", () => {});
-
-</script>
-
-<script type="module">
-
-import { db } from "./firebase.js";
-
-import {
-    doc,
-    getDoc,
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
-
-/* توفير دوال Firebase للصفحة */
-
-window.doc = doc;
-window.getDoc = getDoc;
-window.collection = collection;
-window.getDocs = getDocs;
-window.query = query;
-window.where = where;
-
-window.dispatchEvent(new Event("silatiFirebaseReady"));
-
-</script>
 <script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
