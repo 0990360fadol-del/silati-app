@@ -1135,12 +1135,15 @@ if ("serviceWorker" in navigator) {
                 registration.scope
             );
         })
-        .catch(function(error) {
-            console.error(
-                "تعذر تسجيل خدمة التطبيق:",
-                error
-            );
-        });
+      .catch(function(error) {
+    alert(
+        "خطأ تسجيل خدمة سِلّتي:\n" +
+        error.name + "\n" +
+        error.message
+    );
+
+    console.error("Service Worker Error:", error);
+});  
     });
 }
 </script></body>
