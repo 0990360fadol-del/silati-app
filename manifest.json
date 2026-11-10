@@ -1,26 +1,32 @@
 {
-"id": "/silati-app/",
-"name": "سِلّتي | طلبك لحد بابك",
-"short_name": "سِلّتي",
-"description": "تسوّق من متاجر منطقتك، وخلّي طلبك يصل لحد بابك.",
-"lang": "ar",
-"dir": "rtl",
-"start_url": "/silati-app/index.html",
-"scope": "/silati-app/",
-"display": "standalone",
-"orientation": "portrait",
-"background_color": "#087f5b",
-"theme_color": "#087f5b",
-"icons": [
-{
-"src": "icons/icon-192.png",
-"sizes": "192x192",
-"type": "image/png"
-},
-{
-"src": "icons/icon-512.png",
-"sizes": "512x512",
-"type": "image/png"
-}
-]
+  "id": "./",
+  "name": "سِلّتي | طلبك لحد بابك",
+  "short_name": "سِلّتي",
+  "description": "تسوّق من متاجر منطقتك، وخلّي طلبك يصل لحد بابك.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#087f5b",
+  "theme_color": "#087f5b",
+  "categories": [
+    "shopping",
+    "food"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
