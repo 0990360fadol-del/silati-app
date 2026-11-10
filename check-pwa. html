@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>فحص تطبيق سِلّتي</title>
+
+<meta name="theme-color" content="#087f5b">
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f1f5f3;
+    color: #263238;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #087f5b;
+}
+
+.subtitle {
+    text-align: center;
+    color: #66736e;
+    line-height: 1.8;
+}
+
+.box {
+    background: white;
+    padding: 17px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #00000010;
+}
+
+.result {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background: #f4f8f6;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.good {
+    border-right: 5px solid #087f5b;
+}
+
+.bad {
+    border-right: 5px solid #d32f2f;
+}
+
+.warning {
+    border-right: 5px solid #e6a000;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #087f5b;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+small {
+    color: #66736e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛒 فحص تطبيق سِلّتي</h1>
+
+    <p class="subtitle">
+        تقرير فني لفحص إعدادات التثبيت والتشغيل
+    </p>
+
+    <div class="box">
+
+        <h3>نتائج الفحص</h3>
+
+        <div id="results">
+            جارٍ الفحص...
+        </div>
+
+        <button onclick="runCheck()">
+            إعادة الفحص
+        </button>
+
+    </div>
+
+    <div class="box">
+
+        <h3>معلومات التطبيق</h3>
+
+        <div id="details"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const BASE = new URL("./", location.href);
+
+const results = document.getElementById("results");
+const details = document.getElementById("details");
+
+function showResult(title, message, type) {
+
+    const div = document.createElement("div");
+
+    div.className = "result " + type;
+
+    div.innerHTML =
+        "<strong>" + title + "</strong><br>" + message;
+
+    results.appendChild(div);
+
+}
+
+function showDetail(title, value) {
+
+    const div = document.createElement("div");
+
+    div.className = "result";
+
+    div.textContent = title + ": " + value;
+
+    details.appendChild(div);
+
+}
+
+async function checkIcon(icon) {
+
+    const url = new URL(icon.src, BASE);
+
+    try {
+
+        const response = await fetch(url, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            return {
+                ok: false,
+                message: "تعذر تحميل الأيقونة: " + response.status
+            };
+        }
+
+        const blob = await response.blob();
+
+        const image = await createImageBitmap(blob);
+
+        return {
+            ok: true,
+            width: image.width,
+            height: image.height,
+            type: blob.type
+        };
+
+    } catch (error) {
+
+        return {
+            ok: false,
+            message: error.message
+        };
+
+    }
+
+}
+
+async function runCheck() {
+
+    results.innerHTML = "";
+    details.innerHTML = "";
+
+    showDetail("المتصفح", navigator.userAgent);
+    showDetail("HTTPS", location.protocol);
+    showDetail("عنوان الصفحة", location.href);
+
+    // فحص الاتصال الآمن
+
+    if (window.isSecureContext) {
+
+        showResult(
+            "الاتصال الآمن",
+            "الموقع يعمل في سياق آمن.",
+            "good"
+        );
+
+    } else {
+
+        showResult(
+            "الاتصال الآمن",
+            "الموقع ليس في سياق آمن.",
+            "bad"
+        );
+
+    }
+
+    // فحص Manifest
+
+    const manifestLink =
+        document.querySelector('link[rel="manifest"]');
+
+    if (!manifestLink) {
+
+        showResult(
+            "ملف Manifest",
+            "لم يتم العثور على رابط Manifest.",
+            "bad"
+        );
+
+        return;
+
+    }
+
+    showDetail("رابط Manifest", manifestLink.href);
+
+    let manifest;
+
+    try {
+
+        const response = await fetch(manifestLink.href, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+        }
+
+        manifest = await response.json();
+
+        showResult(
+            "قراءة Manifest",
+            "تم تحميل الملف وقراءة JSON بنجاح.",
+            "good"
+        );
+
+    } catch (error) {
+
+        showResult(
+            "قراءة Manifest",
+            error.message,
+            "bad"
+        );
+
+        return;
+
+    }
+
+    // معلومات Manifest
+
+    showDetail("اسم التطبيق", manifest.name);
+    showDetail("الاسم المختصر", manifest.short_name);
+    showDetail("وضع العرض", manifest.display);
+    showDetail("Start URL", manifest.start_url);
+    showDetail("Scope", manifest.scope);
+
+    // فحص البيانات الأساسية
+
+    const required = [
+        ["name", manifest.name],
+        ["short_name", manifest.short_name],
+        ["start_url", manifest.start_url],
+        ["display", manifest.display]
+    ];
+
+    required.forEach(item => {
+
+        if (item[1]) {
+
+            showResult(
+                "الحقل " + item[0],
+                "موجود.",
+                "good"
+            );
+
+        } else {
+
+            showResult(
+                "الحقل " + item[0],
+                "مفقود.",
+                "bad"
+            );
+
+        }
+
+    });
+
+    // فحص وضع العرض
+
+    if (
+        ["standalone", "fullscreen", "minimal-ui"]
+        .includes(manifest.display)
+    ) {
+
+        showResult(
+            "وضع التطبيق",
+            "وضع العرض مناسب للتطبيق.",
+            "good"
+        );
+
+    } else {
+
+        showResult(
+            "وضع التطبيق",
+            "وضع العرض يحتاج إلى مراجعة.",
+            "warning"
+        );
+
+    }
+
+    // فحص الأيقونات
+
+    if (
+        !Array.isArray(manifest.icons) ||
+        manifest.icons.length === 0
+    ) {
+
+        showResult(
+            "الأيقونات",
+            "لا توجد أيقونات في Manifest.",
+            "bad"
+        );
+
+    } else {
+
+        for (const icon of manifest.icons) {
+
+            const check = await checkIcon(icon);
+
+            if (!check.ok) {
+
+                showResult(
+                    "الأيقونة " + icon.src,
+                    check.message,
+                    "bad"
+                );
+
+                continue;
+
+            }
+
+            const expected = icon.sizes || "غير محدد";
+
+            const correct =
+                (check.width === 192 && check.height === 192) ||
+                (check.width === 512 && check.height === 512);
+
+            showResult(
+                "الأيقونة " + icon.src,
+                "الأبعاد الفعلية: " +
+                check.width + " × " + check.height +
+                " | الأبعاد المعلنة: " + expected +
+                " | النوع: " + check.type,
+                correct ? "good" : "warning"
+            );
+
+        }
+
+    }
+
+    // فحص Service Worker
+
+    if (!("serviceWorker" in navigator)) {
+
+        showResult(
+            "Service Worker",
+            "المتصفح لا يدعم Service Worker.",
+            "bad"
+        );
+
+    } else {
+
+        try {
+
+            const registrations =
+                await navigator.serviceWorker.getRegistrations();
+
+            const registration = registrations.find(reg => {
+
+                return reg.scope.startsWith(BASE.href);
+
+            });
+
+            if (registration) {
+
+                const worker =
+                    registration.active ||
+                    registration.waiting ||
+                    registration.installing;
+
+                showResult(
+                    "Service Worker",
+                    worker
+                        ? "الحالة: " + worker.state
+                        : "التسجيل موجود دون عامل نشط.",
+                    worker && worker.state === "activated"
+                        ? "good"
+                        : "warning"
+                );
+
+                showDetail(
+                    "نطاق الخدمة",
+                    registration.scope
+                );
+
+            } else {
+
+                showResult(
+                    "Service Worker",
+                    "لم يتم العثور على تسجيل ضمن نطاق سِلّتي.",
+                    "bad"
+                );
+
+            }
+
+        } catch (error) {
+
+            showResult(
+                "Service Worker",
+                error.message,
+                "bad"
+            );
+
+        }
+
+    }
+
+    // فحص حدث التثبيت
+
+    showResult(
+        "ملاحظة التثبيت",
+        "هذا الفحص لا يستطيع وحده إثبات أهلية التثبيت. " +
+        "يجب أيضاً مراجعة تشخيص Chrome.",
+        "warning"
+    );
+
+    showResult(
+        "انتهاء الفحص",
+        "اكتمل جمع معلومات سِلّتي.",
+        "good"
+    );
+
+}
+
+runCheck();
+
+</script>
+
+</body>
+</html>
