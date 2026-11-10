@@ -1,18 +1,19 @@
-// ==================================
+// ==========================================
 // مشروع سِلّتي
-// إعداد Firebase والمصادقة
-// ==================================
+// إعداد Firebase والمصادقة وقاعدة البيانات
+// ==========================================
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+// استيراد Firebase
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
-import { getFirestore } from
-"https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+import { getFirestore }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-import { getAuth } from
-"https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import { getAuth }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
-// إعدادات المشروع
+// إعدادات مشروع سِلّتي
 const firebaseConfig = {
     apiKey: "AIzaSyCYWHHS4GQ0uzRtaLj9PjY5QKKev_IYw6I",
     authDomain: "silati-e8776.firebaseapp.com",
@@ -23,16 +24,20 @@ const firebaseConfig = {
     measurementId: "G-KGHZ9M14H3"
 };
 
-// تشغيل التطبيق
+// تهيئة التطبيق
 const app = initializeApp(firebaseConfig);
 
-// تشغيل قاعدة البيانات
+// تهيئة قاعدة البيانات
 const db = getFirestore(app);
 
-// تشغيل المصادقة
+// تهيئة تسجيل الدخول
 const auth = getAuth(app);
 
-// تصدير الخدمات
-export { app, db, auth };
+// تصدير الخدمات لاستخدامها في جميع الصفحات
+export {
+    app,
+    db,
+    auth
+};
 
-console.log("سِلّتي متصل بخدمات Firebase");
+console.log("✅ سِلّتي متصل بخدمات Firebase");
