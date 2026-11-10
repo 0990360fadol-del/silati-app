@@ -1,192 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>لوحة التاجر | سِلّتي</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f3;
-    color: #26332e;
-}
-
-header {
-    background: #087f5b;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-header h2 { margin: 5px; }
-
-.container {
-    max-width: 700px;
-    margin: 20px auto;
-    padding: 15px;
-}
-
-.box {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px #00000010;
-}
-
-h3 { color: #087f5b; margin-top: 0; }
-
-input, select {
-    width: 100%;
-    padding: 13px;
-    margin: 8px 0 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-}
-
-button {
-    border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    margin: 4px 0;
-}
-
-.save {
-    background: #087f5b;
-    color: white;
-    width: 100%;
-}
-
-.new-store {
-    background: #1976d2;
-    color: white;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.edit {
-    background: #1976d2;
-    color: white;
-    margin: 4px;
-}
-
-.delete {
-    background: #d32f2f;
-    color: white;
-    margin: 4px;
-}
-
-.product, .order {
-    border: 1px solid #eee;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 12px 0;
-}
-
-.product h4 { margin: 5px 0; }
-
-.price {
-    color: #087f5b;
-    font-weight: bold;
-}
-
-.back {
-    display: block;
-    text-align: center;
-    color: #087f5b;
-    margin: 20px;
-    text-decoration: none;
-}
-
-.note {
-    background: #e8f5e9;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.order-status {
-    font-weight: bold;
-    color: #087f5b;
-}
-
-.order-items {
-    background: #f7faf8;
-    padding: 10px;
-    border-radius: 8px;
-    line-height: 1.9;
-}
-
-.customer-info {
-    background: #edf7f2;
-    border-right: 4px solid #087f5b;
-    padding: 13px;
-    border-radius: 8px;
-    margin: 12px 0;
-    line-height: 2;
-}
-
-.customer-info h4 {
-    margin: 0 0 8px;
-    color: #087f5b;
-}
-
-.customer-info p {
-    margin: 3px 0;
-    overflow-wrap: anywhere;
-}
-
-.phone-link {
-    color: #087f5b;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.empty {
-    color: #777;
-    text-align: center;
-    padding: 15px;
-}
-
-#connectionStatus {
-    padding: 12px;
-    margin: 15px 0;
-    border-radius: 8px;
-    background: #fff3cd;
-    color: #795900;
-    line-height: 1.8;
-    white-space: pre-line;
-}
-
-.cloud-label {
-    display: inline-block;
-    background: #e8f5e9;
-    color: #087f5b;
-    padding: 5px 9px;
-    border-radius: 6px;
-    font-size: 12px;
-    margin: 5px 0;
-}
-
-.local-label {
-    display: inline-block;
-    background: #fff3cd;
-    color: #795900;
-    padding: 5px 9px;
-    border-radius: 6px;
-    font-size: 12px;
-    margin: 5px 0;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f3;color:#26332e}
+header{background:#087f5b;color:white;padding:20px;text-align:center}
+header h2{margin:5px}
+.container{max-width:700px;margin:20px auto;padding:15px}
+.box{background:white;padding:20px;margin-bottom:20px;border-radius:12px;box-shadow:0 2px 8px #00000010}
+h3{color:#087f5b;margin-top:0}
+input,select{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #ddd;border-radius:8px;font-size:16px;background:white}
+button{border:none;padding:12px 18px;border-radius:8px;cursor:pointer;font-size:15px;margin:4px 0}
+.save{background:#087f5b;color:white;width:100%}
+.new-store{background:#1976d2;color:white;width:100%;margin-top:8px}
+.edit{background:#1976d2;color:white;margin:4px}
+.delete{background:#d32f2f;color:white;margin:4px}
+.product,.order{border:1px solid #eee;padding:15px;border-radius:10px;margin:12px 0}
+.product h4{margin:5px 0}
+.price{color:#087f5b;font-weight:bold}
+.back{display:block;text-align:center;color:#087f5b;margin:20px;text-decoration:none}
+.note{background:#e8f5e9;padding:12px;border-radius:8px;font-size:14px;line-height:1.7}
+.order-status{font-weight:bold;color:#087f5b}
+.order-items{background:#f7faf8;padding:10px;border-radius:8px;line-height:1.9}
+.customer-info{background:#edf7f2;border-right:4px solid #087f5b;padding:13px;border-radius:8px;margin:12px 0;line-height:2}
+.customer-info h4{margin:0 0 8px;color:#087f5b}
+.customer-info p{margin:3px 0;overflow-wrap:anywhere}
+.phone-link{color:#087f5b;font-weight:bold;text-decoration:none}
+.empty{color:#777;text-align:center;padding:15px}
+#connectionStatus{padding:12px;margin:15px 0;border-radius:8px;background:#fff3cd;color:#795900;line-height:1.8;white-space:pre-line}
+.cloud-label{display:inline-block;background:#e8f5e9;color:#087f5b;padding:5px 9px;border-radius:6px;font-size:12px;margin:5px 0}
+.local-label{display:inline-block;background:#fff3cd;color:#795900;padding:5px 9px;border-radius:6px;font-size:12px;margin:5px 0}
 </style>
 </head>
 
@@ -205,13 +52,10 @@ button {
 
 <div class="box">
     <h3>🏪 اختيار المتجر</h3>
-
     <label>اختر المتجر الذي تريد إدارته</label>
-
     <select id="storeSelect">
         <option value="">اختر متجراً</option>
     </select>
-
     <p class="note">
         يمكنك إدارة عدة متاجر من هذه الصفحة،
         ولكل متجر منتجاته وطلباته الخاصة.
@@ -252,13 +96,8 @@ button {
         <option>منطقة أخرى بشرق النيل</option>
     </select>
 
-    <button class="save" onclick="saveStore()">
-        حفظ تعديلات المتجر
-    </button>
-
-    <button class="new-store" onclick="createStore()">
-        ➕ تسجيل متجر جديد
-    </button>
+    <button class="save" onclick="saveStore()">حفظ تعديلات المتجر</button>
+    <button class="new-store" onclick="createStore()">➕ تسجيل متجر جديد</button>
 </div>
 
 <div class="box">
@@ -268,39 +107,29 @@ button {
     <input id="productName" placeholder="مثلاً: أرز">
 
     <label>سعر المنتج بالجنيه</label>
-    <input id="productPrice" type="number" min="1"
-    placeholder="مثلاً: 5000">
+    <input id="productPrice" type="number" min="1" placeholder="مثلاً: 5000">
 
-    <button class="save" onclick="saveProduct()">
-        حفظ المنتج
-    </button>
+    <button class="save" onclick="saveProduct()">حفظ المنتج</button>
 
     <input type="hidden" id="editId">
 
-    <button class="delete" onclick="cancelEdit()"
-    id="cancelEdit" style="display:none;">
+    <button class="delete" onclick="cancelEdit()" id="cancelEdit" style="display:none">
         إلغاء التعديل
     </button>
 </div>
 
 <div class="box">
     <h3>📦 منتجات المتجر المحدد</h3>
-    <div id="productsList">
-        اختر متجراً لعرض منتجاته.
-    </div>
+    <div id="productsList">اختر متجراً لعرض منتجاته.</div>
 </div>
 
 <div class="box">
     <h3>🛎️ طلبات الزبائن</h3>
-
     <p class="note">
         الطلبات السحابية تظهر هنا عند وصولها من الزبائن.
         يمكنك تحديث حالة الطلب، وسيتم حفظ التحديث في Firebase.
     </p>
-
-    <div id="ordersList">
-        اختر متجراً لعرض طلباته.
-    </div>
+    <div id="ordersList">اختر متجراً لعرض طلباته.</div>
 </div>
 
 </div>
@@ -329,11 +158,16 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
+
+/* =================================
+   البيانات الأساسية
+================================= */
+
 function readData(key) {
     try {
         const data = JSON.parse(localStorage.getItem(key) || "[]");
         return Array.isArray(data) ? data : [];
-    } catch (error) {
+    } catch {
         return [];
     }
 }
@@ -375,7 +209,26 @@ function refreshOrders() {
     orders = readData("silatiOrders");
 }
 
-// نقل المتاجر
+
+/* =================================
+   التحقق من ملكية المتجر
+================================= */
+
+async function verifyOwnedStore(storeId) {
+    if (!currentUser || !storeId) return false;
+
+    const storeRef = doc(db, "stores", String(storeId));
+    const snapshot = await getDoc(storeRef);
+
+    return snapshot.exists() &&
+        snapshot.data().ownerUid === currentUser.uid;
+}
+
+
+/* =================================
+   نقل المتاجر القديمة
+================================= */
+
 async function migrateStores() {
     let moved = 0;
     let skipped = 0;
@@ -383,6 +236,11 @@ async function migrateStores() {
 
     for (const store of stores) {
         try {
+            if (!store.id || !store.name) {
+                skipped++;
+                continue;
+            }
+
             const storeId = String(store.id);
             const storeRef = doc(db, "stores", storeId);
             const snapshot = await getDoc(storeRef);
@@ -419,7 +277,12 @@ async function migrateStores() {
     return { moved, skipped, failed };
 }
 
-// نقل المنتجات
+
+/* =================================
+   نقل المنتجات القديمة بأمان
+   لا نكتب فوق منتج موجود في السحابة
+================================= */
+
 async function migrateProducts() {
     let moved = 0;
     let skipped = 0;
@@ -427,7 +290,14 @@ async function migrateProducts() {
 
     for (const product of products) {
         try {
-            const storeId = String(product.storeId);
+            const storeId = String(product.storeId || "");
+            const productId = String(product.id || "");
+
+            if (!storeId || !productId || productId === "undefined") {
+                skipped++;
+                continue;
+            }
+
             const store = stores.find(
                 s => String(s.id) === storeId
             );
@@ -437,9 +307,9 @@ async function migrateProducts() {
                 continue;
             }
 
-            const productId = String(product.id);
+            const isOwner = await verifyOwnedStore(storeId);
 
-            if (!productId || productId === "undefined") {
+            if (!isOwner) {
                 skipped++;
                 continue;
             }
@@ -454,27 +324,24 @@ async function migrateProducts() {
             const productRef = doc(db, "products", productId);
             const snapshot = await getDoc(productRef);
 
-            const data = {
+            // المنتج موجود في السحابة، لا نستبدل بياناته
+            if (snapshot.exists()) {
+                skipped++;
+                continue;
+            }
+
+            await setDoc(productRef, {
                 id: productId,
                 storeId,
                 name: product.name,
                 price,
                 icon: product.icon || "📦",
+                createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp()
-            };
-
-            if (snapshot.exists()) {
-                if (String(snapshot.data().storeId) !== storeId) {
-                    skipped++;
-                    continue;
-                }
-                await updateDoc(productRef, data);
-            } else {
-                data.createdAt = serverTimestamp();
-                await setDoc(productRef, data);
-            }
+            });
 
             moved++;
+
         } catch (error) {
             console.error("خطأ نقل منتج:", error);
             failed++;
@@ -484,12 +351,20 @@ async function migrateProducts() {
     return { moved, skipped, failed };
 }
 
-// تحميل المنتجات
+
+/* =================================
+   تحميل منتجات السحابة
+================================= */
+
 async function loadCloudProducts() {
     const result = [];
 
     for (const store of stores) {
         const storeId = String(store.id);
+
+        if (!(await verifyOwnedStore(storeId))) {
+            continue;
+        }
 
         const q = query(
             collection(db, "products"),
@@ -504,8 +379,8 @@ async function loadCloudProducts() {
             result.push({
                 id: data.id || item.id,
                 storeId: String(data.storeId),
-                name: data.name,
-                price: Number(data.price),
+                name: data.name || "",
+                price: Number(data.price || 0),
                 icon: data.icon || "📦"
             });
         });
@@ -515,9 +390,19 @@ async function loadCloudProducts() {
     saveProductsData();
 }
 
-// تحميل الطلبات القديمة والجديدة
+
+/* =================================
+   تحميل طلبات السحابة
+================================= */
+
 async function loadCloudOrders(storeId) {
     cloudOrders = [];
+
+    const isOwner = await verifyOwnedStore(storeId);
+
+    if (!isOwner) {
+        throw new Error("هذا المتجر غير تابع لحسابك.");
+    }
 
     const q = query(
         collection(db, "orders"),
@@ -540,8 +425,13 @@ async function loadCloudOrders(storeId) {
     return cloudOrders;
 }
 
-// التحقق من حساب التاجر
+
+/* =================================
+   التحقق من حساب التاجر
+================================= */
+
 onAuthStateChanged(auth, async function(user) {
+
     if (!user) {
         showMessage("يجب تسجيل الدخول أولاً.");
         window.location.href = "login.html";
@@ -577,7 +467,8 @@ onAuthStateChanged(auth, async function(user) {
         showMessage(
             "تم الاتصال بقاعدة البيانات بنجاح 💚\n" +
             "المتاجر المحدّثة: " + storeResult.moved + "\n" +
-            "المنتجات المحدّثة: " + productResult.moved + "\n" +
+            "المنتجات المنقولة حديثاً: " + productResult.moved + "\n" +
+            "المنتجات الموجودة مسبقاً: " + productResult.skipped + "\n" +
             "العمليات المتعثرة: " +
             (storeResult.failed + productResult.failed),
             storeResult.failed === 0 && productResult.failed === 0
@@ -592,7 +483,11 @@ onAuthStateChanged(auth, async function(user) {
     }
 });
 
-// قائمة المتاجر
+
+/* =================================
+   قائمة المتاجر
+================================= */
+
 function renderStoreSelect() {
     const select = document.getElementById("storeSelect");
     select.innerHTML = '<option value="">اختر متجراً</option>';
@@ -607,7 +502,11 @@ function renderStoreSelect() {
     select.value = activeStoreId;
 }
 
-// اختيار متجر
+
+/* =================================
+   اختيار متجر
+================================= */
+
 async function selectStore() {
     activeStoreId = document.getElementById("storeSelect").value;
 
@@ -634,7 +533,11 @@ function clearStoreForm() {
     document.getElementById("storeRegion").value = "";
 }
 
-// حفظ المتجر
+
+/* =================================
+   حفظ بيانات المتجر
+================================= */
+
 async function saveStore() {
     if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
     if (!activeStoreId) return alert("اختر متجراً أولاً.");
@@ -654,15 +557,11 @@ async function saveStore() {
     if (!store) return;
 
     try {
-        const storeRef = doc(db, "stores", String(store.id));
-        const snapshot = await getDoc(storeRef);
-
-        if (!snapshot.exists() ||
-            snapshot.data().ownerUid !== currentUser.uid) {
+        if (!(await verifyOwnedStore(store.id))) {
             return alert("لا يمكن تعديل هذا المتجر.");
         }
 
-        await updateDoc(storeRef, {
+        await updateDoc(doc(db, "stores", String(store.id)), {
             name,
             type,
             region,
@@ -677,12 +576,17 @@ async function saveStore() {
         renderStoreSelect();
 
         alert("تم تحديث بيانات المتجر بنجاح 💚");
+
     } catch (error) {
-        alert("تعذر تحديث المتجر: " + error.message);
+        alert("تعذر تحديث المتجر: " + (error.code || error.message));
     }
 }
 
-// إنشاء متجر
+
+/* =================================
+   إنشاء متجر جديد
+================================= */
+
 async function createStore() {
     if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
 
@@ -719,12 +623,17 @@ async function createStore() {
         await selectStore();
 
         alert("تم تسجيل المتجر في السحابة بنجاح 💚");
+
     } catch (error) {
-        alert("تعذر تسجيل المتجر: " + error.message);
+        alert("تعذر تسجيل المتجر: " + (error.code || error.message));
     }
 }
 
-// حفظ منتج
+
+/* =================================
+   حفظ منتج جديد أو تعديل منتج
+================================= */
+
 async function saveProduct() {
     if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
     if (!activeStoreId) return alert("اختر متجراً أولاً.");
@@ -738,6 +647,10 @@ async function saveProduct() {
     }
 
     try {
+        if (!(await verifyOwnedStore(activeStoreId))) {
+            return alert("لا تملك صلاحية إدارة منتجات هذا المتجر.");
+        }
+
         const productId = editId || createId();
         const productRef = doc(db, "products", String(productId));
 
@@ -751,41 +664,44 @@ async function saveProduct() {
         };
 
         if (editId) {
-            const oldProduct = products.find(
-                p => String(p.id) === String(editId) &&
-                     String(p.storeId) === String(activeStoreId)
-            );
+            const snapshot = await getDoc(productRef);
 
-            if (!oldProduct) return alert("المنتج غير موجود.");
+            if (!snapshot.exists()) {
+                return alert("المنتج غير موجود في قاعدة البيانات.");
+            }
+
+            if (String(snapshot.data().storeId) !== String(activeStoreId)) {
+                return alert("هذا المنتج لا يتبع المتجر المحدد.");
+            }
 
             await updateDoc(productRef, productData);
 
-            oldProduct.name = name;
-            oldProduct.price = price;
         } else {
             productData.createdAt = serverTimestamp();
             await setDoc(productRef, productData);
-
-            products.push({
-                id: productId,
-                storeId: activeStoreId,
-                name,
-                price,
-                icon: "📦"
-            });
         }
 
-        saveProductsData();
+        await loadCloudProducts();
+
         cancelEdit();
         renderProducts();
 
-        alert("تم حفظ المنتج في السحابة بنجاح 💚");
+        alert(editId
+            ? "تم تعديل المنتج في السحابة بنجاح 💚"
+            : "تمت إضافة المنتج إلى السحابة بنجاح 💚"
+        );
+
     } catch (error) {
-        alert("تعذر حفظ المنتج: " + error.message);
+        console.error(error);
+        alert("تعذر حفظ المنتج: " + (error.code || error.message));
     }
 }
 
-// عرض المنتجات
+
+/* =================================
+   عرض المنتجات
+================================= */
+
 function renderProducts() {
     const container = document.getElementById("productsList");
     container.innerHTML = "";
@@ -830,7 +746,11 @@ function renderProducts() {
     });
 }
 
-// تعديل منتج
+
+/* =================================
+   تعديل منتج
+================================= */
+
 function editProduct(id) {
     const product = products.find(
         p => String(p.id) === String(id) &&
@@ -847,7 +767,11 @@ function editProduct(id) {
     window.scrollTo({ top: 300, behavior: "smooth" });
 }
 
-// إلغاء التعديل
+
+/* =================================
+   إلغاء التعديل
+================================= */
+
 function cancelEdit() {
     document.getElementById("productName").value = "";
     document.getElementById("productPrice").value = "";
@@ -855,12 +779,20 @@ function cancelEdit() {
     document.getElementById("cancelEdit").style.display = "none";
 }
 
-// حذف منتج
+
+/* =================================
+   حذف منتج من السحابة
+================================= */
+
 async function deleteProduct(id) {
     if (!confirm("هل تريد حذف هذا المنتج؟")) return;
     if (!accountReady) return alert("انتظر حتى يتم التحقق من حسابك.");
 
     try {
+        if (!(await verifyOwnedStore(activeStoreId))) {
+            return alert("لا تملك صلاحية حذف منتجات هذا المتجر.");
+        }
+
         const product = products.find(
             p => String(p.id) === String(id) &&
                  String(p.storeId) === String(activeStoreId)
@@ -868,7 +800,18 @@ async function deleteProduct(id) {
 
         if (!product) return alert("المنتج غير موجود.");
 
-        await deleteDoc(doc(db, "products", String(id)));
+        const productRef = doc(db, "products", String(id));
+        const snapshot = await getDoc(productRef);
+
+        if (!snapshot.exists()) {
+            return alert("المنتج غير موجود في قاعدة البيانات.");
+        }
+
+        if (String(snapshot.data().storeId) !== String(activeStoreId)) {
+            return alert("هذا المنتج لا يتبع المتجر المحدد.");
+        }
+
+        await deleteDoc(productRef);
 
         products = products.filter(
             p => !(String(p.id) === String(id) &&
@@ -878,13 +821,19 @@ async function deleteProduct(id) {
         saveProductsData();
         renderProducts();
 
-        alert("تم حذف المنتج بنجاح.");
+        alert("تم حذف المنتج من السحابة بنجاح.");
+
     } catch (error) {
-        alert("تعذر حذف المنتج: " + error.message);
+        console.error(error);
+        alert("تعذر حذف المنتج: " + (error.code || error.message));
     }
 }
 
-// بيانات الزبون
+
+/* =================================
+   بيانات الزبون
+================================= */
+
 function renderCustomerInfo(customer) {
     const box = document.createElement("div");
     box.className = "customer-info";
@@ -932,7 +881,11 @@ function renderCustomerInfo(customer) {
     return box;
 }
 
-// تاريخ الطلب
+
+/* =================================
+   تاريخ الطلب
+================================= */
+
 function formatOrderDate(order) {
     if (order.date) return order.date;
 
@@ -949,7 +902,11 @@ function formatOrderDate(order) {
     return "غير محدد";
 }
 
-// دمج الطلبات ومنع التكرار
+
+/* =================================
+   دمج الطلبات المحلية والسحابية
+================================= */
+
 function getCombinedOrders() {
     refreshOrders();
 
@@ -974,7 +931,11 @@ function getCombinedOrders() {
     return Array.from(map.values()).reverse();
 }
 
-// عرض الطلبات
+
+/* =================================
+   عرض الطلبات
+================================= */
+
 async function renderOrders() {
     const container = document.getElementById("ordersList");
     container.innerHTML = "";
@@ -1071,11 +1032,11 @@ async function renderOrders() {
 
         const select = document.createElement("select");
 
+        // الحالات الخمس المتوافقة مع قواعد الطلبات الحالية
         [
             "جديد",
             "قيد التجهيز",
             "جاهز للتسليم",
-            "المندوب في الطريق",
             "تم التسليم",
             "ملغي"
         ].forEach(value => {
@@ -1085,7 +1046,16 @@ async function renderOrders() {
             select.appendChild(option);
         });
 
-        select.value = order.status || "جديد";
+        const currentStatus = order.status || "جديد";
+
+        if (!Array.from(select.options).some(o => o.value === currentStatus)) {
+            const option = document.createElement("option");
+            option.value = currentStatus;
+            option.textContent = currentStatus;
+            select.appendChild(option);
+        }
+
+        select.value = currentStatus;
 
         const updateButton = document.createElement("button");
         updateButton.className = "save";
@@ -1115,7 +1085,11 @@ async function renderOrders() {
     });
 }
 
-// تحديث حالة الطلب
+
+/* =================================
+   تحديث حالة الطلب
+================================= */
+
 async function updateOrderStatus(orderId, newStatus, isCloud) {
     if (!accountReady) {
         alert("انتظر حتى يتم التحقق من حسابك.");
@@ -1126,7 +1100,6 @@ async function updateOrderStatus(orderId, newStatus, isCloud) {
         "جديد",
         "قيد التجهيز",
         "جاهز للتسليم",
-        "المندوب في الطريق",
         "تم التسليم",
         "ملغي"
     ];
@@ -1160,6 +1133,7 @@ async function updateOrderStatus(orderId, newStatus, isCloud) {
             }
 
             alert("تم تحديث حالة الطلب في السحابة بنجاح 💚");
+
         } else {
             const localOrder = orders.find(
                 o => String(o.id) === String(orderId)
@@ -1180,6 +1154,7 @@ async function updateOrderStatus(orderId, newStatus, isCloud) {
         }
 
         await renderOrders();
+
     } catch (error) {
         console.error(error);
 
@@ -1190,7 +1165,11 @@ async function updateOrderStatus(orderId, newStatus, isCloud) {
     }
 }
 
-// تشغيل الصفحة
+
+/* =================================
+   تشغيل الصفحة
+================================= */
+
 function initialize() {
     if (stores.length > 0) {
         activeStoreId = String(stores[0].id);
@@ -1207,7 +1186,11 @@ function initialize() {
     }
 }
 
-// ربط الأزرار
+
+/* =================================
+   ربط الأزرار
+================================= */
+
 window.selectStore = selectStore;
 window.saveStore = saveStore;
 window.createStore = createStore;
