@@ -1,12 +1,12 @@
 {
-  "id": "/silati-app/",
+  "id": "./",
   "name": "سِلّتي | طلبك لحد بابك",
   "short_name": "سِلّتي",
   "description": "تسوّق من متاجر منطقتك، وخلّي طلبك يصل لحد بابك.",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "/silati-app/index.html",
-  "scope": "/silati-app/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#087f5b",
@@ -17,13 +17,13 @@
   ],
   "icons": [
     {
-      "src": "/silati-app/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/silati-app/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
