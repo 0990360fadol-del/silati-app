@@ -1,11 +1,21 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>سِلّتي | طلبك لحد بابك</title><link rel="stylesheet" href="style.css"><!-- إعدادات تطبيق PWA --><link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سِلّتي | طلبك لحد بابك</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+
 <meta name="theme-color" content="#087f5b">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="سِلّتي"><style>
+<meta name="apple-mobile-web-app-title" content="سِلّتي">
+
+<style>
 * {
     box-sizing: border-box;
 }
@@ -23,63 +33,58 @@ html {
     margin: 0;
     padding: 0;
     min-height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
-    padding-bottom: 85px;
+    padding-bottom: 90px;
     background: var(--bg);
     font-family: Arial, sans-serif;
     color: var(--text);
 }
 
-/* شاشة افتتاحية سِلّتي */
+/* الشاشة الافتتاحية */
 
 .splash-screen {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 20px !important;
-    z-index: 2147483647 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 2147483647;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
     background:
         radial-gradient(circle at 50% 35%, #ffffff20, transparent 35%),
-        linear-gradient(145deg, #087f5b, #06432f) !important;
-    color: white !important;
+        linear-gradient(145deg, #087f5b, #06432f);
+    color: white;
     opacity: 1;
     visibility: visible;
-    transition: opacity .65s ease, visibility .65s ease;
+    transition: opacity .65s, visibility .65s;
 }
 
 .splash-screen.hide {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .splash-content {
     width: 100%;
     max-width: 350px;
     text-align: center;
-    margin: auto !important;
     animation: splashAppear .9s ease both;
 }
 
 .splash-logo {
     font-size: 43px;
     font-weight: bold;
-    letter-spacing: 1px;
     margin-bottom: 28px;
-    text-shadow: 0 4px 15px #00000025;
 }
 
 .splash-check {
@@ -102,7 +107,7 @@ body {
 
 .splash-check path {
     fill: none;
-    stroke: #087f5b;
+    stroke: var(--green);
     stroke-width: 8;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -115,7 +120,6 @@ body {
     font-size: 19px;
     font-weight: bold;
     margin: 0 0 10px;
-    letter-spacing: .3px;
 }
 
 .splash-subtitle {
@@ -188,7 +192,7 @@ body {
     border-radius: 12px;
 }
 
-/* الموقع */
+/* المنطقة */
 
 .location {
     background: white;
@@ -206,7 +210,7 @@ body {
     min-height: 190px;
     border-radius: 23px;
     background:
-        radial-gradient(circle at 10% 15%, #ffffff30 0, transparent 30%),
+        radial-gradient(circle at 10% 15%, #ffffff30, transparent 30%),
         linear-gradient(135deg, #087f5b, #064c38);
     color: white;
     position: relative;
@@ -300,6 +304,7 @@ body {
 
 section.content-section {
     padding: 15px;
+    scroll-margin-top: 15px;
 }
 
 .section-heading {
@@ -460,7 +465,7 @@ section.content-section {
 }
 
 .product-price {
-    color: #087f5b !important;
+    color: var(--green) !important;
     font-size: 14px !important;
     font-weight: bold;
 }
@@ -479,19 +484,11 @@ section.content-section {
     grid-column: 1 / -1;
 }
 
-#loading {
-    text-align: center;
-    padding: 20px;
-    color: var(--green);
-}
-
 .section-label {
     color: var(--muted);
     font-size: 12px;
     margin: 7px 0 15px;
 }
-
-/* زر جميع المتاجر */
 
 .all-stores {
     display: block;
@@ -506,8 +503,6 @@ section.content-section {
     margin-bottom: 15px;
 }
 
-/* التذييل */
-
 footer {
     text-align: center;
     padding: 25px 15px;
@@ -515,8 +510,6 @@ footer {
     font-size: 13px;
     line-height: 1.8;
 }
-
-/* ظهور العناصر */
 
 .store-card,
 .product-card,
@@ -552,180 +545,295 @@ footer {
         transition: none !important;
     }
 }
-</style></head><body><!-- شاشة افتتاحية سِلّتي --><div class="splash-screen" id="splashScreen">
+</style>
+</head>
+
+<body>
+
+<!-- الشاشة الافتتاحية -->
+
+<div class="splash-screen" id="splashScreen">
+
     <div class="splash-content">
-        <div class="splash-logo">🛒 سِلّتي</div>    <div class="splash-check">
-        <svg viewBox="0 0 60 60" aria-label="تم">
-            <path d="M12 31 L25 44 L49 17"></path>
-        </svg>
+
+        <div class="splash-logo">🛒 سِلّتي</div>
+
+        <div class="splash-check">
+            <svg viewBox="0 0 60 60" aria-label="تم">
+                <path d="M12 31 L25 44 L49 17"></path>
+            </svg>
+        </div>
+
+        <h2 class="splash-title">طلبك لحد بابك</h2>
+
+        <p class="splash-subtitle">
+            تسوّق بسهولة... ونوصّل ليك 💚
+        </p>
+
+        <div class="splash-line"></div>
+
     </div>
 
-    <h2 class="splash-title">طلبك لحد بابك</h2>
-
-    <p class="splash-subtitle">
-        تسوّق بسهولة... ونوصّل ليك 💚
-    </p>
-
-    <div class="splash-line"></div>
 </div>
 
-</div><!-- الرأس --><header class="header">
+<!-- الرأس -->
+
+<header class="header">
+
     <div class="logo">🛒 سِلّتي</div>
+
     <a href="cart.html">🛍️ سلة المشتريات</a>
-</header><!-- المنطقة --><div class="location" id="userLocation">
+
+</header>
+
+<!-- المنطقة -->
+
+<div class="location" id="userLocation">
     📍 جاري تحميل المنطقة...
-</div><!-- الواجهة الترحيبية --><section class="hero">
+</div>
+
+<!-- الواجهة الترحيبية -->
+
+<section class="hero">
+
     <div class="hero-content">
-        <h1>كل احتياجاتك أقرب إليك 💚</h1>    <p>
-        تسوق من متاجر حيك بسهولة،
-        واختر احتياجاتك واطلبها حتى باب بيتك.
+
+        <h1>كل احتياجاتك أقرب إليك 💚</h1>
+
+        <p>
+            تسوق من متاجر حيك بسهولة،
+            واختر احتياجاتك واطلبها حتى باب بيتك.
+        </p>
+
+        <a href="stores.html" class="hero-btn">
+            ابدأ التسوق الآن ←
+        </a>
+
+    </div>
+
+</section>
+
+<!-- البحث -->
+
+<section class="search-section">
+
+    <div class="search-wrapper">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            type="search"
+            id="searchInput"
+            class="search-box"
+            placeholder="ابحث عن متجر أو منتج..."
+            autocomplete="off"
+        >
+
+    </div>
+
+    <p class="search-hint">
+        🔍 ابحث عن احتياجاتك في متاجر شرق النيل
     </p>
 
-    <a href="stores.html" class="hero-btn">
-        ابدأ التسوق الآن ←
-    </a>
-</div>
+</section>
 
-</section><!-- البحث --><section class="search-section">
-    <div class="search-wrapper">
-        <span class="search-icon">⌕</span>    <input
-        type="search"
-        id="searchInput"
-        class="search-box"
-        placeholder="ابحث عن متجر أو منتج..."
-        autocomplete="off"
-    >
-</div>
+<!-- الأقسام -->
 
-<p class="search-hint">
-    🔍 ابحث عن احتياجاتك في متاجر شرق النيل
-</p>
+<section class="content-section" id="categoriesSection">
 
-</section><!-- الأقسام --><section class="content-section">
     <div class="section-heading">
         <h2>🧺 تسوق حسب القسم</h2>
         <span>اكتشف المزيد</span>
-    </div><div class="category-list" id="categoryList">
-    <div class="category" data-category="بقالة">
-        <span class="category-icon">🥬</span>
-        <span class="category-name">بقالة</span>
     </div>
 
-    <div class="category" data-category="خضروات وفواكه">
-        <span class="category-icon">🍎</span>
-        <span class="category-name">خضروات وفواكه</span>
+    <div class="category-list" id="categoryList">
+
+        <div class="category" data-category="بقالة">
+            <span class="category-icon">🥬</span>
+            <span class="category-name">بقالة</span>
+        </div>
+
+        <div class="category" data-category="خضروات وفواكه">
+            <span class="category-icon">🍎</span>
+            <span class="category-name">خضروات وفواكه</span>
+        </div>
+
+        <div class="category" data-category="مخبوزات">
+            <span class="category-icon">🥖</span>
+            <span class="category-name">مخبوزات</span>
+        </div>
+
+        <div class="category" data-category="مطاعم">
+            <span class="category-icon">🍗</span>
+            <span class="category-name">مطاعم</span>
+        </div>
+
+        <div class="category" data-category="عصائر ومشروبات">
+            <span class="category-icon">🧃</span>
+            <span class="category-name">عصائر</span>
+        </div>
+
+        <div class="category" data-category="حلويات">
+            <span class="category-icon">🍰</span>
+            <span class="category-name">حلويات</span>
+        </div>
+
     </div>
 
-    <div class="category" data-category="مخبوزات">
-        <span class="category-icon">🥖</span>
-        <span class="category-name">مخبوزات</span>
-    </div>
+</section>
 
-    <div class="category" data-category="مطاعم">
-        <span class="category-icon">🍗</span>
-        <span class="category-name">مطاعم</span>
-    </div>
+<!-- المفضلة -->
 
-    <div class="category" data-category="عصائر ومشروبات">
-        <span class="category-icon">🧃</span>
-        <span class="category-name">عصائر</span>
-    </div>
+<section class="content-section" id="favoritesSection">
 
-    <div class="category" data-category="حلويات">
-        <span class="category-icon">🍰</span>
-        <span class="category-name">حلويات</span>
-    </div>
-</div>
-
-</section><!-- المفضلة --><section class="content-section">
     <div class="section-heading">
         <h2>❤️ مفضلتي</h2>
         <span>اختياراتك المحببة</span>
-    </div><p class="section-label">
-    متاجرك ومنتجاتك التي أحببتها
-</p>
-
-<div id="favoritesList" class="store-grid">
-    <div class="empty-message">
-        لم تضف شيئاً إلى المفضلة بعد ❤️
     </div>
-</div>
 
-</section><!-- المنتجات --><section class="content-section">
+    <p class="section-label">
+        متاجرك ومنتجاتك التي أحببتها
+    </p>
+
+    <div id="favoritesList" class="store-grid">
+
+        <div class="empty-message">
+            لم تضف شيئاً إلى المفضلة بعد ❤️
+        </div>
+
+    </div>
+
+</section>
+
+<!-- المنتجات -->
+
+<section class="content-section" id="productsSection">
+
     <div class="section-heading">
+
         <h2 id="productsTitle">🛍️ منتجات متاجرنا</h2>
+
         <span>اكتشف المنتجات</span>
-    </div><p class="section-label" id="productsHint">
-    تصفح المنتجات المتوفرة في متاجر سِلّتي
-</p>
 
-<div id="popularProducts" class="product-grid">
-    <div class="empty-message">
-        جارٍ تحميل المنتجات...
     </div>
-</div>
 
-</section><!-- المتاجر --><section class="content-section">
+    <p class="section-label" id="productsHint">
+        تصفح المنتجات المتوفرة في متاجر سِلّتي
+    </p>
+
+    <div id="popularProducts" class="product-grid">
+
+        <div class="empty-message">
+            جارٍ تحميل المنتجات...
+        </div>
+
+    </div>
+
+</section>
+
+<!-- المتاجر -->
+
+<section class="content-section" id="storesSection">
+
     <div class="section-heading">
         <h2>🏪 متاجر سِلّتي</h2>
         <span>متاجر قريبة منك</span>
-    </div><a class="all-stores" href="stores.html">
-    تصفح جميع المتاجر ←
-</a>
-
-<div id="storesList" class="store-grid">
-    <div class="empty-message">
-        جارٍ تحميل المتاجر...
     </div>
-</div>
 
-</section><footer>
+    <a class="all-stores" href="stores.html">
+        تصفح جميع المتاجر ←
+    </a>
+
+    <div id="storesList" class="store-grid">
+
+        <div class="empty-message">
+            جارٍ تحميل المتاجر...
+        </div>
+
+    </div>
+
+</section>
+
+<!-- التذييل -->
+
+<footer>
+
     <strong>سِلّتي 💚</strong>
+
     <br>
+
     طلبك من دكانك لحد بابك
+
     <br>
+
     <small>تسوق محلياً... واستمتع بسهولة الطلب</small>
-</footer><script>
+
+</footer>
+
+<!-- وظائف الصفحة -->
+
+<script>
 
 /* إخفاء الشاشة الافتتاحية */
 
-window.addEventListener("load", function() {
-    setTimeout(function() {
-        const splash = document.getElementById("splashScreen");
+window.addEventListener("load", function () {
+
+    setTimeout(function () {
+
+        const splash =
+            document.getElementById("splashScreen");
 
         if (splash) {
             splash.classList.add("hide");
         }
+
     }, 2400);
+
 });
 
 
 /* أدوات التخزين */
 
 function readStorage(key, fallback) {
+
     try {
-        const value = JSON.parse(localStorage.getItem(key));
+
+        const value = JSON.parse(
+            localStorage.getItem(key)
+        );
+
         return value === null ? fallback : value;
+
     } catch (error) {
+
         return fallback;
+
     }
+
 }
 
 
 /* المنطقة */
 
-const savedLocation = readStorage("silatiLocation", null);
-const locationBox = document.getElementById("userLocation");
+const savedLocation =
+    readStorage("silatiLocation", null);
+
+const locationBox =
+    document.getElementById("userLocation");
 
 if (savedLocation) {
+
     locationBox.textContent =
         "📍 منطقتك: " +
         (savedLocation.city || "شرق النيل") +
         " - " +
         (savedLocation.area || "");
+
 } else {
+
     locationBox.innerHTML =
         '📍 <a href="location.html" style="color:#087f5b;text-decoration:none">اختر منطقتك</a>';
+
 }
 
 
@@ -739,47 +847,77 @@ let activeCategory = "";
 /* المفضلة */
 
 function getFavorites() {
-    const list = readStorage("silatiFavorites", []);
+
+    const list =
+        readStorage("silatiFavorites", []);
+
     return Array.isArray(list) ? list : [];
+
 }
+
 
 function isFavorite(type, id) {
+
     return getFavorites().some(item =>
-        item.type === type && item.id === id
+        item.type === type &&
+        String(item.id) === String(id)
     );
+
 }
 
+
 function toggleFavorite(type, id) {
+
     let favorites = getFavorites();
 
     const index = favorites.findIndex(item =>
-        item.type === type && item.id === id
+        item.type === type &&
+        String(item.id) === String(id)
     );
 
     if (index >= 0) {
+
         favorites.splice(index, 1);
+
     } else {
+
         favorites.push({ type, id });
+
     }
 
-    localStorage.setItem(
-        "silatiFavorites",
-        JSON.stringify(favorites)
-    );
+    try {
+
+        localStorage.setItem(
+            "silatiFavorites",
+            JSON.stringify(favorites)
+        );
+
+    } catch (error) {
+
+        alert("تعذر حفظ المفضلة على هذا الجهاز.");
+
+        return;
+
+    }
 
     renderFavorites();
     renderStores();
     renderProducts();
+
 }
 
 
 /* زر المفضلة */
 
 function createFavoriteButton(type, id) {
-    const button = document.createElement("button");
+
+    const button =
+        document.createElement("button");
+
     button.className = "favorite-btn";
 
     function updateButton() {
+
         const saved = isFavorite(type, id);
 
         button.textContent = saved
@@ -787,137 +925,209 @@ function createFavoriteButton(type, id) {
             : "🤍 أضف للمفضلة";
 
         button.classList.toggle("saved", saved);
+
     }
 
     updateButton();
 
-    button.onclick = () => {
+    button.onclick = function () {
         toggleFavorite(type, id);
     };
 
     return button;
+
 }
 
 
 /* إنشاء بطاقة متجر */
 
 function createStoreCard(store) {
-    const card = document.createElement("div");
+
+    const card =
+        document.createElement("div");
+
     card.className = "store-card";
 
-    const icon = document.createElement("div");
+    const icon =
+        document.createElement("div");
+
     icon.className = "store-icon";
     icon.textContent = "🏪";
 
-    const title = document.createElement("h3");
-    title.textContent = store.name || "متجر سِلّتي";
+    const title =
+        document.createElement("h3");
 
-    const type = document.createElement("p");
-    type.textContent = "📂 " + (store.type || "متجر عام");
+    title.textContent =
+        store.name || "متجر سِلّتي";
 
-    const region = document.createElement("p");
-    region.textContent = "📍 " + (store.region || "شرق النيل");
+    const type =
+        document.createElement("p");
 
-    const link = document.createElement("a");
+    type.textContent =
+        "📂 " + (store.type || "متجر عام");
+
+    const region =
+        document.createElement("p");
+
+    region.textContent =
+        "📍 " + (store.region || "شرق النيل");
+
+    const link =
+        document.createElement("a");
+
     link.className = "store-link";
-    link.href = "store.html?id=" + encodeURIComponent(store.id);
+
+    link.href =
+        "store.html?id=" +
+        encodeURIComponent(store.id);
+
     link.textContent = "تصفح المتجر ←";
 
     card.append(icon, title, type, region);
-    card.appendChild(createFavoriteButton("store", store.id));
+
+    card.appendChild(
+        createFavoriteButton("store", store.id)
+    );
+
     card.appendChild(link);
 
     return card;
+
 }
 
 
 /* عرض المتاجر */
 
 function renderStores() {
-    const container = document.getElementById("storesList");
 
-    const search = document.getElementById("searchInput")
+    const container =
+        document.getElementById("storesList");
+
+    const search =
+        document.getElementById("searchInput")
         .value.trim().toLowerCase();
 
     container.innerHTML = "";
 
     const filtered = allStores.filter(store => {
+
         const text = [
             store.name,
             store.type,
             store.region
         ].join(" ").toLowerCase();
 
-        const matchesSearch = text.includes(search);
+        const matchesSearch =
+            text.includes(search);
 
         const matchesCategory =
             !activeCategory ||
             (store.type || "").includes(activeCategory);
 
         return matchesSearch && matchesCategory;
+
     });
 
     if (filtered.length === 0) {
+
         container.innerHTML =
             '<div class="empty-message">لا توجد متاجر مطابقة حالياً.</div>';
+
         return;
+
     }
 
     filtered.forEach(store => {
-        container.appendChild(createStoreCard(store));
+
+        container.appendChild(
+            createStoreCard(store)
+        );
+
     });
+
 }
 
 
 /* إنشاء بطاقة منتج */
 
 function createProductCard(product) {
-    const card = document.createElement("div");
+
+    const card =
+        document.createElement("div");
+
     card.className = "product-card";
 
-    const icon = document.createElement("div");
+    const icon =
+        document.createElement("div");
+
     icon.className = "product-icon";
     icon.textContent = product.icon || "🛍️";
 
-    const title = document.createElement("h3");
-    title.textContent = product.name || "منتج";
+    const title =
+        document.createElement("h3");
 
-    const price = document.createElement("p");
+    title.textContent =
+        product.name || "منتج";
+
+    const price =
+        document.createElement("p");
+
     price.className = "product-price";
+
     price.textContent =
         Number(product.price || 0).toLocaleString("ar") +
         " جنيه";
 
     const store = allStores.find(item =>
-        item.id === product.storeId
+        String(item.id) === String(product.storeId)
     );
 
-    const storeName = document.createElement("p");
-    storeName.textContent =
-        "🏪 " + (store ? store.name : "متجر سِلّتي");
+    const storeName =
+        document.createElement("p");
 
-    const link = document.createElement("a");
+    storeName.textContent =
+        "🏪 " +
+        (store ? store.name : "متجر سِلّتي");
+
+    const link =
+        document.createElement("a");
+
     link.className = "product-link";
+
     link.href =
-        "store.html?id=" + encodeURIComponent(product.storeId);
+        "store.html?id=" +
+        encodeURIComponent(product.storeId || "");
+
     link.textContent = "عرض المنتج";
 
     card.append(icon, title, price, storeName);
-    card.appendChild(createFavoriteButton("product", product.id));
+
+    card.appendChild(
+        createFavoriteButton("product", product.id)
+    );
+
     card.appendChild(link);
 
     return card;
+
 }
 
 
 /* عرض المنتجات */
 
 function renderProducts() {
-    const container = document.getElementById("popularProducts");
-    const title = document.getElementById("productsTitle");
-    const hint = document.getElementById("productsHint");
 
-    const search = document.getElementById("searchInput")
+    const container =
+        document.getElementById("popularProducts");
+
+    const title =
+        document.getElementById("productsTitle");
+
+    const hint =
+        document.getElementById("productsHint");
+
+    const search =
+        document.getElementById("searchInput")
         .value.trim().toLowerCase();
 
     container.innerHTML = "";
@@ -925,9 +1135,11 @@ function renderProducts() {
     let filtered = [...allProducts];
 
     if (search) {
+
         filtered = filtered.filter(product => {
+
             const store = allStores.find(s =>
-                s.id === product.storeId
+                String(s.id) === String(product.storeId)
             );
 
             const text = [
@@ -936,95 +1148,139 @@ function renderProducts() {
             ].join(" ").toLowerCase();
 
             return text.includes(search);
+
         });
 
         title.textContent = "🔍 نتائج البحث";
-        hint.textContent = "المنتجات المطابقة لما تبحث عنه";
+
+        hint.textContent =
+            "المنتجات المطابقة لما تبحث عنه";
+
     } else {
+
         title.textContent = "🛍️ منتجات متاجرنا";
-        hint.textContent = "تصفح المنتجات المتوفرة في متاجر سِلّتي";
+
+        hint.textContent =
+            "تصفح المنتجات المتوفرة في متاجر سِلّتي";
+
     }
 
     if (activeCategory && !search) {
+
         filtered = filtered.filter(product => {
+
             const store = allStores.find(s =>
-                s.id === product.storeId
+                String(s.id) === String(product.storeId)
             );
 
             return store &&
                 (store.type || "").includes(activeCategory);
+
         });
 
-        title.textContent = "🧺 منتجات قسم " + activeCategory;
+        title.textContent =
+            "🧺 منتجات قسم " + activeCategory;
+
     }
 
     filtered = filtered.slice(0, 12);
 
     if (filtered.length === 0) {
+
         container.innerHTML =
             '<div class="empty-message">لا توجد منتجات مطابقة حالياً. 💚</div>';
+
         return;
+
     }
 
     filtered.forEach(product => {
-        container.appendChild(createProductCard(product));
+
+        container.appendChild(
+            createProductCard(product)
+        );
+
     });
+
 }
 
 
 /* عرض المفضلة */
 
 function renderFavorites() {
-    const container = document.getElementById("favoritesList");
+
+    const container =
+        document.getElementById("favoritesList");
+
     container.innerHTML = "";
 
     const favorites = getFavorites();
 
     if (favorites.length === 0) {
+
         container.innerHTML =
             '<div class="empty-message">لم تضف شيئاً إلى المفضلة بعد ❤️</div>';
+
         return;
+
     }
 
     let found = 0;
 
     favorites.forEach(item => {
+
         if (item.type === "store") {
+
             const store = allStores.find(s =>
-                s.id === item.id
+                String(s.id) === String(item.id)
             );
 
             if (!store) return;
 
-            container.appendChild(createStoreCard(store));
+            container.appendChild(
+                createStoreCard(store)
+            );
+
             found++;
+
         }
 
         if (item.type === "product") {
+
             const product = allProducts.find(p =>
-                p.id === item.id
+                String(p.id) === String(item.id)
             );
 
             if (!product) return;
 
-            container.appendChild(createProductCard(product));
+            container.appendChild(
+                createProductCard(product)
+            );
+
             found++;
+
         }
+
     });
 
     if (found === 0) {
+
         container.innerHTML =
             '<div class="empty-message">ستظهر مفضلتك هنا عند توفر بياناتها.</div>';
+
     }
+
 }
 
 
 /* البحث الفوري */
 
 document.getElementById("searchInput")
-.addEventListener("input", function() {
+.addEventListener("input", function () {
+
     renderStores();
     renderProducts();
+
 });
 
 
@@ -1032,42 +1288,59 @@ document.getElementById("searchInput")
 
 document.querySelectorAll(".category")
 .forEach(category => {
-    category.addEventListener("click", () => {
-        const selected = category.dataset.category;
 
-        if (activeCategory === selected) {
-            activeCategory = "";
-        } else {
-            activeCategory = selected;
-        }
+    category.addEventListener("click", function () {
+
+        const selected =
+            category.dataset.category;
+
+        activeCategory =
+            activeCategory === selected ? "" : selected;
 
         document.querySelectorAll(".category")
         .forEach(item => {
+
             item.classList.toggle(
                 "active",
                 item.dataset.category === activeCategory
             );
+
         });
 
         renderStores();
         renderProducts();
 
-        document.querySelector(".content-section:nth-of-type(3)")
-            ?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+        document.getElementById("productsSection")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
     });
+
 });
 
 
 /* تحديث المفضلة عند تغيير التخزين */
 
-window.addEventListener("storage", function() {
+window.addEventListener("storage", function () {
+
     renderFavorites();
+
 });
 
-</script><!-- تحميل بيانات Firebase --><script type="module">
+
+/* إتاحة وظائف الصفحة لبقية السكربتات */
+
+window.renderSilatiStores = renderStores;
+window.renderSilatiProducts = renderProducts;
+window.renderSilatiFavorites = renderFavorites;
+
+</script>
+
+<!-- تحميل بيانات Firebase -->
+
+<script type="module">
 
 import { db } from "./firebase.js";
 
@@ -1078,9 +1351,17 @@ import {
 
 
 async function loadSilatiData() {
-    const storesList = document.getElementById("storesList");
+
+    const storesList =
+        document.getElementById("storesList");
+
+    const productsList =
+        document.getElementById("popularProducts");
 
     try {
+
+        // تحميل المتاجر
+
         const storesSnapshot = await getDocs(
             collection(db, "stores")
         );
@@ -1088,13 +1369,17 @@ async function loadSilatiData() {
         allStores = [];
 
         storesSnapshot.forEach(docSnap => {
+
             allStores.push({
                 ...docSnap.data(),
                 id: docSnap.id
             });
+
         });
 
         renderStores();
+
+        // تحميل المنتجات
 
         const productsSnapshot = await getDocs(
             collection(db, "products")
@@ -1103,96 +1388,82 @@ async function loadSilatiData() {
         allProducts = [];
 
         productsSnapshot.forEach(docSnap => {
+
             allProducts.push({
                 ...docSnap.data(),
                 id: docSnap.id
             });
+
         });
 
         renderProducts();
         renderFavorites();
 
+        console.log(
+            "سِلّتي: تم تحميل المتاجر والمنتجات بنجاح"
+        );
+
     } catch (error) {
+
         console.error("Firebase Error:", error);
 
         storesList.innerHTML =
             '<div class="empty-message">تعذر تحميل المتاجر. تحقق من الاتصال وحاول مجدداً.</div>';
 
-        document.getElementById("popularProducts").innerHTML =
+        productsList.innerHTML =
             '<div class="empty-message">تعذر تحميل المنتجات حالياً.</div>';
+
     }
+
 }
 
 loadSilatiData();
 
-</script><!-- الشريط السفلي --><script src="bottom-nav.js" defer></script><!-- تسجيل خدمة التطبيق PWA -->
+</script>
+
+<!-- الشريط السفلي -->
+
+<script src="bottom-nav.js" defer></script>
+
+<!-- تسجيل خدمة التطبيق مرة واحدة -->
+
 <script>
+
 (function () {
 
     if (!("serviceWorker" in navigator)) {
-        console.error("المتصفح لا يدعم Service Worker");
+
+        console.error(
+            "المتصفح لا يدعم Service Worker"
+        );
+
         return;
+
     }
 
     window.addEventListener("load", async function () {
 
-        const status = document.createElement("div");
-
-        status.style.cssText = `
-            position:fixed;
-            bottom:90px;
-            left:15px;
-            right:15px;
-            z-index:999999;
-            background:#075c43;
-            color:white;
-            padding:15px;
-            border-radius:12px;
-            text-align:center;
-            font-size:14px;
-            direction:rtl;
-            display:none;
-        `;
-
-        document.body.appendChild(status);
-
-        function showMessage(message, success) {
-            status.textContent = message;
-            status.style.background = success
-                ? "#087f5b"
-                : "#b42318";
-            status.style.display = "block";
-
-            setTimeout(function () {
-                status.style.display = "none";
-            }, 6000);
-        }
-
         try {
 
-            const swURL = new URL(
-                "service-worker.js",
+            const workerURL = new URL(
+                "./service-worker.js",
                 document.baseURI
             );
 
             const registration =
                 await navigator.serviceWorker.register(
-                    swURL.href,
+                    workerURL.href,
                     {
-                        scope: new URL("./", document.baseURI).pathname
+                        scope: new URL(
+                            "./",
+                            document.baseURI
+                        ).pathname
                     }
                 );
 
-            await navigator.serviceWorker.ready;
-
             console.log(
-                "تم تسجيل خدمة سِلّتي:",
+                "سِلّتي: تم تسجيل خدمة التطبيق",
                 registration.scope
-            );
-
-            showMessage(
-                "✅ تم تسجيل خدمة سِلّتي بنجاح",
-                true
             );
 
         } catch (error) {
@@ -1202,106 +1473,13 @@ loadSilatiData();
                 error
             );
 
-            showMessage(
-                "تعذر تسجيل الخدمة: " +
-                error.name + " - " +
-                error.message,
-                false
-            );
-
         }
 
     });
 
 })();
+
 </script>
-   <script>
-(async function () {
 
-    const box = document.createElement("div");
-
-    box.style.cssText = `
-        position:fixed;
-        top:15px;
-        left:10px;
-        right:10px;
-        padding:18px;
-        background:#075c43;
-        color:white;
-        z-index:9999999;
-        border-radius:12px;
-        direction:rtl;
-        text-align:center;
-        font-size:15px;
-    `;
-
-    box.textContent = "جارٍ فحص خدمة سِلّتي...";
-    document.body.appendChild(box);
-
-    function report(message, error) {
-        box.style.background = error ? "#b42318" : "#087f5b";
-        box.textContent = message;
-    }
-
-    try {
-
-        if (!window.isSecureContext) {
-            throw new Error("الصفحة ليست في اتصال آمن HTTPS");
-        }
-
-        if (!("serviceWorker" in navigator)) {
-            throw new Error("المتصفح لا يدعم Service Worker");
-        }
-
-        const workerURL = new URL(
-            "./service-worker.js",
-            location.href
-        );
-
-        const response = await fetch(workerURL.href, {
-            cache: "no-store"
-        });
-
-        if (!response.ok) {
-            throw new Error(
-                "ملف الخدمة غير متاح. HTTP " + response.status
-            );
-        }
-
-        const registration =
-            await navigator.serviceWorker.register(
-                workerURL.href,
-                {
-                    scope: new URL("./", location.href).pathname
-                }
-            );
-
-        report(
-            "✅ تم التسجيل. حالة الخدمة: " +
-            (
-                registration.active
-                    ? "نشطة"
-                    : registration.installing
-                    ? "قيد التثبيت"
-                    : "في انتظار التفعيل"
-            ),
-            false
-        );
-
-    } catch (error) {
-
-        report(
-            "❌ " + error.name + ": " + error.message,
-            true
-        );
-
-        console.error(error);
-
-    }
-
-})();
-</script>
-);
-</script> 
 </body>
 </html>
