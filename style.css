@@ -1,220 +1,68 @@
+/* =====================================
+   سِلّتي | ملف التنسيق الرئيسي
+   SILATI MAIN STYLE
+===================================== */
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #087f5b;
+    --dark-green: #075c43;
+    --light-green: #e8f5ef;
+    --background: #f4f8f6;
+    --text: #263238;
+    --muted: #66736e;
+    --white: #ffffff;
+    --yellow: #ffc928;
+    --shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    --radius: 14px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
-font-family: Arial, sans-serif;
-background: #f4f8f6;
-color: #263238;
-direction: rtl;
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    direction: rtl;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 90px;
+    animation: silatiPageIn 0.4s ease both;
 }
 
-.header {
-background: #087f5b;
-color: white;
-padding: 18px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-.logo {
-font-size: 25px;
-font-weight: bold;
-}
-
-.cart a {
-color: white;
-text-decoration: none;
-font-size: 14px;
-}
-
-.welcome {
-background: #087f5b;
-color: white;
-text-align: center;
-padding: 35px 15px;
-border-radius: 0 0 25px 25px;
-}
-
-.welcome h1 {
-font-size: 25px;
-margin-bottom: 12px;
-}
-
-.welcome p {
-margin-bottom: 20px;
-}
-
-.welcome input {
-width: 100%;
-max-width: 450px;
-padding: 14px;
-border: none;
-border-radius: 10px;
-font-size: 15px;
-}
-
-.categories,
-.stores {
-padding: 22px 15px;
-}
-
-.categories h2,
-.stores h2 {
-margin-bottom: 18px;
-color: #087f5b;
-}
-
-.category-list {
-display: flex;
-justify-content: space-between;
-gap: 10px;
-overflow-x: auto;
-}
-
-.category {
-background: white;
-min-width: 75px;
-padding: 15px 8px;
-text-align: center;
-border-radius: 12px;
-box-shadow: 0 2px 8px #00000010;
-font-size: 24px;
-}
-
-.category p {
-font-size: 13px;
-margin-top: 8px;
-}
-
-.store-card {
-background: white;
-padding: 20px;
-margin-bottom: 15px;
-border-radius: 12px;
-box-shadow: 0 3px 10px #00000010;
-}
-
-.store-card h3 {
-color: #087f5b;
-margin-bottom: 10px;
-}
-
-.store-card p {
-margin-bottom: 18px;
-color: #666;
-}
-
-.store-card a {
-display: inline-block;
-background: #087f5b;
-color: white;
-text-decoration: none;
-padding: 10px 18px;
-border-radius: 8px;
-}
-
-footer {
-background: #075c43;
-color: white;
-text-align: center;
-padding: 20px;
-margin-top: 25px;
-}/* =================================
-   SILATI MOTION SYSTEM
-   نظام الحركات والانتقالات
-================================= */
-
-/* ظهور الصفحة */
-body {
-    animation: silatiPageIn 0.45s ease both;
-}
+/* =====================================
+   الحركات
+===================================== */
 
 @keyframes silatiPageIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* ظهور البطاقات */
-.store-card,
-.product-card,
-.card {
-    animation: silatiCardIn 0.5s ease both;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
 }
 
 @keyframes silatiCardIn {
     from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(15px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* تفاعل البطاقات */
-.store-card:active,
-.product-card:active,
-.card:active {
-    transform: scale(0.98);
-}
-
-/* الأزرار */
-button,
-.btn,
-a.button {
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-button:active,
-.btn:active {
-    transform: scale(0.95);
-    opacity: 0.85;
-}
-
-/* حقول الإدخال */
-input,
-select,
-textarea {
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: #087f5b;
-    box-shadow: 0 0 0 3px rgba(8,127,91,0.12);
-}
-
-/* الصور */
-img {
-    transition: transform 0.3s ease;
-}
-
-/* رسائل النجاح والتنبيه */
-.alert,
-.success-message,
-.empty-message {
-    animation: silatiMessageIn 0.4s ease both;
 }
 
 @keyframes silatiMessageIn {
@@ -222,19 +70,278 @@ img {
         opacity: 0;
         transform: scale(0.96);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-/* تحسين الانتقال */
-html {
-    scroll-behavior: smooth;
+/* =====================================
+   الرأس
+===================================== */
+
+.header {
+    background: var(--green);
+    color: var(--white);
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
-/* احترام تفضيلات تقليل الحركة */
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.cart a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* =====================================
+   الترحيب
+===================================== */
+
+.welcome {
+    background: var(--green);
+    color: var(--white);
+    text-align: center;
+    padding: 35px 15px;
+    border-radius: 0 0 25px 25px;
+}
+
+.welcome h1 {
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.welcome p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.welcome input {
+    width: 100%;
+    max-width: 450px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+/* =====================================
+   الأقسام والمتاجر
+===================================== */
+
+.categories,
+.stores {
+    padding: 22px 15px;
+}
+
+.categories h2,
+.stores h2 {
+    margin-bottom: 18px;
+    color: var(--green);
+}
+
+.category-list {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+}
+
+.category {
+    background: var(--white);
+    min-width: 75px;
+    padding: 15px 8px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.category p {
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.category:active {
+    transform: scale(0.95);
+}
+
+/* =====================================
+   بطاقات المتاجر والمنتجات
+===================================== */
+
+.store-card,
+.product-card,
+.card {
+    background: var(--white);
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: silatiCardIn 0.4s ease both;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.store-card h3,
+.product-card h3 {
+    color: var(--green);
+    margin-bottom: 10px;
+}
+
+.store-card p,
+.product-card p {
+    margin-bottom: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.store-card a,
+.product-card a {
+    display: inline-block;
+    background: var(--green);
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+/* =====================================
+   الأزرار
+===================================== */
+
+button,
+.btn,
+a.button {
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+button:active,
+.btn:active,
+a.button:active {
+    transform: scale(0.97);
+    opacity: 0.88;
+}
+
+/* =====================================
+   حقول الإدخال
+===================================== */
+
+input,
+select,
+textarea {
+    font-family: inherit;
+    max-width: 100%;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(8, 127, 91, 0.12);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* =====================================
+   الصور
+===================================== */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =====================================
+   الرسائل والتنبيهات
+===================================== */
+
+.alert,
+.success-message,
+.empty-message {
+    animation: silatiMessageIn 0.4s ease both;
+}
+
+/* =====================================
+   التذييل
+===================================== */
+
+footer {
+    background: var(--dark-green);
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+    margin-top: 25px;
+    line-height: 1.8;
+}
+
+/* =====================================
+   الشريط السفلي
+===================================== */
+
+.silati-bottom-nav {
+    z-index: 9999;
+}
+
+/* =====================================
+   تحسين الهاتف
+===================================== */
+
+@media (max-width: 480px) {
+
+    .header {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .welcome {
+        padding: 28px 12px;
+    }
+
+    .welcome h1 {
+        font-size: 22px;
+    }
+
+    .categories,
+    .stores {
+        padding: 18px 12px;
+    }
+
+    .store-card,
+    .product-card,
+    .card {
+        padding: 15px;
+    }
+}
+
+/* =====================================
+   تقليل الحركة حسب إعدادات الجهاز
+===================================== */
+
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
