@@ -1,9 +1,20 @@
+// ==========================================
+// سِلّتي | الشريط السفلي الموحد
+// ==========================================
+
 (function () {
+
+    // منع إنشاء الشريط أكثر من مرة
+    if (document.querySelector(".silati-bottom-nav")) {
+        return;
+    }
+
+    // إنشاء التنسيقات
     const style = document.createElement("style");
 
     style.textContent = `
         body {
-            padding-bottom: 85px !important;
+            padding-bottom: calc(85px + env(safe-area-inset-bottom)) !important;
         }
 
         .silati-bottom-nav {
@@ -12,14 +23,14 @@
             left: 0;
             right: 0;
             z-index: 9999;
-            height: 70px;
+            min-height: 70px;
+            padding-bottom: env(safe-area-inset-bottom);
             background: #ffffff;
             display: flex;
             justify-content: space-around;
             align-items: center;
             border-top: 1px solid #e5eee9;
             box-shadow: 0 -4px 18px rgba(0,0,0,0.08);
-            padding-bottom: env(safe-area-inset-bottom);
             font-family: Arial, sans-serif;
         }
 
@@ -34,9 +45,10 @@
             gap: 4px;
             font-size: 11px;
             font-weight: bold;
-            height: 100%;
+            height: 70px;
             position: relative;
-            transition: 0.2s;
+            transition: color 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .silati-bottom-nav a .nav-icon {
@@ -59,7 +71,7 @@
 
         .silati-cart-badge {
             position: absolute;
-            top: 8px;
+            top: 7px;
             right: calc(50% - 20px);
             background: #e53935;
             color: white;
@@ -76,79 +88,139 @@
 
     document.head.appendChild(style);
 
-    const currentPage = location.pathname.split("/").pop() || "index.html";
+    // تحديد الصفحة الحالية
+    const currentPage =
+        location.pathname.split("/").pop() || "index.html";
 
     function getActivePage() {
-        if (currentPage === "store.html" ||
-            currentPage === "stores.html") return "stores";
 
-        if (currentPage === "cart.html") return "cart";
+        if (
+            currentPage === "store.html" ||
+            currentPage === "stores.html"
+        ) {
+            return "stores";
+        }
 
-        if (currentPage === "my-orders.html") return "orders";
+        if (currentPage === "cart.html") {
+            return "cart";
+        }
 
-        if (currentPage === "login.html" ||
+        if (currentPage === "my-orders.html") {
+            return "orders";
+        }
+
+        if (
+            currentPage === "login.html" ||
             currentPage === "merchant.html" ||
-            currentPage === "delivery.html") return "account";
+            currentPage === "delivery.html"
+        ) {
+            return "account";
+        }
 
         return "home";
     }
 
     const active = getActivePage();
 
+    // إنشاء الشريط
     const nav = document.createElement("nav");
+
     nav.className = "silati-bottom-nav";
+    nav.setAttribute("aria-label", "التنقل الرئيسي");
 
     nav.innerHTML = `
-        <a href="index.html" class="${active === "home" ? "active" : ""}">
+
+        <a href="index.html"
+           class="${active === "home" ? "active" : ""}">
             <span class="nav-icon">🏠</span>
             <span>الرئيسية</span>
         </a>
 
-        <a href="stores.html" class="${active === "stores" ? "active" : ""}">
+        <a href="stores.html"
+           class="${active === "stores" ? "active" : ""}">
             <span class="nav-icon">🏪</span>
             <span>المتاجر</span>
         </a>
 
-        <a href="cart.html" class="${active === "cart" ? "active" : ""}">
+        <a href="cart.html"
+           class="${active === "cart" ? "active" : ""}">
             <span class="nav-icon">🛒</span>
-            <span class="silati-cart-badge" id="silatiNavBadge" style="display:none">0</span>
+            <span class="silati-cart-badge"
+                  id="silatiNavBadge"
+                  style="display:none">
+                0
+            </span>
             <span>السلة</span>
         </a>
 
-        <a href="my-orders.html" class="${active === "orders" ? "active" : ""}">
+        <a href="my-orders.html"
+           class="${active === "orders" ? "active" : ""}">
             <span class="nav-icon">📦</span>
             <span>طلباتي</span>
         </a>
 
-        <a href="login.html" class="${active === "account" ? "active" : ""}">
+        <a href="login.html"
+           class="${active === "account" ? "active" : ""}">
             <span class="nav-icon">👤</span>
             <span>حسابي</span>
         </a>
+
     `;
 
     document.body.appendChild(nav);
 
+    // تحديث عداد السلة
     function updateBadge() {
+
         try {
-            const cart = JSON.parse(localStorage.getItem("silatiCart") || "[]");
-            const count = cart.reduce(
-                (sum, item) => sum + (Number(item.quantity) || 0), 0
+
+            const cart = JSON.parse(
+                localStorage.getItem("silatiCart") || "[]"
             );
 
-            const badge = document.getElementById("silatiNavBadge");
+            const count = Array.isArray(cart)
+                ? cart.reduce((sum, item) => {
+                    return sum + Math.max(
+                        0,
+                        Number(item.quantity) || 0
+                    );
+                }, 0)
+                : 0;
+
+            const badge =
+                document.getElementById("silatiNavBadge");
 
             if (badge) {
-                badge.textContent = count > 99 ? "99+" : count;
-                badge.style.display = count > 0 ? "flex" : "none";
+
+                badge.textContent =
+                    count > 99 ? "99+" : count;
+
+                badge.style.display =
+                    count > 0 ? "flex" : "none";
+
             }
+
         } catch (error) {
-            console.log("تعذر تحديث عداد السلة");
+
+            console.warn(
+                "سِلّتي: تعذر قراءة بيانات السلة",
+                error
+            );
+
         }
+
     }
 
+    // تحديث أولي
     updateBadge();
 
+    // تحديث عند تغيير البيانات من صفحة أخرى
     window.addEventListener("storage", updateBadge);
 
-    setInterval(updateBadge, 1500);
+    // تحديث عند العودة إلى الصفحة
+    window.addEventListener("pageshow", updateBadge);
+
+    // إتاحة التحديث لبقية صفحات التطبيق
+    window.updateSilatiCartBadge = updateBadge;
+
 })();
