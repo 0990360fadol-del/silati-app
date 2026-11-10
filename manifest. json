@@ -8,10 +8,6 @@
   "start_url": "/silati-app/index.html",
   "scope": "/silati-app/",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
   "orientation": "portrait",
   "background_color": "#087f5b",
   "theme_color": "#087f5b",
