@@ -1125,26 +1125,95 @@ async function loadSilatiData() {
 
 loadSilatiData();
 
-</script><!-- الشريط السفلي --><script src="bottom-nav.js" defer></script><!-- تسجيل خدمة التطبيق PWA --><script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-        navigator.serviceWorker.register("./service-worker.js")
-        .then(function(registration) {
+</script><!-- الشريط السفلي --><script src="bottom-nav.js" defer></script><!-- تسجيل خدمة التطبيق PWA -->
+<script>
+(function () {
+
+    if (!("serviceWorker" in navigator)) {
+        console.error("المتصفح لا يدعم Service Worker");
+        return;
+    }
+
+    window.addEventListener("load", async function () {
+
+        const status = document.createElement("div");
+
+        status.style.cssText = `
+            position:fixed;
+            bottom:90px;
+            left:15px;
+            right:15px;
+            z-index:999999;
+            background:#075c43;
+            color:white;
+            padding:15px;
+            border-radius:12px;
+            text-align:center;
+            font-size:14px;
+            direction:rtl;
+            display:none;
+        `;
+
+        document.body.appendChild(status);
+
+        function showMessage(message, success) {
+            status.textContent = message;
+            status.style.background = success
+                ? "#087f5b"
+                : "#b42318";
+            status.style.display = "block";
+
+            setTimeout(function () {
+                status.style.display = "none";
+            }, 6000);
+        }
+
+        try {
+
+            const swURL = new URL(
+                "service-worker.js",
+                document.baseURI
+            );
+
+            const registration =
+                await navigator.serviceWorker.register(
+                    swURL.href,
+                    {
+                        scope: new URL("./", document.baseURI).pathname
+                    }
+                );
+
+            await navigator.serviceWorker.ready;
+
             console.log(
-                "سِلّتي: تم تسجيل خدمة التطبيق",
+                "تم تسجيل خدمة سِلّتي:",
                 registration.scope
             );
-        })
-      .catch(function(error) {
-    alert(
-        "خطأ تسجيل خدمة سِلّتي:\n" +
-        error.name + "\n" +
-        error.message
-    );
 
-    console.error("Service Worker Error:", error);
-});  
+            showMessage(
+                "✅ تم تسجيل خدمة سِلّتي بنجاح",
+                true
+            );
+
+        } catch (error) {
+
+            console.error(
+                "خطأ تسجيل خدمة سِلّتي:",
+                error
+            );
+
+            showMessage(
+                "تعذر تسجيل الخدمة: " +
+                error.name + " - " +
+                error.message,
+                false
+            );
+
+        }
+
     });
-}
+
+})();
+</script>
 </script></body>
 </html>
