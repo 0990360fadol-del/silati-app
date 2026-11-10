@@ -5,7 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>متجر سِلّتي</title>
+<title>متجر سِلّتي | تسوق من منطقتك</title>
+
+<meta name="theme-color" content="#101b3d">
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,87 +16,169 @@
     box-sizing: border-box;
 }
 
+:root {
+    --navy: #101b3d;
+    --navy-light: #1b405c;
+    --green: #087f5b;
+    --green-dark: #056747;
+    --green-light: #e7f5ef;
+    --gold: #e5b84b;
+    --bg: #f3f6f5;
+    --text: #26332e;
+}
+
 body {
     margin: 0;
     padding-bottom: 100px;
-    background: #f1f5f3;
+    background: var(--bg);
     font-family: Arial, sans-serif;
-    color: #26332e;
+    color: var(--text);
 }
 
+/* الرأس */
+
 .header {
-    background: linear-gradient(135deg, #087f5b, #056346);
+    background: linear-gradient(
+        120deg,
+        var(--navy),
+        var(--navy-light),
+        var(--green)
+    );
     color: white;
-    padding: 16px;
+    padding: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 15px #101b3d25;
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
 }
 
 .cart a {
     color: white;
     text-decoration: none;
+    background: #ffffff18;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
 }
 
+/* المحتوى */
+
 .stores {
-    max-width: 750px;
+    max-width: 850px;
     margin: 20px auto;
     padding: 15px;
 }
 
+/* واجهة المتجر */
+
 .store-info {
-    background: linear-gradient(135deg, white, #e3f5ed);
-    padding: 22px;
-    border-radius: 16px;
-    margin-bottom: 18px;
-    box-shadow: 0 3px 12px #0000000c;
+    background: linear-gradient(
+        135deg,
+        var(--navy),
+        #174d5a,
+        var(--green)
+    );
+    color: white;
+    padding: 25px 21px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 7px 20px #101b3d20;
+    position: relative;
+    overflow: hidden;
+}
+
+.store-info::after {
+    content: "🏪";
+    position: absolute;
+    left: 12px;
+    bottom: -20px;
+    font-size: 95px;
+    opacity: .12;
 }
 
 .store-info h2 {
-    color: #087f5b;
-    margin-top: 0;
+    color: white;
+    margin: 0 0 13px;
+    font-size: 23px;
+    position: relative;
+    z-index: 1;
 }
 
 .store-info p {
-    color: #66736c;
-    line-height: 1.8;
+    color: #e1eee9;
+    line-height: 1.9;
+    font-size: 14px;
+    margin: 7px 0;
+    position: relative;
+    z-index: 1;
 }
+
+/* عناوين الأقسام */
+
+.section-heading {
+    color: var(--navy);
+    font-size: 19px;
+    margin: 27px 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.section-heading::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to left, var(--gold), transparent);
+}
+
+/* البحث */
 
 .search-box {
     width: 100%;
-    padding: 14px;
-    margin: 10px 0 18px;
+    padding: 16px;
+    margin: 8px 0 18px;
     border: 1px solid #dce9e2;
-    border-radius: 12px;
+    border-radius: 13px;
     font-size: 15px;
     background: white;
     outline: none;
+    box-shadow: 0 3px 12px #00000007;
 }
 
 .search-box:focus {
-    border-color: #087f5b;
+    border-color: var(--green);
     box-shadow: 0 0 0 3px #087f5b18;
 }
 
+/* بطاقات المنتجات */
+
 .store-card {
     background: white;
-    padding: 17px;
-    margin: 13px 0;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px #0000000c;
+    padding: 19px;
+    margin: 14px 0;
+    border-radius: 17px;
+    box-shadow: 0 4px 13px #00000009;
+    border: 1px solid #e8eeeb;
     animation: appear .35s ease both;
+    transition: transform .2s;
+}
+
+.store-card:active {
+    transform: scale(.99);
 }
 
 @keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -102,89 +186,135 @@ body {
 }
 
 .store-card h3 {
-    color: #087f5b;
+    color: var(--navy);
+    font-size: 19px;
+    margin: 0 0 13px;
+    line-height: 1.7;
 }
 
 .product-price {
     font-weight: bold;
-    color: #087f5b;
-    font-size: 18px;
+    color: var(--green);
+    font-size: 21px;
+    margin: 10px 0;
+    background: var(--green-light);
+    display: inline-block;
+    padding: 9px 13px;
+    border-radius: 11px;
 }
 
-.quantity-select {
-    display: block;
-    width: 100%;
-    padding: 11px;
-    margin: 12px 0;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    background: white;
-    font-size: 16px;
-}
-
-.add-button {
-    width: 100%;
-    background: #087f5b;
-    color: white;
-    border: none;
-    padding: 13px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-size: 16px;
-}
+/* المفضلة */
 
 .favorite-btn {
     background: #fff0f0;
     color: #e53935;
-    border: none;
-    padding: 9px 13px;
-    border-radius: 9px;
+    border: 1px solid #ffe0e0;
+    padding: 10px 14px;
+    border-radius: 10px;
     font-size: 14px;
     cursor: pointer;
-    margin: 7px 0 12px;
+    margin: 8px 0 13px;
 }
 
 .favorite-btn.saved {
     background: #ffe1e1;
+    border-color: #ffcaca;
 }
+
+/* الكمية */
+
+.quantity-select {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 12px 0;
+    border: 1px solid #dce6e1;
+    border-radius: 11px;
+    background: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.quantity-select:focus {
+    border-color: var(--green);
+}
+
+/* زر الإضافة للسلة */
+
+.add-button {
+    width: 100%;
+    background: linear-gradient(
+        110deg,
+        var(--green),
+        var(--green-dark)
+    );
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px #087f5b25;
+}
+
+.add-button:active {
+    transform: scale(.98);
+}
+
+/* الحالة الفارغة */
 
 .empty-message {
     background: white;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 27px 20px;
+    border-radius: 16px;
     text-align: center;
-    line-height: 1.9;
+    line-height: 2;
     color: #777;
+    border: 1px solid #e8eeeb;
+    box-shadow: 0 3px 12px #00000007;
 }
+
+/* العودة */
 
 .back-link {
     display: block;
     text-align: center;
-    margin: 22px;
-    color: #087f5b;
+    margin: 25px 0;
+    color: var(--green);
     text-decoration: none;
+    font-weight: bold;
+    padding: 13px;
+    background: var(--green-light);
+    border-radius: 12px;
 }
 
 /* قسم التقييمات */
 
 .rating-summary {
-    background: linear-gradient(135deg, #ffffff, #e8f7ef);
-    border-radius: 16px;
-    padding: 20px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #e8f7ef
+    );
+    border-radius: 18px;
+    padding: 23px 17px;
     margin: 20px 0;
     text-align: center;
-    box-shadow: 0 3px 12px #0000000c;
+    box-shadow: 0 4px 14px #00000009;
+    border: 1px solid #e2eee7;
 }
 
 .rating-summary h3 {
     margin-top: 0;
-    color: #087f5b;
+    color: var(--navy);
+    font-size: 18px;
 }
 
 .average-rating {
-    font-size: 38px;
+    font-size: 43px;
     font-weight: bold;
-    color: #087f5b;
+    color: var(--green);
     margin: 8px 0;
 }
 
@@ -196,35 +326,39 @@ body {
 
 .rating-count {
     color: #75827b;
-    font-size: 14px;
-    margin-top: 8px;
+    font-size: 13px;
+    margin-top: 10px;
 }
+
+/* نموذج التقييم */
 
 .review-form {
     background: white;
-    padding: 18px;
-    border-radius: 15px;
-    margin: 15px 0;
-    box-shadow: 0 2px 8px #0000000c;
+    padding: 20px;
+    border-radius: 17px;
+    margin: 17px 0;
+    box-shadow: 0 3px 12px #00000008;
+    border: 1px solid #e8eeeb;
 }
 
 .review-form h3 {
-    color: #087f5b;
+    color: var(--navy);
     margin-top: 0;
+    font-size: 18px;
 }
 
 .star-picker {
     display: flex;
-    gap: 8px;
+    gap: 9px;
     justify-content: center;
     direction: ltr;
-    margin: 15px 0;
+    margin: 17px 0;
 }
 
 .star-picker button {
     background: none;
     border: none;
-    font-size: 35px;
+    font-size: 37px;
     color: #d5d5d5;
     cursor: pointer;
     padding: 2px;
@@ -236,27 +370,33 @@ body {
 
 .review-input {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     border: 1px solid #dce9e2;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 15px;
     font-family: Arial, sans-serif;
-    margin: 8px 0 12px;
+    margin: 9px 0 13px;
     outline: none;
+    resize: vertical;
 }
 
 .review-input:focus {
-    border-color: #087f5b;
+    border-color: var(--green);
 }
 
 .review-submit {
     width: 100%;
-    background: #087f5b;
+    background: linear-gradient(
+        110deg,
+        var(--green),
+        var(--green-dark)
+    );
     color: white;
     border: none;
-    padding: 14px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 12px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -267,54 +407,75 @@ body {
 
 .review-message {
     text-align: center;
-    color: #087f5b;
-    line-height: 1.8;
+    color: var(--green);
+    line-height: 1.9;
     font-size: 14px;
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 .review-login {
-    display: inline-block;
-    background: #e5f5ed;
-    color: #087f5b;
-    padding: 11px 18px;
-    border-radius: 9px;
+    display: block;
+    background: var(--green-light);
+    color: var(--green);
+    padding: 13px 18px;
+    border-radius: 11px;
     text-decoration: none;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 12px;
+    text-align: center;
 }
 
+/* قائمة التقييمات */
+
 .reviews-list {
-    margin-top: 18px;
+    margin-top: 17px;
 }
 
 .review-item {
     background: white;
-    padding: 16px;
-    border-radius: 13px;
-    margin: 12px 0;
-    box-shadow: 0 2px 7px #00000009;
+    padding: 18px;
+    border-radius: 15px;
+    margin: 13px 0;
+    box-shadow: 0 3px 10px #00000008;
+    border: 1px solid #e8eeeb;
 }
 
 .review-item h4 {
-    margin: 0 0 8px;
-    color: #087f5b;
+    margin: 0 0 9px;
+    color: var(--navy);
+    font-size: 15px;
 }
 
 .review-item .rating-stars {
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .review-comment {
-    line-height: 1.8;
+    line-height: 1.9;
     color: #59665f;
     overflow-wrap: anywhere;
+    font-size: 14px;
 }
 
 .review-date {
     color: #999;
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 10px;
+}
+
+/* التوافق مع الشاشات */
+
+@media (min-width: 650px) {
+    #productsContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        align-items: start;
+    }
+
+    .store-card {
+        margin: 0;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -342,6 +503,8 @@ body {
 
 <section class="stores">
 
+    <!-- معلومات المتجر -->
+
     <div class="store-info">
 
         <h2 id="storeTitle">🏪 جاري تحميل المتجر...</h2>
@@ -355,9 +518,11 @@ body {
 
     <!-- تقييم المتجر -->
 
+    <h3 class="section-heading">⭐ تقييم المتجر</h3>
+
     <section class="rating-summary">
 
-        <h3>⭐ تقييمات وآراء الزبائن</h3>
+        <h3>تقييمات وآراء الزبائن</h3>
 
         <div class="average-rating" id="averageRating">
             --
@@ -437,9 +602,9 @@ body {
 
     <!-- قائمة التقييمات -->
 
-    <section>
+    <h3 class="section-heading">💬 آراء الزبائن</h3>
 
-        <h3>💬 آراء الزبائن</h3>
+    <section>
 
         <div id="reviewsList" class="reviews-list">
 
@@ -452,16 +617,18 @@ body {
     </section>
 
 
-    <h3>🔍 ابحث في منتجات المتجر</h3>
+    <!-- البحث عن المنتجات -->
+
+    <h3 class="section-heading">🔍 ابحث عن منتجك</h3>
 
     <input
         type="search"
         id="productSearch"
         class="search-box"
-        placeholder="اكتب اسم المنتج..."
+        placeholder="اكتب اسم المنتج الذي تبحث عنه..."
     >
 
-    <h3>📦 منتجات المتجر</h3>
+    <h3 class="section-heading">📦 منتجات المتجر</h3>
 
     <div id="productsContainer">
 
@@ -470,6 +637,7 @@ body {
         </div>
 
     </div>
+
 
     <a href="stores.html" class="back-link">
         ← العودة إلى جميع المتاجر
@@ -983,6 +1151,7 @@ async function loadReviews() {
         });
 
         // ترتيب الأحدث أولاً
+
         currentReviews.sort((a, b) => {
 
             const dateA = a.createdAt?.toMillis?.() || 0;
@@ -1140,6 +1309,10 @@ async function updateReviewForm() {
 
         return;
 
+    }
+
+    if (!currentStore) {
+        return;
     }
 
     try {
@@ -1340,6 +1513,7 @@ reviewForm.addEventListener("submit", async function(event) {
             : {};
 
         // لا نعرض البريد الإلكتروني للزبائن
+
         const userName =
             currentUser.displayName ||
             userData.displayName ||
@@ -1366,6 +1540,7 @@ reviewForm.addEventListener("submit", async function(event) {
         if (existingSnapshot.exists()) {
 
             // تعديل التقييم السابق
+
             await setDoc(
                 reviewRef,
                 reviewData,
@@ -1378,6 +1553,7 @@ reviewForm.addEventListener("submit", async function(event) {
         } else {
 
             // إنشاء تقييم جديد
+
             await setDoc(reviewRef, {
 
                 ...reviewData,
