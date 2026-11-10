@@ -1216,9 +1216,91 @@ loadSilatiData();
 })();
 </script>
    <script>
-document.body.insertAdjacentHTML(
-    "beforeend",
-    '<div style="position:fixed;top:15px;left:10px;right:10px;background:#087f5b;color:white;padding:18px;text-align:center;z-index:999999;border-radius:12px;font-size:18px">✅ اختبار JavaScript يعمل</div>'
+(async function () {
+
+    const box = document.createElement("div");
+
+    box.style.cssText = `
+        position:fixed;
+        top:15px;
+        left:10px;
+        right:10px;
+        padding:18px;
+        background:#075c43;
+        color:white;
+        z-index:9999999;
+        border-radius:12px;
+        direction:rtl;
+        text-align:center;
+        font-size:15px;
+    `;
+
+    box.textContent = "جارٍ فحص خدمة سِلّتي...";
+    document.body.appendChild(box);
+
+    function report(message, error) {
+        box.style.background = error ? "#b42318" : "#087f5b";
+        box.textContent = message;
+    }
+
+    try {
+
+        if (!window.isSecureContext) {
+            throw new Error("الصفحة ليست في اتصال آمن HTTPS");
+        }
+
+        if (!("serviceWorker" in navigator)) {
+            throw new Error("المتصفح لا يدعم Service Worker");
+        }
+
+        const workerURL = new URL(
+            "./service-worker.js",
+            location.href
+        );
+
+        const response = await fetch(workerURL.href, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                "ملف الخدمة غير متاح. HTTP " + response.status
+            );
+        }
+
+        const registration =
+            await navigator.serviceWorker.register(
+                workerURL.href,
+                {
+                    scope: new URL("./", location.href).pathname
+                }
+            );
+
+        report(
+            "✅ تم التسجيل. حالة الخدمة: " +
+            (
+                registration.active
+                    ? "نشطة"
+                    : registration.installing
+                    ? "قيد التثبيت"
+                    : "في انتظار التفعيل"
+            ),
+            false
+        );
+
+    } catch (error) {
+
+        report(
+            "❌ " + error.name + ": " + error.message,
+            true
+        );
+
+        console.error(error);
+
+    }
+
+})();
+</script>
 );
 </script> 
 </body>
