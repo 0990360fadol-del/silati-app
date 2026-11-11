@@ -9,74 +9,47 @@
 <title>مندوب التوصيل | سِلّتي</title>
 
 <style>
-*{box-sizing:border-box}
+:root{
+    --green:#087f5b;
+    --green-dark:#045b42;
+    --green-light:#e8f5ee;
+    --blue:#1976d2;
+    --gold:#d69e24;
+    --text:#26332e;
+    --muted:#78847e;
+    --bg:#f1f5f3;
+    --white:#fff;
+    --shadow:0 5px 20px rgba(0,0,0,.055);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f1f5f3;
-    color:#26332e;
-    padding-bottom:95px;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:100px;
 }
 
-header{
-    background:linear-gradient(135deg,#087f5b,#045b42);
-    color:white;
-    padding:25px 15px;
-    text-align:center;
-    border-radius:0 0 22px 22px;
-    box-shadow:0 4px 15px #00000012;
-}
-
-header h2{
-    margin:5px;
-    font-size:25px;
-}
-
-header p{
-    margin:8px 0 0;
-    font-size:13px;
-}
-
-.container{
-    max-width:750px;
-    margin:20px auto;
-    padding:15px;
-}
-
-.box{
-    background:white;
-    padding:18px;
-    margin-bottom:18px;
-    border-radius:15px;
-    box-shadow:0 3px 12px #0000000c;
-}
-
-h3{
-    color:#087f5b;
-    margin-top:0;
-    font-size:17px;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    font-size:16px;
-    margin:8px 0 12px;
-    background:#fafafa;
+button,input{
+    font-family:inherit;
 }
 
 button{
-    border:none;
-    padding:13px;
-    border-radius:9px;
+    border:0;
     cursor:pointer;
-    font-size:15px;
-    font-weight:bold;
-    width:100%;
-    margin-top:10px;
+    transition:transform .2s,background .2s,opacity .2s;
+}
+
+button:active{
+    transform:scale(.98);
 }
 
 button:disabled{
@@ -84,34 +57,238 @@ button:disabled{
     cursor:not-allowed;
 }
 
+header{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0a946b,#045b42);
+    color:white;
+    padding:30px 18px 35px;
+    text-align:center;
+    border-radius:0 0 28px 28px;
+    box-shadow:0 8px 25px #087f5b25;
+}
+
+header:before,
+header:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:#ffffff0d;
+}
+
+header:before{
+    width:180px;
+    height:180px;
+    top:-90px;
+    right:-45px;
+}
+
+header:after{
+    width:130px;
+    height:130px;
+    bottom:-80px;
+    left:-25px;
+}
+
+.header-content{
+    position:relative;
+    z-index:1;
+}
+
+.logo{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+header h2{
+    margin:5px;
+    font-size:27px;
+}
+
+header p{
+    margin:8px 0 0;
+    font-size:14px;
+    opacity:.9;
+}
+
+.container{
+    max-width:760px;
+    margin:20px auto;
+    padding:0 15px;
+}
+
+.notice{
+    padding:14px 16px;
+    border-radius:13px;
+    background:#e8f5e9;
+    color:var(--green);
+    line-height:1.9;
+    margin-bottom:17px;
+    font-size:13px;
+    border:1px solid #d7eadc;
+    overflow-wrap:anywhere;
+}
+
+.notice.error{
+    background:#ffebee;
+    color:#b71c1c;
+    border-color:#ffcdd2;
+}
+
+.box{
+    background:var(--white);
+    padding:20px;
+    margin-bottom:17px;
+    border-radius:19px;
+    box-shadow:var(--shadow);
+    border:1px solid #edf1ee;
+}
+
+h3{
+    color:var(--green);
+    margin:0;
+    font-size:17px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:17px;
+}
+
+.section-title h3{
+    line-height:1.7;
+}
+
+.count{
+    min-width:32px;
+    text-align:center;
+    background:var(--green-light);
+    color:var(--green);
+    padding:6px 11px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:1px solid #dce5df;
+    border-radius:12px;
+    font-size:16px;
+    margin-bottom:12px;
+    background:#fafcfb;
+    color:var(--text);
+    outline:none;
+    transition:border .2s,box-shadow .2s;
+}
+
+input:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 3px #087f5b15;
+}
+
+.btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
 .save,.delivered{
-    background:#087f5b;
+    background:linear-gradient(135deg,#0a946b,#087f5b);
     color:white;
 }
 
 .receive{
-    background:#1976d2;
+    background:linear-gradient(135deg,#2587df,#1262b3);
     color:white;
 }
 
 .refresh{
-    background:#e8f5e9;
-    color:#087f5b;
+    background:#e4f3eb;
+    color:var(--green);
+    border:1px solid #d2e9dc;
+}
+
+.small-note{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.9;
+    margin-bottom:0;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.stat-card{
+    background:#f8faf9;
+    border:1px solid #edf1ee;
+    border-radius:15px;
+    padding:17px 10px;
+    text-align:center;
+}
+
+.stat-card span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.stat-card strong{
+    color:var(--green);
+    font-size:23px;
+}
+
+.profit-card{
+    grid-column:1/-1;
+    background:linear-gradient(135deg,#087f5b,#045b42);
+    border:0;
+}
+
+.profit-card span,
+.profit-card strong{
+    color:white;
+}
+
+.profit-card strong{
+    font-size:25px;
 }
 
 .order{
     background:white;
-    border:1px solid #e5e5e5;
-    border-radius:13px;
+    border:1px solid #e8eee9;
+    border-radius:16px;
     padding:16px;
-    margin:15px 0;
-    animation:appear .3s ease;
+    margin:13px 0;
+    box-shadow:0 3px 12px #00000008;
+    animation:appear .35s ease both;
 }
 
 @keyframes appear{
     from{
         opacity:0;
-        transform:translateY(8px);
+        transform:translateY(10px);
     }
     to{
         opacity:1;
@@ -120,165 +297,199 @@ button:disabled{
 }
 
 .order h4{
-    color:#087f5b;
-    margin-top:0;
+    color:var(--green);
+    margin:0 0 12px;
+    font-size:16px;
     overflow-wrap:anywhere;
 }
 
+.order-info{
+    color:#65736b;
+    font-size:13px;
+    line-height:1.9;
+    margin:5px 0;
+    overflow-wrap:anywhere;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    background:#fff4d9;
+    color:#805d0b;
+    padding:7px 12px;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:12px;
+    margin:8px 0;
+}
+
+.status.blue{
+    background:#e7f1ff;
+    color:#145da0;
+}
+
+.status.done{
+    background:#e5f5e9;
+    color:#087f5b;
+}
+
 .customer{
-    background:#edf7f2;
-    border-right:4px solid #087f5b;
-    padding:12px;
-    border-radius:9px;
-    line-height:2;
+    background:#eff8f3;
+    border-right:4px solid var(--green);
+    padding:13px;
+    border-radius:11px;
+    line-height:1.9;
     margin:12px 0;
     overflow-wrap:anywhere;
 }
 
-.items{
-    background:#f7faf8;
-    padding:12px;
-    border-radius:9px;
-    line-height:1.9;
+.customer-title{
+    display:block;
+    color:var(--green);
+    margin-bottom:7px;
     font-size:14px;
+}
+
+.customer p{
+    margin:5px 0;
+    font-size:13px;
+}
+
+.phone{
+    color:var(--green);
+    font-weight:bold;
+    text-decoration:none;
+    direction:ltr;
+    display:inline-block;
+}
+
+.items{
+    background:#f8faf9;
+    padding:13px;
+    border-radius:11px;
+    line-height:1.9;
+    font-size:13px;
+    margin:12px 0;
+}
+
+.items strong{
+    color:#46554c;
 }
 
 .items p{
     margin:5px 0;
+    color:#68756d;
 }
 
 .total{
-    color:#087f5b;
+    color:var(--green);
     font-weight:bold;
-    font-size:17px;
+    font-size:16px;
+    margin:12px 0;
 }
 
-.status{
-    background:#fff3cd;
-    color:#795900;
-    padding:8px 12px;
-    border-radius:7px;
-    display:inline-block;
+.commission{
+    color:var(--green);
     font-weight:bold;
+    background:#e8f5ee;
+    padding:11px;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.card-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:12px;
+}
+
+.action-link{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+    padding:12px 8px;
+    border-radius:10px;
+    text-decoration:none;
     font-size:13px;
+    font-weight:bold;
+    background:#e8f5ee;
+    color:var(--green);
+    min-width:0;
+}
+
+.action-link.call{
+    background:#e8f1ff;
+    color:#1765b1;
+}
+
+.action-link:active{
+    transform:scale(.97);
 }
 
 .empty{
     text-align:center;
-    color:#777;
-    padding:20px 10px;
-    font-size:14px;
+    color:var(--muted);
+    padding:25px 10px;
+    font-size:13px;
+    line-height:2;
+    background:#fafcfb;
+    border-radius:12px;
+    border:1px dashed #e0e8e2;
 }
 
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-}
-
-.section-title h3{
-    margin-bottom:0;
-    line-height:1.7;
-}
-
-.count{
-    background:#087f5b;
-    color:white;
-    padding:5px 11px;
-    border-radius:20px;
-    font-size:14px;
-}
-
-.phone{
-    color:#087f5b;
-    font-weight:bold;
-    text-decoration:none;
+.empty-icon{
+    display:block;
+    font-size:28px;
+    margin-bottom:8px;
 }
 
 .back{
     display:block;
     text-align:center;
-    color:#087f5b;
+    color:var(--green);
     text-decoration:none;
     margin:20px;
-}
-
-.small-note{
-    color:#777;
-    font-size:13px;
-    line-height:1.8;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:5px;
-}
-
-.stat-card{
-    background:white;
-    border-radius:12px;
-    padding:18px 10px;
-    text-align:center;
-    box-shadow:0 2px 8px #00000010;
-}
-
-.stat-card span{
-    display:block;
-    color:#777;
-    font-size:13px;
-    margin-bottom:10px;
-}
-
-.stat-card strong{
-    color:#087f5b;
-    font-size:21px;
-}
-
-.profit-card{
-    grid-column:1/-1;
-    background:#087f5b;
-}
-
-.profit-card span,
-.profit-card strong{
-    color:white;
-}
-
-.commission{
-    color:#087f5b;
+    padding:10px;
+    font-size:14px;
     font-weight:bold;
 }
 
-.notice{
-    padding:13px;
-    border-radius:9px;
-    background:#e8f5e9;
-    color:#087f5b;
-    line-height:1.8;
-    margin-bottom:15px;
-    overflow-wrap:anywhere;
-    font-size:13px;
-}
-
-.error{
-    background:#ffebee;
-    color:#b71c1c;
+.footer-note{
+    text-align:center;
+    color:#9aa49e;
+    font-size:11px;
+    margin:20px 0;
 }
 
 @media(max-width:400px){
-    .stat-card strong{
-        font-size:17px;
-    }
-
     .container{
-        padding:10px;
+        padding:0 10px;
     }
 
     .box{
-        padding:14px;
+        padding:15px;
+    }
+
+    .stat-card strong{
+        font-size:19px;
+    }
+
+    .card-actions{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *:before,
+    *:after{
+        scroll-behavior:auto !important;
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
     }
 }
 </style>
@@ -287,8 +498,11 @@ button:disabled{
 <body>
 
 <header>
-    <h2>🚚 سِلّتي</h2>
-    <p>لوحة مندوب التوصيل</p>
+    <div class="header-content">
+        <div class="logo">🚚</div>
+        <h2>سِلّتي</h2>
+        <p>لوحة مندوب التوصيل</p>
+    </div>
 </header>
 
 <div class="container">
@@ -297,33 +511,39 @@ button:disabled{
         جارٍ الاتصال بالنظام السحابي...
     </div>
 
+    <!-- بيانات المندوب -->
     <div class="box">
 
-        <h3>👤 بيانات المندوب</h3>
+        <div class="section-title">
+            <h3>👤 بيانات المندوب</h3>
+        </div>
 
-        <label>اسم المندوب</label>
+        <label for="courierName">اسم المندوب</label>
 
         <input
             type="text"
             id="courierName"
             maxlength="60"
             placeholder="أدخل اسمك"
+            autocomplete="name"
         >
 
-        <button class="save" id="saveButton">
-            حفظ بياناتي
+        <button class="btn save" id="saveButton">
+            💾 حفظ بياناتي
         </button>
 
         <p class="small-note">
-            عمولة المندوب: 3,000 جنيه عن كل طلب يتم تسليمه.
+            عمولتك 3,000 جنيه عن كل طلب يتم تسليمه بنجاح.
         </p>
 
     </div>
 
-
+    <!-- الإحصائيات -->
     <div class="box">
 
-        <h3>📊 ملخص نشاطي</h3>
+        <div class="section-title">
+            <h3>📊 ملخص نشاطي</h3>
+        </div>
 
         <div class="stats">
 
@@ -346,7 +566,7 @@ button:disabled{
 
     </div>
 
-
+    <!-- الطلبات الجاهزة -->
     <div class="box">
 
         <div class="section-title">
@@ -360,7 +580,7 @@ button:disabled{
 
     </div>
 
-
+    <!-- طلبات المندوب -->
     <div class="box">
 
         <div class="section-title">
@@ -368,11 +588,13 @@ button:disabled{
             <span class="count" id="myCount">0</span>
         </div>
 
-        <div id="myOrders"></div>
+        <div id="myOrders">
+            <p class="empty">بانتظار تحميل طلباتك...</p>
+        </div>
 
     </div>
 
-
+    <!-- سجل التوصيل -->
     <div class="box">
 
         <div class="section-title">
@@ -380,18 +602,23 @@ button:disabled{
             <span class="count" id="doneCount">0</span>
         </div>
 
-        <div id="doneOrders"></div>
+        <div id="doneOrders">
+            <p class="empty">بانتظار تحميل السجل...</p>
+        </div>
 
     </div>
 
-
-    <button class="refresh" id="refreshButton">
+    <button class="btn refresh" id="refreshButton">
         🔄 تحديث البيانات
     </button>
 
     <a href="index.html" class="back">
-        العودة إلى الصفحة الرئيسية
+        🏠 العودة إلى الصفحة الرئيسية
     </a>
+
+    <p class="footer-note">
+        سِلّتي | طلبك لحد بابك 💚
+    </p>
 
 </div>
 
@@ -411,7 +638,6 @@ import {
     query,
     where,
     onSnapshot,
-    updateDoc,
     runTransaction
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
@@ -434,11 +660,15 @@ let stopAssignedListener = null;
 
 let busyOrders = new Set();
 
+let authCheckNumber = 0;
+
 const messageBox =
     document.getElementById("systemMessage");
 
-document.getElementById("courierName").value =
-    courierName;
+const nameInput =
+    document.getElementById("courierName");
+
+nameInput.value = courierName;
 
 
 // ==================================
@@ -490,12 +720,11 @@ function stopListeners() {
 
 function saveCourier() {
 
-    const name =
-        document.getElementById("courierName")
-        .value.trim();
+    const name = nameInput.value.trim();
 
     if (!name) {
         alert("يرجى كتابة اسم المندوب.");
+        nameInput.focus();
         return;
     }
 
@@ -533,6 +762,8 @@ function startCloudListeners() {
 
     readyOrders = [];
     assignedOrders = [];
+
+    renderOrders();
 
     showMessage(
         "جارٍ الاتصال بالسحابة وتحميل الطلبات..."
@@ -580,7 +811,7 @@ function startCloudListeners() {
     );
 
 
-    // طلبات المندوب
+    // طلبات هذا المندوب
 
     const assignedQuery = query(
         collection(db, "orders"),
@@ -711,7 +942,7 @@ function renderOrders() {
     const orders = getAllOrders();
 
 
-    // الطلبات التي لم يستلمها أحد
+    // الطلبات الجاهزة وغير المستلمة
 
     const available = orders.filter(order =>
         order.status === "جاهز للتسليم" &&
@@ -720,7 +951,7 @@ function renderOrders() {
     );
 
 
-    // طلبات هذا المندوب
+    // طلبات هذا المندوب قيد التوصيل
 
     const mine = orders.filter(order =>
         order.courierUid === currentUser.uid &&
@@ -766,6 +997,9 @@ function renderOrders() {
     document.getElementById("activeCount").textContent =
         mine.length;
 
+    document.getElementById("myCount").textContent =
+        mine.length;
+
     document.getElementById("totalProfit").textContent =
         formatMoney(totalProfit);
 
@@ -775,19 +1009,19 @@ function renderOrders() {
     if (available.length === 0) {
 
         readyContainer.innerHTML =
-            '<p class="empty">لا توجد طلبات جاهزة وغير مستلمة حالياً.</p>';
+            '<p class="empty"><span class="empty-icon">📭</span>لا توجد طلبات جاهزة وغير مستلمة حالياً.</p>';
     }
 
     if (mine.length === 0) {
 
         myContainer.innerHTML =
-            '<p class="empty">لا توجد طلبات قيد التوصيل.</p>';
+            '<p class="empty"><span class="empty-icon">🚚</span>لا توجد طلبات قيد التوصيل حالياً.</p>';
     }
 
     if (done.length === 0) {
 
         doneContainer.innerHTML =
-            '<p class="empty">لا توجد طلبات مكتملة حتى الآن.</p>';
+            '<p class="empty"><span class="empty-icon">📋</span>لا توجد طلبات مكتملة حتى الآن.</p>';
     }
 
 
@@ -836,6 +1070,25 @@ function renderOrders() {
 
 
 // ==================================
+// إنشاء رابط الخريطة
+// ==================================
+
+function createMapLink(address, region) {
+
+    const location = [
+        address,
+        region,
+        "السودان"
+    ].filter(Boolean).join(" ");
+
+    if (!location.trim()) return null;
+
+    return "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(location);
+}
+
+
+// ==================================
 // إنشاء بطاقة الطلب
 // ==================================
 
@@ -854,6 +1107,8 @@ function createOrderCard(order, type) {
 
     const store = document.createElement("p");
 
+    store.className = "order-info";
+
     store.textContent =
         "🏪 المتجر: " +
         (order.storeName || "غير محدد");
@@ -861,21 +1116,28 @@ function createOrderCard(order, type) {
 
     const date = document.createElement("p");
 
+    date.className = "order-info";
+
     date.textContent =
         "📅 تاريخ الطلب: " +
         (order.date || "غير محدد");
 
 
-    const status = document.createElement("p");
+    const status = document.createElement("span");
 
-    status.className = "status";
+    status.className =
+        type === "done"
+            ? "status done"
+            : type === "delivery"
+                ? "status blue"
+                : "status";
 
     status.textContent =
         type === "done"
-            ? "تم التسليم"
+            ? "✓ تم التسليم"
             : type === "delivery"
-                ? "استلمته للتوصيل"
-                : "جاهز للتوصيل";
+                ? "🚚 استلمته للتوصيل"
+                : "📦 جاهز للتوصيل";
 
 
     // بيانات الزبون
@@ -885,6 +1147,8 @@ function createOrderCard(order, type) {
     customerBox.className = "customer";
 
     const customerTitle = document.createElement("strong");
+
+    customerTitle.className = "customer-title";
 
     customerTitle.textContent = "👤 بيانات الزبون";
 
@@ -940,6 +1204,50 @@ function createOrderCard(order, type) {
     }
 
 
+    // روابط الاتصال والخريطة
+
+    const actions = document.createElement("div");
+
+    actions.className = "card-actions";
+
+    if (customer.phone) {
+
+        const callLink = document.createElement("a");
+
+        callLink.className = "action-link call";
+
+        callLink.href =
+            "tel:" +
+            String(customer.phone).replace(/[^\d+]/g, "");
+
+        callLink.textContent = "📞 اتصال بالزبون";
+
+        actions.appendChild(callLink);
+    }
+
+    const mapUrl = createMapLink(
+        customer.address,
+        customer.region
+    );
+
+    if (mapUrl) {
+
+        const mapLink = document.createElement("a");
+
+        mapLink.className = "action-link";
+
+        mapLink.href = mapUrl;
+
+        mapLink.target = "_blank";
+
+        mapLink.rel = "noopener noreferrer";
+
+        mapLink.textContent = "📍 فتح العنوان بالخريطة";
+
+        actions.appendChild(mapLink);
+    }
+
+
     // المنتجات
 
     const itemsBox = document.createElement("div");
@@ -987,7 +1295,14 @@ function createOrderCard(order, type) {
         store,
         date,
         status,
-        customerBox,
+        customerBox
+    );
+
+    if (actions.children.length > 0) {
+        card.appendChild(actions);
+    }
+
+    card.append(
         itemsBox,
         total
     );
@@ -999,10 +1314,12 @@ function createOrderCard(order, type) {
 
         const button = document.createElement("button");
 
-        button.className = "receive";
+        button.className = "btn receive";
 
         button.textContent =
-            "استلام الطلب للتوصيل";
+            busyOrders.has(order.id)
+                ? "جارٍ استلام الطلب..."
+                : "🚚 استلام الطلب للتوصيل";
 
         button.disabled =
             busyOrders.has(order.id);
@@ -1021,10 +1338,12 @@ function createOrderCard(order, type) {
 
         const button = document.createElement("button");
 
-        button.className = "delivered";
+        button.className = "btn delivered";
 
         button.textContent =
-            "تأكيد تسليم الطلب للزبون ✓";
+            busyOrders.has(order.id)
+                ? "جارٍ تأكيد التسليم..."
+                : "✓ تأكيد تسليم الطلب للزبون";
 
         button.disabled =
             busyOrders.has(order.id);
@@ -1042,6 +1361,8 @@ function createOrderCard(order, type) {
     if (type === "done") {
 
         const deliveredDate = document.createElement("p");
+
+        deliveredDate.className = "order-info";
 
         deliveredDate.textContent =
             "📅 تاريخ التسليم: " +
@@ -1078,6 +1399,8 @@ async function receiveOrder(orderId) {
         alert(
             "اكتب اسم المندوب واحفظه أولاً."
         );
+
+        nameInput.focus();
 
         return;
     }
@@ -1168,11 +1491,11 @@ async function receiveOrder(orderId) {
 
 async function confirmDelivery(orderId) {
 
+    if (busyOrders.has(orderId)) return;
+
     if (!confirm("هل تؤكد أنك سلمت الطلب للزبون؟")) {
         return;
     }
-
-    if (busyOrders.has(orderId)) return;
 
     busyOrders.add(orderId);
 
@@ -1289,12 +1612,17 @@ function() {
 
 onAuthStateChanged(auth, async user => {
 
+    const checkNumber = ++authCheckNumber;
+
     stopListeners();
 
     currentUser = null;
 
     readyOrders = [];
     assignedOrders = [];
+
+    readyLoaded = false;
+    assignedLoaded = false;
 
     if (!user) {
 
@@ -1314,6 +1642,8 @@ onAuthStateChanged(auth, async user => {
         const userRef = doc(db, "users", user.uid);
 
         const userSnapshot = await getDoc(userRef);
+
+        if (checkNumber !== authCheckNumber) return;
 
 
         if (!userSnapshot.exists()) {
@@ -1357,6 +1687,8 @@ onAuthStateChanged(auth, async user => {
     } catch (error) {
 
         console.error(error);
+
+        if (checkNumber !== authCheckNumber) return;
 
         showMessage(
             "تعذر التحقق من الحساب: " +
