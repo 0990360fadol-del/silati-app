@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فحص اتصال سِلّتي</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f3;
+    padding: 20px;
+    color: #26332e;
+}
+
+.box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+    box-shadow: 0 3px 12px #0001;
+}
+
+h2 {
+    color: #087f5b;
+}
+
+#result {
+    line-height: 2;
+    overflow-wrap: anywhere;
+}
+
+button {
+    background: #087f5b;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🔍 فحص اتصال سِلّتي</h2>
+
+<div id="result">جارٍ بدء الفحص...</div>
+
+<button onclick="location.reload()">إعادة الفحص</button>
+
+</div>
+
+<script type="module">
+
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+const result = document.getElementById("result");
+
+function show(message) {
+    result.innerHTML += "<br>" + message;
+}
+
+result.innerHTML = "✅ تم تحميل ملف Firebase بنجاح";
+
+let finished = false;
+
+const timeout = setTimeout(() => {
+    if (!finished) {
+        finished = true;
+        show("❌ انتهت مهلة الاتصال. لم يصل رد من Firebase.");
+    }
+}, 20000);
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (finished) return;
+
+    finished = true;
+    clearTimeout(timeout);
+
+    if (!user) {
+        show("⚠️ لا يوجد حساب مسجل الدخول حالياً.");
+        show("يرجى تسجيل الدخول ثم إعادة الفحص.");
+        return;
+    }
+
+    show("✅ تم التعرف على الحساب.");
+    show("جارٍ فحص قاعدة بيانات Firestore...");
+
+    try {
+
+        const snapshot = await getDoc(
+            doc(db, "users", user.uid)
+        );
+
+        if (snapshot.exists()) {
+
+            const data = snapshot.data();
+
+            show("✅ الاتصال بقاعدة البيانات ناجح.");
+            show("نوع الحساب: " + (data.role || "غير محدد"));
+
+        } else {
+
+            show("⚠️ الحساب متصل، لكن بياناته غير موجودة في users.");
+
+        }
+
+    } catch (error) {
+
+        show("❌ فشل الاتصال بقاعدة البيانات.");
+        show("رمز الخطأ: " + error.code);
+        show("التفاصيل: " + error.message);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
