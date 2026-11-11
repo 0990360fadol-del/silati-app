@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087f5b">
+
 <title>طلباتي | سِلّتي</title>
 
 <style>
@@ -13,50 +15,61 @@
 
 body {
     margin: 0;
-    padding: 0 0 90px;
+    padding: 0 0 95px;
     font-family: Arial, sans-serif;
     background: #f1f5f3;
     color: #26332d;
 }
 
 header {
-    background: #087f5b;
+    background: linear-gradient(135deg, #087f5b, #075b43);
     color: white;
-    padding: 22px 16px;
+    padding: 27px 16px 30px;
     text-align: center;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.12);
 }
 
 header h2 {
-    margin: 0 0 7px;
+    margin: 0 0 9px;
+    font-size: 24px;
 }
 
 header p {
     margin: 0;
     font-size: 13px;
-    opacity: .9;
+    opacity: .92;
 }
 
 .container {
     max-width: 650px;
     margin: auto;
-    padding: 15px;
+    padding: 17px 14px;
 }
 
 .message {
     background: white;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 22px 15px;
+    border-radius: 15px;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
     color: #64736b;
+    box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    line-height: 1.8;
+}
+
+.message button {
+    display: block;
+    margin: 15px auto 0;
 }
 
 .order-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 17px;
     padding: 17px;
     margin-bottom: 18px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    box-shadow: 0 4px 15px rgba(0,0,0,.06);
+    border: 1px solid #edf1ee;
     animation: appear .35s ease;
 }
 
@@ -77,20 +90,21 @@ header p {
     align-items: center;
     gap: 10px;
     border-bottom: 1px solid #edf1ee;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
 }
 
 .order-head h3 {
     margin: 0;
     color: #087f5b;
-    font-size: 17px;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 .status-badge {
     background: #e7f5ed;
     color: #087f5b;
     border-radius: 20px;
-    padding: 7px 11px;
+    padding: 8px 11px;
     font-size: 12px;
     font-weight: bold;
     white-space: nowrap;
@@ -101,10 +115,16 @@ header p {
     color: #c62828;
 }
 
+.status-badge.delivered {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
 .order-info {
     line-height: 1.9;
-    font-size: 14px;
-    margin: 12px 0;
+    font-size: 13px;
+    margin: 13px 0;
+    color: #65736b;
 }
 
 .order-info p {
@@ -113,30 +133,64 @@ header p {
 
 .items {
     background: #f7faf8;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 12px 0;
-    font-size: 14px;
-    line-height: 1.9;
+    border: 1px solid #edf1ee;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 13px 0;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.items strong {
+    display: block;
+    color: #26332d;
+    margin-bottom: 5px;
+}
+
+.item-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    border-bottom: 1px dashed #e1e8e3;
+    padding: 4px 0;
+}
+
+.item-line:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    flex: 1;
+}
+
+.item-price {
+    color: #526158;
+    white-space: nowrap;
 }
 
 .total {
+    background: #eaf6ef;
     color: #087f5b;
+    border-radius: 11px;
+    padding: 12px;
     font-size: 17px;
     font-weight: bold;
     margin-top: 12px;
+    text-align: center;
 }
 
 .tracking {
-    margin-top: 18px;
-    padding: 15px 12px;
+    margin-top: 17px;
+    padding: 16px 13px;
     background: #f8faf9;
-    border-radius: 12px;
+    border: 1px solid #edf1ee;
+    border-radius: 13px;
 }
 
 .tracking h4 {
-    margin: 0 0 18px;
+    margin: 0 0 20px;
     color: #26332d;
+    font-size: 14px;
 }
 
 .track-step {
@@ -144,7 +198,7 @@ header p {
     align-items: flex-start;
     gap: 12px;
     position: relative;
-    min-height: 49px;
+    min-height: 48px;
 }
 
 .track-step:not(:last-child)::after {
@@ -152,7 +206,7 @@ header p {
     position: absolute;
     right: 10px;
     top: 23px;
-    height: 27px;
+    height: 25px;
     width: 2px;
     background: #dce5df;
 }
@@ -184,6 +238,7 @@ header p {
     padding-top: 3px;
     font-size: 13px;
     color: #929c95;
+    line-height: 1.5;
 }
 
 .track-step.done .track-label {
@@ -199,25 +254,45 @@ header p {
 .cancel-message {
     color: #c62828;
     background: #ffebee;
-    border-radius: 9px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 13px;
     font-size: 13px;
-    margin-top: 12px;
+    margin-top: 15px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.unknown-status {
+    background: #fff8e1;
+    color: #8d6e00;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-top: 14px;
+    line-height: 1.7;
 }
 
 button {
     border: none;
-    border-radius: 9px;
-    padding: 12px 18px;
+    border-radius: 10px;
+    padding: 12px 20px;
     background: #087f5b;
     color: white;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 12px;
+    font-size: 14px;
 }
 
 button:active {
     transform: scale(.97);
+}
+
+.footer-note {
+    text-align: center;
+    color: #87948c;
+    font-size: 12px;
+    margin: 25px 0 10px;
+    line-height: 1.8;
 }
 </style>
 </head>
@@ -236,6 +311,10 @@ button:active {
     </div>
 
     <div id="ordersContainer"></div>
+
+    <div class="footer-note">
+        سِلّتي | دكان حلتك أصبح أقرب إليك 🛒
+    </div>
 
 </div>
 
@@ -261,6 +340,7 @@ const container = document.getElementById("ordersContainer");
 let unsubscribeOrders = null;
 
 
+// مراحل تتبع الطلب
 const steps = [
     "جديد",
     "قيد التجهيز",
@@ -270,17 +350,24 @@ const steps = [
 ];
 
 
+// توحيد أسماء الحالات
 function normalizeStatus(status) {
 
-    if (status === "في الطريق" ||
-        status === "جاري التوصيل") {
-        return "المندوب في الطريق";
-    }
+    const aliases = {
+        "في الطريق": "المندوب في الطريق",
+        "جاري التوصيل": "المندوب في الطريق",
+        "قيد التوصيل": "المندوب في الطريق",
+        "تم التوصيل": "تم التسليم",
+        "مكتمل": "تم التسليم"
+    };
 
-    return status || "جديد";
+    status = String(status || "جديد").trim();
+
+    return aliases[status] || status;
 }
 
 
+// تنسيق التاريخ
 function formatDate(order) {
 
     try {
@@ -301,58 +388,113 @@ function formatDate(order) {
 }
 
 
+// استخراج وقت الطلب للترتيب
+function getOrderTime(order) {
+
+    if (order.createdAt && order.createdAt.toMillis) {
+        return order.createdAt.toMillis();
+    }
+
+    if (order.date) {
+        const parsed = new Date(order.date).getTime();
+
+        if (!isNaN(parsed)) {
+            return parsed;
+        }
+    }
+
+    return 0;
+}
+
+
+// حساب إجمالي المنتجات
+function calculateItemsTotal(items) {
+
+    if (!Array.isArray(items)) {
+        return 0;
+    }
+
+    return items.reduce((sum, item) => {
+
+        const price = Number(item.price) || 0;
+        const quantity = Number(item.quantity) || 1;
+
+        return sum + (price * quantity);
+
+    }, 0);
+}
+
+
+// إنشاء شريط التتبع
 function createTracking(status) {
 
     status = normalizeStatus(status);
 
     if (status === "ملغي") {
-        return `
-            <div class="cancel-message">
-                ❌ تم إلغاء هذا الطلب.
-            </div>
-        `;
+
+        const cancel = document.createElement("div");
+
+        cancel.className = "cancel-message";
+        cancel.textContent = "❌ تم إلغاء هذا الطلب.";
+
+        return cancel;
     }
 
-    let currentIndex = steps.indexOf(status);
+    const currentIndex = steps.indexOf(status);
 
     if (currentIndex < 0) {
-        currentIndex = 0;
+
+        const unknown = document.createElement("div");
+
+        unknown.className = "unknown-status";
+        unknown.textContent =
+            "حالة الطلب الحالية: " + status +
+            ". سيتم تحديث تفاصيل التتبع عند توفر المرحلة التالية.";
+
+        return unknown;
     }
 
-    return `
-        <div class="tracking">
-            <h4>🚚 مراحل توصيل طلبك</h4>
+    const tracking = document.createElement("div");
+    tracking.className = "tracking";
 
-            ${steps.map((step, index) => {
+    const title = document.createElement("h4");
+    title.textContent = "🚚 مراحل توصيل طلبك";
 
-                const done = index <= currentIndex;
+    tracking.appendChild(title);
 
-                const current = index === currentIndex;
+    steps.forEach((step, index) => {
 
-                return `
-                    <div class="track-step
-                        ${done ? "done" : ""}
-                        ${current ? "current" : ""}">
+        const done = index <= currentIndex;
+        const current = index === currentIndex;
 
-                        <div class="track-dot">
-                            ${done ? "✓" : ""}
-                        </div>
+        const row = document.createElement("div");
 
-                        <div class="track-label">
-                            ${step}
-                            ${current ? " ← الحالة الحالية" : ""}
-                        </div>
+        row.className =
+            "track-step" +
+            (done ? " done" : "") +
+            (current ? " current" : "");
 
-                    </div>
-                `;
+        const dot = document.createElement("div");
+        dot.className = "track-dot";
+        dot.textContent = done ? "✓" : "";
 
-            }).join("")}
+        const label = document.createElement("div");
+        label.className = "track-label";
 
-        </div>
-    `;
+        label.textContent =
+            step + (current ? " ← الحالة الحالية" : "");
+
+        row.append(dot, label);
+
+        tracking.appendChild(row);
+
+    });
+
+    return tracking;
 }
 
 
+// إنشاء بطاقة الطلب
 function renderOrder(order) {
 
     const status = normalizeStatus(order.status);
@@ -360,34 +502,48 @@ function renderOrder(order) {
     const card = document.createElement("div");
     card.className = "order-card";
 
+    // رأس الطلب
     const head = document.createElement("div");
     head.className = "order-head";
 
     const title = document.createElement("h3");
-    title.textContent = "🏪 " + (order.storeName || "متجر سِلّتي");
+
+    title.textContent =
+        "🏪 " + (order.storeName || "متجر سِلّتي");
 
     const badge = document.createElement("span");
     badge.className = "status-badge";
+    badge.textContent = status;
 
     if (status === "ملغي") {
         badge.classList.add("cancelled");
     }
 
-    badge.textContent = status;
+    if (status === "تم التسليم") {
+        badge.classList.add("delivered");
+    }
 
     head.append(title, badge);
 
+
+    // معلومات الطلب
     const info = document.createElement("div");
     info.className = "order-info";
 
     const id = document.createElement("p");
-    id.textContent = "رقم الطلب: " + (order.id || "غير محدد");
+
+    id.textContent =
+        "🔢 رقم الطلب: " + (order.id || "غير محدد");
 
     const date = document.createElement("p");
-    date.textContent = "تاريخ الطلب: " + formatDate(order);
+
+    date.textContent =
+        "📅 تاريخ الطلب: " + formatDate(order);
 
     info.append(id, date);
 
+
+    // المنتجات
     const itemsBox = document.createElement("div");
     itemsBox.className = "items";
 
@@ -396,38 +552,61 @@ function renderOrder(order) {
 
     itemsBox.appendChild(itemsTitle);
 
-    if (Array.isArray(order.items)) {
+    if (Array.isArray(order.items) && order.items.length > 0) {
 
         order.items.forEach(item => {
 
             const line = document.createElement("div");
+            line.className = "item-line";
 
-            line.textContent =
-                (item.name || "منتج") +
-                " × " +
-                (Number(item.quantity) || 1) +
-                " = " +
+            const name = document.createElement("span");
+            name.className = "item-name";
+
+            const quantity = Number(item.quantity) || 1;
+
+            name.textContent =
+                (item.name || "منتج") + " × " + quantity;
+
+            const price = document.createElement("span");
+            price.className = "item-price";
+
+            price.textContent =
                 (
-                    (Number(item.price) || 0) *
-                    (Number(item.quantity) || 1)
-                ).toLocaleString("ar") +
-                " جنيه";
+                    (Number(item.price) || 0) * quantity
+                ).toLocaleString("ar") + " جنيه";
+
+            line.append(name, price);
 
             itemsBox.appendChild(line);
+
         });
+
+    } else {
+
+        const emptyItems = document.createElement("div");
+        emptyItems.textContent = "لا توجد تفاصيل للمنتجات.";
+        itemsBox.appendChild(emptyItems);
 
     }
 
+
+    // الإجمالي
     const total = document.createElement("div");
     total.className = "total";
 
+    const orderTotal =
+        order.total !== undefined && order.total !== null
+            ? Number(order.total) || 0
+            : calculateItemsTotal(order.items);
+
     total.textContent =
         "الإجمالي: " +
-        (Number(order.total) || 0).toLocaleString("ar") +
+        orderTotal.toLocaleString("ar") +
         " جنيه";
 
-    const tracking = document.createElement("div");
-    tracking.innerHTML = createTracking(status);
+
+    // التتبع
+    const tracking = createTracking(status);
 
     card.append(head, info, itemsBox, total, tracking);
 
@@ -435,6 +614,7 @@ function renderOrder(order) {
 }
 
 
+// عرض الطلبات
 function showOrders(snapshot) {
 
     container.innerHTML = "";
@@ -449,28 +629,21 @@ function showOrders(snapshot) {
 
     message.style.display = "none";
 
-    const orders = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
+    const orders = snapshot.docs.map(documentSnapshot => ({
+        ...documentSnapshot.data(),
+        id: documentSnapshot.id
     }));
 
+    // الأحدث أولاً
     orders.sort((a, b) => {
-
-        const dateA = a.createdAt?.toMillis
-            ? a.createdAt.toMillis()
-            : 0;
-
-        const dateB = b.createdAt?.toMillis
-            ? b.createdAt.toMillis()
-            : 0;
-
-        return dateB - dateA;
+        return getOrderTime(b) - getOrderTime(a);
     });
 
     orders.forEach(renderOrder);
 }
 
 
+// متابعة تسجيل الدخول والطلبات
 onAuthStateChanged(auth, user => {
 
     if (unsubscribeOrders) {
@@ -478,13 +651,17 @@ onAuthStateChanged(auth, user => {
         unsubscribeOrders = null;
     }
 
+    container.innerHTML = "";
+
     if (!user) {
 
         message.style.display = "block";
         message.textContent = "يرجى تسجيل الدخول لعرض طلباتك.";
 
         const loginButton = document.createElement("button");
+
         loginButton.textContent = "تسجيل الدخول";
+
         loginButton.onclick = () => {
             location.href = "login.html";
         };
@@ -497,27 +674,44 @@ onAuthStateChanged(auth, user => {
     message.style.display = "block";
     message.textContent = "جارٍ تحميل طلباتك...";
 
-    const ordersQuery = query(
-        collection(db, "orders"),
-        where("customerId", "==", user.uid)
-    );
+    try {
 
-    unsubscribeOrders = onSnapshot(
-        ordersQuery,
+        const ordersQuery = query(
+            collection(db, "orders"),
+            where("customerId", "==", user.uid)
+        );
 
-        snapshot => {
-            showOrders(snapshot);
-        },
+        unsubscribeOrders = onSnapshot(
 
-        error => {
+            ordersQuery,
 
-            console.error("Orders error:", error);
+            snapshot => {
+                showOrders(snapshot);
+            },
 
-            message.style.display = "block";
-            message.textContent =
-                "تعذر تحميل الطلبات. تحقق من الاتصال أو صلاحيات Firestore.";
-        }
-    );
+            error => {
+
+                console.error("Orders error:", error);
+
+                message.style.display = "block";
+
+                message.textContent =
+                    "تعذر تحميل الطلبات. تحقق من الاتصال أو صلاحيات Firestore.";
+
+            }
+
+        );
+
+    } catch (error) {
+
+        console.error("Orders setup error:", error);
+
+        message.style.display = "block";
+
+        message.textContent =
+            "حدث خطأ أثناء فتح صفحة الطلبات.";
+
+    }
 
 });
 
