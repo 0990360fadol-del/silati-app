@@ -3,6 +3,7 @@
 // إعداد Firebase والمصادقة وقاعدة البيانات
 // ==========================================
 
+// استيراد Firebase
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
@@ -14,24 +15,16 @@ from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 // إعدادات مشروع سِلّتي
 const firebaseConfig = {
-
-    apiKey: "ضع_مفتاح_API_الصحيح_هنا",
-
+    apiKey: "AIzaSyCYWHHS4GQ0uzRtaLj9PjY5QKKev_IwY6I",
     authDomain: "silati-e8776.firebaseapp.com",
-
     projectId: "silati-e8776",
-
     storageBucket: "silati-e8776.firebasestorage.app",
-
     messagingSenderId: "354123311226",
-
     appId: "1:354123311226:web:eeaf3ca2adfeb04ac773c3",
-
     measurementId: "G-KGHZ9M14H3"
-
 };
 
-// تشغيل Firebase
+// تشغيل التطبيق
 const app = initializeApp(firebaseConfig);
 
 // تشغيل قاعدة البيانات
