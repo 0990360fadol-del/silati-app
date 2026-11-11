@@ -2,246 +2,592 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>سلة المشتريات | سِلّتي</title>
+<title>سلة المشتريات | سِلّتي</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#101b3d">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<link rel="stylesheet" href="style.css">
 
-        body {
-            margin: 0;
-            background: #f1f5f3;
-            font-family: Arial, sans-serif;
-            color: #26332e;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        .header {
-            background: #087f5b;
-            color: white;
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+:root {
+    --navy: #101b3d;
+    --navy-light: #1b405c;
+    --green: #087f5b;
+    --green-dark: #056747;
+    --green-light: #e7f5ef;
+    --gold: #e5b84b;
+    --bg: #f3f6f5;
+    --text: #26332e;
+}
 
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-        }
+body {
+    margin: 0;
+    padding-bottom: 100px;
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+}
 
-        .header a {
-            color: white;
-            text-decoration: none;
-        }
+/* الرأس */
 
-        .stores {
-            max-width: 750px;
-            margin: 20px auto;
-            padding: 15px;
-        }
+.header {
+    background: linear-gradient(
+        120deg,
+        var(--navy),
+        var(--navy-light),
+        var(--green)
+    );
+    color: white;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 15px #101b3d25;
+}
 
-        .stores h2 {
-            color: #087f5b;
-        }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        .store-card,
-        .customer-card {
-            background: white;
-            padding: 18px;
-            margin: 15px 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #00000012;
-        }
+.header a {
+    color: white;
+    text-decoration: none;
+    background: #ffffff18;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+}
 
-        .store-card h3 {
-            color: #087f5b;
-        }
+/* المحتوى */
 
-        .cart-buttons {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
+.stores {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+}
 
-        .cart-buttons button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+/* واجهة الترحيب */
 
-        .total-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 25px;
-            box-shadow: 0 2px 8px #00000012;
-        }
+.page-hero {
+    background: linear-gradient(
+        130deg,
+        var(--navy),
+        #174d5a,
+        var(--green)
+    );
+    color: white;
+    padding: 24px 20px;
+    border-radius: 19px;
+    margin-bottom: 23px;
+    box-shadow: 0 6px 18px #101b3d20;
+}
 
-        .total-card h2 {
-            color: #087f5b;
-        }
+.page-hero h2 {
+    margin: 0 0 10px;
+    font-size: 23px;
+}
 
-        .customer-card h2 {
-            color: #087f5b;
-            margin-top: 0;
-        }
+.page-hero p {
+    color: #e2eee9;
+    font-size: 14px;
+    line-height: 1.9;
+    margin: 0;
+}
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+/* عناوين الأقسام */
 
-        .form-group label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-        }
+.section-title {
+    color: var(--navy);
+    font-size: 19px;
+    margin: 25px 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #d5ded9;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            background: #fff;
-        }
+.section-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to left, var(--gold), transparent);
+}
 
-        .form-group textarea {
-            min-height: 85px;
-            resize: vertical;
-        }
+/* المنتجات داخل السلة */
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #087f5b;
-        }
+#cartItems {
+    min-height: 40px;
+}
 
-        .checkout-button {
-            width: 100%;
-            background: #087f5b;
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 9px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 12px;
-        }
+/* تنسيقات العناصر التي ينشئها app.js */
 
-        .checkout-button:disabled {
-            background: #888;
-            cursor: not-allowed;
-        }
+#cartItems > div {
+    background: white;
+    padding: 18px;
+    margin: 14px 0;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px #00000009;
+    border: 1px solid #e8eeeb;
+    line-height: 1.9;
+}
 
-        .back-link {
-            display: block;
-            text-align: center;
-            margin: 25px;
-            color: #087f5b;
-            text-decoration: none;
-        }
+#cartItems h3,
+#cartItems h4 {
+    color: var(--navy);
+}
 
-        .empty-message {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-        }
+#cartItems p {
+    line-height: 1.9;
+}
 
-        .required-note {
-            color: #777;
-            font-size: 13px;
-        }
-    </style>
+#cartItems button {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 4px;
+}
+
+#cartItems button:active {
+    opacity: .8;
+}
+
+/* أزرار الكمية والحذف */
+
+.cart-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 13px;
+}
+
+.cart-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cart-buttons button:first-child {
+    background: var(--green-light);
+    color: var(--green);
+}
+
+.cart-buttons button:last-child {
+    background: #fff0f0;
+    color: #d32f2f;
+}
+
+/* إجمالي الفاتورة */
+
+.total-card {
+    background: linear-gradient(
+        135deg,
+        white,
+        #e8f7ef
+    );
+    padding: 23px;
+    border-radius: 18px;
+    text-align: center;
+    margin: 25px 0;
+    box-shadow: 0 4px 15px #00000009;
+    border: 1px solid #dcece2;
+}
+
+.total-card h3 {
+    color: var(--navy);
+    margin: 0 0 12px;
+}
+
+.total-card h2 {
+    color: var(--green);
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.total-note {
+    font-size: 12px;
+    color: #7b8981;
+}
+
+/* بيانات الزبون */
+
+.customer-card {
+    background: white;
+    padding: 22px 18px;
+    margin: 20px 0;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px #00000009;
+    border: 1px solid #e8eeeb;
+}
+
+.customer-card h2 {
+    color: var(--navy);
+    margin: 0 0 12px;
+    font-size: 20px;
+}
+
+.customer-intro {
+    color: #78847e;
+    font-size: 13px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #34443b;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dce6e1;
+    border-radius: 11px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    background: #fbfdfc;
+    color: var(--text);
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--green);
+    background: white;
+    box-shadow: 0 0 0 3px #087f5b13;
+}
+
+.required-note {
+    color: #78847e;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* طريقة الدفع */
+
+.payment-info {
+    background: #fff9e9;
+    border: 1px solid #f0dfae;
+    padding: 15px;
+    border-radius: 13px;
+    margin: 18px 0;
+    line-height: 1.9;
+    color: #725b20;
+    font-size: 14px;
+}
+
+/* زر تأكيد الطلب */
+
+.checkout-button {
+    width: 100%;
+    background: linear-gradient(
+        110deg,
+        var(--green),
+        var(--green-dark)
+    );
+    color: white;
+    padding: 17px;
+    border: none;
+    border-radius: 13px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    box-shadow: 0 5px 14px #087f5b30;
+}
+
+.checkout-button:active {
+    transform: scale(.99);
+}
+
+.checkout-button:disabled {
+    background: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* العودة */
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin: 25px 0;
+    color: var(--green);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 14px;
+    background: var(--green-light);
+    border-radius: 12px;
+}
+
+/* السلة الفارغة */
+
+.empty-message {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    line-height: 2;
+    color: #777;
+    border: 1px solid #e8eeeb;
+}
+
+.empty-message h3 {
+    color: var(--navy);
+}
+
+.empty-icon {
+    font-size: 45px;
+}
+
+/* التذييل */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #78847e;
+    font-size: 12px;
+    line-height: 2;
+}
+
+@media (max-width: 400px) {
+
+    .page-hero h2 {
+        font-size: 20px;
+    }
+
+    .total-card h2 {
+        font-size: 26px;
+    }
+
+    .customer-card {
+        padding: 17px 14px;
+    }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
 <header class="header">
+
     <div class="logo">🛒 سِلّتي</div>
-    <a href="index.html">الرئيسية</a>
+
+    <a href="index.html">🏠 الرئيسية</a>
+
 </header>
 
-<section class="stores">
 
-    <h2>🛍️ سلة مشترياتك</h2>
+<main class="stores">
 
-    <p>راجع منتجاتك وكمياتك قبل تأكيد الطلب.</p>
+    <section class="page-hero">
 
-    <div id="cartItems"></div>
+        <h2>🛍️ سلة مشترياتك</h2>
 
-    <div class="total-card">
-        <h3>💰 إجمالي الفاتورة</h3>
-        <h2 id="total">0 جنيه</h2>
-    </div>
-
-    <div class="customer-card">
-
-        <h2>👤 بيانات الزبون والتوصيل</h2>
-
-        <p class="required-note">
-            يرجى إدخال البيانات التالية حتى يتمكن التاجر من التواصل معك.
+        <p>
+            كل احتياجاتك في مكان واحد.
+            راجع مشترياتك وأرسل طلبك إلى المتجر بسهولة.
         </p>
 
-        <div class="form-group">
-            <label for="customerName">الاسم الكامل *</label>
-            <input type="text" id="customerName"
-                   placeholder="اكتب اسمك الكامل">
+    </section>
+
+
+    <h3 class="section-title">📦 المنتجات المختارة</h3>
+
+    <div id="cartItems">
+
+        <div class="empty-message">
+            جاري تحميل السلة...
         </div>
 
-        <div class="form-group">
-            <label for="customerPhone">رقم الهاتف *</label>
-            <input type="tel" id="customerPhone"
-                   placeholder="مثال: 09xxxxxxxx"
-                   inputmode="tel">
+    </div>
+
+
+    <section class="total-card">
+
+        <h3>💰 إجمالي الفاتورة</h3>
+
+        <h2 id="total">0 جنيه</h2>
+
+        <div class="total-note">
+            المبلغ محسوب حسب المنتجات والكميات المختارة
         </div>
 
-        <div class="form-group">
-            <label for="customerRegion">المنطقة والحي *</label>
-            <input type="text" id="customerRegion"
-                   placeholder="مثال: شرق النيل - الحاج يوسف">
-        </div>
+    </section>
+
+
+    <h3 class="section-title">👤 بيانات الزبون والتوصيل</h3>
+
+
+    <section class="customer-card">
+
+        <h2>بيانات استلام الطلب</h2>
+
+        <p class="customer-intro">
+            أدخل بياناتك بدقة حتى يتمكن التاجر ومندوب التوصيل
+            من الوصول إليك والتواصل معك.
+        </p>
+
 
         <div class="form-group">
-            <label for="customerAddress">العنوان بالتفصيل *</label>
-            <textarea id="customerAddress"
-                      placeholder="اكتب أقرب معلم أو وصف مكان السكن"></textarea>
+
+            <label for="customerName">
+                الاسم الكامل *
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="اكتب اسمك الكامل"
+                autocomplete="name"
+            >
+
         </div>
 
+
         <div class="form-group">
-            <label for="customerNote">ملاحظة إضافية (اختياري)</label>
-            <textarea id="customerNote"
-                      placeholder="أي تفاصيل إضافية تريد إبلاغ التاجر بها"></textarea>
+
+            <label for="customerPhone">
+                رقم الهاتف *
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="مثال: 09xxxxxxxx"
+                inputmode="tel"
+                autocomplete="tel"
+            >
+
         </div>
+
+
+        <div class="form-group">
+
+            <label for="customerRegion">
+                المنطقة والحي *
+            </label>
+
+            <input
+                type="text"
+                id="customerRegion"
+                placeholder="مثال: شرق النيل - الحاج يوسف"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="customerAddress">
+                العنوان بالتفصيل *
+            </label>
+
+            <textarea
+                id="customerAddress"
+                placeholder="اكتب أقرب معلم أو وصف مكان السكن"
+                autocomplete="street-address"
+            ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="customerNote">
+                ملاحظة إضافية (اختياري)
+            </label>
+
+            <textarea
+                id="customerNote"
+                placeholder="أي تفاصيل إضافية تريد إبلاغ التاجر بها"
+            ></textarea>
+
+        </div>
+
+
+        <div class="payment-info">
+
+            💵 <strong>طريقة الدفع:</strong>
+
+            <br>
+
+            الدفع نقداً عند استلام الطلب.
+
+            <br>
+
+            لا تحتاج إلى دفع أي مبلغ إلكترونياً الآن.
+
+        </div>
+
+
+        <p class="required-note">
+            * الحقول الأساسية مطلوبة لإرسال الطلب.
+        </p>
+
 
         <button
             class="checkout-button"
             id="checkoutButton"
-            onclick="checkout()">
+            onclick="checkout()"
+        >
             تأكيد الطلب ✓
         </button>
 
-    </div>
+    </section>
+
 
     <a href="stores.html" class="back-link">
-        ➜ العودة إلى المتاجر
+        🏪 العودة إلى المتاجر
     </a>
 
-</section>
+</main>
+
+
+<footer>
+
+    🛒 سِلّتي
+
+    <br>
+
+    دكان حلتك أصبح أقرب إليك 💚
+
+    <br>
+
+    تسوق بسهولة من متاجرك المحلية
+
+</footer>
+
 
 <script src="app.js"></script>
+
 
 <script type="module">
 
@@ -260,19 +606,33 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 
+// ==================================
 // انتظار معرفة المستخدم
+// ==================================
 
 function waitForUser() {
 
     return new Promise(resolve => {
 
-        let unsubscribe = () => {};
+        let unsubscribe = null;
 
         unsubscribe = onAuthStateChanged(auth, user => {
 
-            unsubscribe();
+            if (unsubscribe) {
+                unsubscribe();
+            }
 
             resolve(user);
+
+        }, error => {
+
+            console.error("خطأ التحقق من المستخدم:", error);
+
+            if (unsubscribe) {
+                unsubscribe();
+            }
+
+            resolve(null);
 
         });
 
@@ -293,31 +653,74 @@ async function checkout() {
 
     try {
 
+        // قراءة السلة
+
+        if (typeof window.getCartItems !== "function") {
+
+            throw new Error("تعذر قراءة السلة. تحقق من ملف app.js.");
+
+        }
+
         const cartItems = window.getCartItems();
 
-        if (!cartItems || cartItems.length === 0) {
+        if (!Array.isArray(cartItems) || cartItems.length === 0) {
 
-            alert("السلة فارغة!");
+            alert("السلة فارغة! أضف بعض المنتجات أولاً.");
 
             return;
+
+        }
+
+
+        // قراءة بيانات الزبون
+
+        if (typeof window.getCustomerData !== "function") {
+
+            throw new Error("تعذر قراءة بيانات الزبون من النموذج.");
+
         }
 
         const customer = window.getCustomerData();
 
         if (!customer) return;
 
+
+        // منع الطلب غير المكتمل
+
+        if (
+            !customer.name ||
+            !customer.phone ||
+            !customer.region ||
+            !customer.address
+        ) {
+
+            alert("يرجى إكمال جميع بيانات الزبون والتوصيل المطلوبة.");
+
+            return;
+
+        }
+
+
+        // التحقق من المستخدم
+
+        button.disabled = true;
+
+        button.textContent = "جارٍ التحقق من الحساب...";
+
         const user = await waitForUser();
 
         if (!user) {
 
-            alert("يرجى تسجيل الدخول أولاً.");
+            alert("يرجى تسجيل الدخول أولاً لإرسال طلبك.");
 
             window.location.href = "login.html";
 
             return;
+
         }
 
-        // التحقق من حساب الزبون
+
+        // التحقق من دور الحساب
 
         const userRef = doc(db, "users", user.uid);
 
@@ -331,7 +734,9 @@ async function checkout() {
             alert("هذا الحساب غير مسجل كحساب زبون.");
 
             return;
+
         }
+
 
         // التحقق من المنتجات
 
@@ -349,16 +754,18 @@ async function checkout() {
                 alert("يوجد منتج ببيانات غير صحيحة في السلة.");
 
                 return;
+
             }
 
         }
 
-        button.disabled = true;
 
-        button.textContent = "جاري إرسال الطلب...";
+        button.textContent = "جارٍ تجهيز الطلب...";
 
 
+        // ==================================
         // تقسيم المنتجات حسب المتجر
+        // ==================================
 
         const groups = {};
 
@@ -369,10 +776,15 @@ async function checkout() {
             if (!groups[key]) {
 
                 groups[key] = {
+
                     storeId: key,
+
                     storeName: item.storeName,
+
                     ownerUid: "",
+
                     items: []
+
                 };
 
             }
@@ -390,15 +802,20 @@ async function checkout() {
         });
 
 
-        // ==================================
-        // التحقق من المتاجر وقراءة مالك كل متجر
-        // ==================================
-
         const groupList = Object.values(groups);
+
+
+        // ==================================
+        // التحقق من المتاجر ومالكيها
+        // ==================================
 
         for (const group of groupList) {
 
-            const storeRef = doc(db, "stores", group.storeId);
+            const storeRef = doc(
+                db,
+                "stores",
+                group.storeId
+            );
 
             const storeSnapshot = await getDoc(storeRef);
 
@@ -415,8 +832,6 @@ async function checkout() {
 
             group.storeName =
                 storeData.name || group.storeName;
-
-            // إضافة معرّف صاحب المتجر
 
             group.ownerUid = storeData.ownerUid;
 
@@ -458,7 +873,6 @@ async function checkout() {
 
                 storeId: group.storeId,
 
-                // الحقل الجديد
                 ownerUid: group.ownerUid,
 
                 storeName: group.storeName,
@@ -496,7 +910,11 @@ async function checkout() {
         });
 
 
-        // حفظ جميع الطلبات
+        // ==================================
+        // حفظ الطلبات في Firebase
+        // ==================================
+
+        button.textContent = "جارٍ إرسال الطلب...";
 
         await batch.commit();
 
@@ -537,9 +955,24 @@ async function checkout() {
         }
 
 
+        // ==================================
         // تفريغ السلة بعد نجاح الحفظ
+        // ==================================
+
+        if (typeof window.clearCartAfterCheckout !== "function") {
+
+            throw new Error(
+                "تم حفظ الطلب، لكن تعذر تشغيل تفريغ السلة. لا تعاود إرسال الطلب."
+            );
+
+        }
 
         window.clearCartAfterCheckout();
+
+
+        // ==================================
+        // رسالة نجاح الطلب
+        // ==================================
 
         const finalTotal = newOrders.reduce(
             (sum, order) => sum + order.total,
@@ -550,17 +983,18 @@ async function checkout() {
 
             "تم تسجيل طلبك بنجاح 💚\n\n" +
 
-            "مرحباً " + customer.name + "\n" +
+            "مرحباً " + customer.name + "\n\n" +
 
-            "عدد الطلبات: " + newOrders.length + "\n" +
+            "عدد المتاجر: " + newOrders.length + "\n" +
 
             "إجمالي الفاتورة: " +
 
-            finalTotal.toLocaleString() + " جنيه\n\n" +
+            finalTotal.toLocaleString("ar") + " جنيه\n\n" +
 
             "تم إرسال طلبك إلى قاعدة البيانات السحابية."
 
         );
+
 
     } catch (error) {
 
@@ -568,13 +1002,15 @@ async function checkout() {
 
         alert(
 
-            "تعذر إرسال الطلب.\n\n" +
+            "تعذر إتمام العملية.\n\n" +
 
-            (error.code === "permission-denied"
-                ? "لا توجد صلاحية لحفظ الطلب. تحقق من قواعد Firestore."
-                : error.message || "تحقق من اتصال الإنترنت وحاول مجدداً.")
+            (
+                error.code === "permission-denied"
+                    ? "لا توجد صلاحية لحفظ الطلب. تحقق من قواعد Firestore."
+                    : error.message || "تحقق من اتصال الإنترنت وحاول مجدداً."
+            ) +
 
-            + "\n\nلم يتم تفريغ السلة."
+            "\n\nلم يتم تفريغ السلة تلقائياً."
 
         );
 
@@ -594,11 +1030,30 @@ async function checkout() {
 window.checkout = checkout;
 
 
-// عرض السلة عند فتح الصفحة
+// ==================================
+// عرض السلة
+// ==================================
 
-window.renderCart();
+if (typeof window.renderCart === "function") {
+
+    window.renderCart();
+
+} else {
+
+    document.getElementById("cartItems").innerHTML = `
+        <div class="empty-message">
+            <div class="empty-icon">🛒</div>
+            <h3>تعذر تحميل السلة</h3>
+            <p>تحقق من ملف app.js ثم أعد المحاولة.</p>
+        </div>
+    `;
+
+}
 
 </script>
+
+
 <script src="bottom-nav.js" defer></script>
+
 </body>
 </html>
