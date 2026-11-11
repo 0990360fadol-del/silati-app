@@ -28,54 +28,38 @@ html {
     scroll-behavior:smooth;
 }
 
-@view-transition {
-    navigation:auto;
-}
-
-::view-transition-old(root) {
-    animation:pageOut .2s ease both;
-}
-
-::view-transition-new(root) {
-    animation:pageIn .35s ease both;
-}
-
-@keyframes pageIn {
-    from { opacity:0; transform:translateY(8px); }
-    to { opacity:1; transform:translateY(0); }
-}
-
-@keyframes pageOut {
-    to { opacity:0; }
-}
-
-@keyframes appear {
-    from { opacity:0; transform:translateY(12px); }
-    to { opacity:1; transform:translateY(0); }
-}
-
-@keyframes pulse {
-    from { opacity:.25; transform:translateY(0); }
-    to { opacity:1; transform:translateY(-4px); }
-}
-
 body {
     margin:0;
     padding:0 0 100px;
     font-family:Arial,sans-serif;
     background:var(--bg);
     color:var(--text);
-    animation:pageIn .4s ease;
+    animation:pageIn .35s ease;
 }
 
-/* رأس الصفحة */
+@keyframes pageIn {
+    from {opacity:0;transform:translateY(8px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+@keyframes appear {
+    from {opacity:0;transform:translateY(12px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+@keyframes pulse {
+    from {opacity:.3}
+    to {opacity:1}
+}
+
+/* الرأس */
 
 header {
     position:relative;
     overflow:hidden;
     background:linear-gradient(135deg,var(--green),var(--green-dark));
     color:white;
-    padding:30px 18px 35px;
+    padding:27px 18px 32px;
     text-align:center;
     border-radius:0 0 27px 27px;
     box-shadow:0 7px 22px rgba(0,0,0,.13);
@@ -109,21 +93,20 @@ header:after {
 }
 
 .header-icon {
-    width:62px;
-    height:62px;
+    width:60px;
+    height:60px;
     margin:0 auto 12px;
-    border-radius:20px;
+    border-radius:19px;
     background:rgba(255,255,255,.16);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
-    backdrop-filter:blur(5px);
+    font-size:29px;
 }
 
 header h2 {
     margin:0 0 9px;
-    font-size:25px;
+    font-size:24px;
 }
 
 header p {
@@ -142,20 +125,195 @@ header p {
     font-size:12px;
 }
 
-/* المحتوى */
-
 .container {
     max-width:680px;
     margin:auto;
-    padding:18px 14px;
+    padding:17px 13px;
 }
+
+/* مركز الإشعارات */
+
+.notification-box {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    margin-bottom:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.notification-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:15px;
+    cursor:pointer;
+}
+
+.notification-title {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.notification-icon {
+    width:39px;
+    height:39px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--green-light);
+    font-size:20px;
+}
+
+.notification-count {
+    min-width:23px;
+    height:23px;
+    padding:0 7px;
+    border-radius:20px;
+    background:#e53935;
+    color:white;
+    font-size:11px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.notification-count.zero {
+    background:#e9efeb;
+    color:#75847b;
+}
+
+.notification-actions {
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.small-button {
+    border:none;
+    border-radius:9px;
+    padding:8px 10px;
+    font-size:11px;
+    background:#e8f5ee;
+    color:var(--green);
+    cursor:pointer;
+}
+
+.notification-list {
+    border-top:1px solid var(--border);
+    display:none;
+}
+
+.notification-list.open {
+    display:block;
+    animation:appear .25s ease;
+}
+
+.notification-item {
+    padding:13px 15px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    gap:11px;
+    align-items:flex-start;
+    cursor:pointer;
+    transition:background .2s;
+}
+
+.notification-item:last-child {
+    border-bottom:none;
+}
+
+.notification-item:active {
+    background:#f1f8f4;
+}
+
+.notification-item.unread {
+    background:#f0faf4;
+}
+
+.notification-item-icon {
+    width:38px;
+    height:38px;
+    min-width:38px;
+    border-radius:12px;
+    background:#e8f5ee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+.notification-content {
+    flex:1;
+    min-width:0;
+}
+
+.notification-content strong {
+    display:block;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.notification-content p {
+    margin:0;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+    overflow-wrap:anywhere;
+}
+
+.notification-time {
+    display:block;
+    font-size:10px;
+    color:#9aa59e;
+    margin-top:5px;
+}
+
+.empty-notifications {
+    padding:20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* التنبيه المؤقت */
+
+.toast {
+    position:fixed;
+    z-index:9999;
+    top:15px;
+    left:12px;
+    right:12px;
+    max-width:500px;
+    margin:auto;
+    padding:15px;
+    background:#173d30;
+    color:white;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    display:none;
+    animation:appear .3s ease;
+    line-height:1.8;
+    font-size:13px;
+}
+
+.toast.show {
+    display:block;
+}
+
+/* العناوين والرسائل */
 
 .section-heading {
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:10px;
-    margin:5px 2px 15px;
+    margin:8px 2px 15px;
 }
 
 .section-heading h3 {
@@ -172,8 +330,6 @@ header p {
     font-weight:bold;
 }
 
-/* الرسائل */
-
 .message {
     background:white;
     padding:25px 16px;
@@ -184,7 +340,6 @@ header p {
     box-shadow:var(--shadow);
     line-height:1.9;
     border:1px solid var(--border);
-    animation:appear .35s ease;
 }
 
 .message-icon {
@@ -196,11 +351,6 @@ header p {
 .message-text {
     font-size:14px;
     overflow-wrap:anywhere;
-}
-
-.message button {
-    display:block;
-    margin:16px auto 0;
 }
 
 .hidden {
@@ -225,27 +375,20 @@ header p {
     animation-delay:.4s;
 }
 
-/* الأزرار */
-
 button {
     border:none;
     border-radius:12px;
-    padding:12px 21px;
+    padding:12px 20px;
     background:var(--green);
     color:white;
     font-weight:bold;
     cursor:pointer;
-    font-size:14px;
-    transition:transform .2s,background .2s,box-shadow .2s;
+    font-size:13px;
+    transition:transform .2s,background .2s;
 }
 
 button:active {
     transform:scale(.96);
-}
-
-button:hover {
-    background:var(--green-dark);
-    box-shadow:0 5px 12px rgba(8,127,91,.15);
 }
 
 /* بطاقة الطلب */
@@ -253,16 +396,17 @@ button:hover {
 .order-card {
     background:white;
     border-radius:19px;
-    padding:17px;
+    padding:16px;
     margin-bottom:17px;
     box-shadow:var(--shadow);
     border:1px solid var(--border);
-    animation:appear .4s ease both;
-    transition:transform .25s,box-shadow .25s;
+    animation:appear .35s ease both;
+    scroll-margin-top:15px;
 }
 
-.order-card:active {
-    transform:scale(.99);
+.order-card.highlight {
+    border:2px solid var(--green);
+    box-shadow:0 0 0 5px rgba(8,127,91,.09);
 }
 
 .order-head {
@@ -271,7 +415,7 @@ button:hover {
     align-items:center;
     gap:10px;
     border-bottom:1px solid var(--border);
-    padding-bottom:14px;
+    padding-bottom:13px;
 }
 
 .order-head h3 {
@@ -289,7 +433,6 @@ button:hover {
     padding:8px 11px;
     font-size:11px;
     font-weight:bold;
-    white-space:nowrap;
 }
 
 .status-badge.cancelled {
@@ -311,8 +454,6 @@ button:hover {
     background:#e7f1ff;
     color:#145da0;
 }
-
-/* معلومات الطلب */
 
 .order-info {
     line-height:1.9;
@@ -367,8 +508,6 @@ button:hover {
     font-weight:bold;
 }
 
-/* الإجمالي */
-
 .total {
     background:linear-gradient(135deg,#eaf6ef,#f1faf4);
     color:var(--green);
@@ -380,7 +519,7 @@ button:hover {
     text-align:center;
 }
 
-/* شريط التتبع */
+/* التتبع */
 
 .tracking {
     margin-top:17px;
@@ -392,7 +531,6 @@ button:hover {
 
 .tracking h4 {
     margin:0 0 20px;
-    color:var(--text);
     font-size:14px;
 }
 
@@ -412,7 +550,6 @@ button:hover {
     height:29px;
     width:2px;
     background:#dce5df;
-    transition:background .3s ease;
 }
 
 .track-step.done:not(:last-child):after {
@@ -431,18 +568,15 @@ button:hover {
     align-items:center;
     font-size:12px;
     z-index:1;
-    transition:all .3s ease;
 }
 
 .track-step.done .track-dot {
     background:var(--green);
     color:white;
-    box-shadow:0 0 0 4px rgba(8,127,91,.08);
 }
 
 .track-step.current .track-dot {
     box-shadow:0 0 0 5px rgba(8,127,91,.13);
-    transform:scale(1.08);
 }
 
 .track-label {
@@ -466,11 +600,9 @@ button:hover {
     display:block;
     font-size:11px;
     color:var(--muted);
-    font-weight:normal;
     margin-top:3px;
+    font-weight:normal;
 }
-
-/* المندوب */
 
 .courier-note {
     background:#e8f5ee;
@@ -480,10 +612,7 @@ button:hover {
     font-size:12px;
     line-height:1.9;
     margin-top:12px;
-    overflow-wrap:anywhere;
 }
-
-/* الحالات الخاصة */
 
 .cancel-message {
     color:#c62828;
@@ -506,8 +635,6 @@ button:hover {
     line-height:1.8;
 }
 
-/* التذييل */
-
 .footer-note {
     text-align:center;
     color:#87948c;
@@ -517,25 +644,13 @@ button:hover {
 }
 
 @media(max-width:420px) {
-    .container {
-        padding:15px 10px;
-    }
-
     .order-card {
-        padding:14px;
+        padding:13px;
     }
 
     .order-head {
         align-items:flex-start;
         flex-direction:column;
-    }
-
-    .status-badge {
-        white-space:normal;
-    }
-
-    .item-line {
-        font-size:12px;
     }
 }
 
@@ -567,14 +682,47 @@ button:hover {
 
 <div class="container">
 
+    <!-- مركز الإشعارات -->
+
+    <div id="notificationBox" class="notification-box hidden">
+
+        <div class="notification-head" id="notificationToggle">
+
+            <div class="notification-title">
+                <div class="notification-icon">🔔</div>
+                <span>إشعارات سِلّتي</span>
+                <span id="notificationCount"
+                      class="notification-count zero">0</span>
+            </div>
+
+            <div class="notification-actions">
+                <button class="small-button"
+                        id="markAllRead"
+                        type="button">
+                    قراءة الكل
+                </button>
+
+                <span id="notificationArrow">⌄</span>
+            </div>
+
+        </div>
+
+        <div id="notificationList" class="notification-list">
+
+            <div class="empty-notifications">
+                لا توجد إشعارات حتى الآن 🌿
+            </div>
+
+        </div>
+
+    </div>
+
     <div id="message" class="message">
         <span class="message-icon">⏳</span>
         <div class="message-text">جارٍ تحميل البيانات</div>
-        <div>
-            <span class="loading-dot"></span>
-            <span class="loading-dot"></span>
-            <span class="loading-dot"></span>
-        </div>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
     </div>
 
     <div id="sectionHeading" class="section-heading hidden">
@@ -591,6 +739,8 @@ button:hover {
     </div>
 
 </div>
+
+<div id="toast" class="toast"></div>
 
 <script type="module">
 
@@ -623,10 +773,38 @@ const pageTitle = document.getElementById("pageTitle");
 const pageDescription = document.getElementById("pageDescription");
 const roleLabel = document.getElementById("roleLabel");
 
+const notificationBox =
+    document.getElementById("notificationBox");
+
+const notificationList =
+    document.getElementById("notificationList");
+
+const notificationCount =
+    document.getElementById("notificationCount");
+
+const notificationToggle =
+    document.getElementById("notificationToggle");
+
+const notificationArrow =
+    document.getElementById("notificationArrow");
+
+const markAllRead =
+    document.getElementById("markAllRead");
+
+const toast = document.getElementById("toast");
+
 let unsubscribeOrders = null;
 let currentUser = null;
 let currentRole = null;
 let authCheckNumber = 0;
+
+let firstSnapshotReceived = false;
+
+let previousOrders = new Map();
+
+let notifications = [];
+
+let toastTimer = null;
 
 
 // ==========================================
@@ -672,6 +850,561 @@ const roleNames = {
     courier:"حساب مندوب",
     admin:"حساب مدير"
 };
+
+
+// ==========================================
+// إدارة الإشعارات المحلية
+// ==========================================
+
+function notificationStorageKey() {
+
+    return "silatiNotifications_" + currentUser.uid;
+}
+
+
+function loadNotifications() {
+
+    try {
+
+        const saved = localStorage.getItem(
+            notificationStorageKey()
+        );
+
+        notifications = saved
+            ? JSON.parse(saved)
+            : [];
+
+        if (!Array.isArray(notifications)) {
+            notifications = [];
+        }
+
+    } catch (error) {
+
+        notifications = [];
+    }
+
+    renderNotifications();
+}
+
+
+function saveNotifications() {
+
+    try {
+
+        // الاحتفاظ بآخر 50 إشعاراً فقط
+
+        notifications = notifications.slice(0, 50);
+
+        localStorage.setItem(
+            notificationStorageKey(),
+            JSON.stringify(notifications)
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "تعذر حفظ إشعارات سِلّتي محلياً:",
+            error
+        );
+    }
+
+    renderNotifications();
+}
+
+
+// ==========================================
+// إنشاء إشعار
+// ==========================================
+
+function addNotification(data) {
+
+    const exists = notifications.some(item =>
+        item.eventKey === data.eventKey
+    );
+
+    if (exists) return;
+
+    const notification = {
+
+        id: Date.now() + "_" +
+            Math.random().toString(36).slice(2, 8),
+
+        eventKey: data.eventKey,
+
+        title: data.title,
+
+        body: data.body,
+
+        icon: data.icon || "🔔",
+
+        orderId: data.orderId,
+
+        date: Date.now(),
+
+        read: false
+    };
+
+    notifications.unshift(notification);
+
+    saveNotifications();
+
+    showToast(
+        notification.icon + " " +
+        notification.title +
+        "\n" +
+        notification.body
+    );
+
+}
+
+
+// ==========================================
+// عرض التنبيه المؤقت
+// ==========================================
+
+function showToast(text) {
+
+    toast.textContent = text;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 5000);
+
+}
+
+
+// ==========================================
+// تنسيق وقت الإشعار
+// ==========================================
+
+function formatNotificationTime(date) {
+
+    try {
+
+        return new Date(date).toLocaleString("ar");
+
+    } catch (error) {
+
+        return "";
+    }
+
+}
+
+
+// ==========================================
+// عرض مركز الإشعارات
+// ==========================================
+
+function renderNotifications() {
+
+    const unread = notifications.filter(
+        item => !item.read
+    ).length;
+
+    notificationCount.textContent =
+        unread.toLocaleString("ar");
+
+    notificationCount.classList.toggle(
+        "zero",
+        unread === 0
+    );
+
+    notificationList.innerHTML = "";
+
+    if (notifications.length === 0) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty-notifications";
+
+        empty.textContent =
+            "لا توجد إشعارات حتى الآن 🌿";
+
+        notificationList.appendChild(empty);
+
+        return;
+    }
+
+    notifications.forEach(item => {
+
+        const row = document.createElement("div");
+
+        row.className =
+            "notification-item" +
+            (!item.read ? " unread" : "");
+
+        const icon = document.createElement("div");
+
+        icon.className = "notification-item-icon";
+
+        icon.textContent = item.icon || "🔔";
+
+        const content = document.createElement("div");
+
+        content.className = "notification-content";
+
+        const title = document.createElement("strong");
+
+        title.textContent = item.title;
+
+        const body = document.createElement("p");
+
+        body.textContent = item.body;
+
+        const time = document.createElement("span");
+
+        time.className = "notification-time";
+
+        time.textContent =
+            formatNotificationTime(item.date);
+
+        content.append(title, body, time);
+
+        row.append(icon, content);
+
+        row.addEventListener("click", () => {
+
+            item.read = true;
+
+            saveNotifications();
+
+            notificationList.classList.remove("open");
+
+            notificationArrow.textContent = "⌄";
+
+            if (item.orderId) {
+
+                const target = document.querySelector(
+                    '[data-order-id="' + item.orderId + '"]'
+                );
+
+                if (target) {
+
+                    target.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                    target.classList.add("highlight");
+
+                    setTimeout(() => {
+                        target.classList.remove("highlight");
+                    }, 3000);
+                }
+            }
+
+        });
+
+        notificationList.appendChild(row);
+
+    });
+
+}
+
+
+// ==========================================
+// فتح وإغلاق مركز الإشعارات
+// ==========================================
+
+notificationToggle.addEventListener("click", event => {
+
+    if (event.target.closest("button")) return;
+
+    notificationList.classList.toggle("open");
+
+    notificationArrow.textContent =
+        notificationList.classList.contains("open")
+            ? "⌃"
+            : "⌄";
+
+});
+
+
+// ==========================================
+// قراءة جميع الإشعارات
+// ==========================================
+
+markAllRead.addEventListener("click", event => {
+
+    event.stopPropagation();
+
+    notifications.forEach(item => {
+        item.read = true;
+    });
+
+    saveNotifications();
+
+});
+
+
+// ==========================================
+// تحليل التغيرات وإنشاء الإشعارات
+// ==========================================
+
+function processOrderChanges(snapshot) {
+
+    const currentOrders = new Map();
+
+    snapshot.docs.forEach(documentSnapshot => {
+
+        const order = documentSnapshot.data();
+
+        const orderId = documentSnapshot.id;
+
+        const currentStatus =
+            normalizeStatus(order.status);
+
+        currentOrders.set(orderId, {
+            ...order,
+            id:orderId
+        });
+
+        const previous = previousOrders.get(orderId);
+
+        // أول تحميل: تسجيل الحالة دون إرسال إشعارات قديمة
+
+        if (!firstSnapshotReceived) {
+            return;
+        }
+
+        // طلب جديد ظهر بعد التحميل الأول
+
+        if (!previous) {
+
+            if (
+                currentRole === "merchant" ||
+                currentRole === "admin"
+            ) {
+
+                addNotification({
+
+                    eventKey:
+                        "new_order_" + orderId,
+
+                    title:"طلب جديد! 🛍️",
+
+                    body:
+                        "وصل طلب جديد من الزبون " +
+                        (
+                            order.customer?.name ||
+                            "أحد الزبائن"
+                        ) +
+                        " إلى " +
+                        (order.storeName || "متجرك") +
+                        ".",
+
+                    icon:"📦",
+
+                    orderId
+                });
+
+            } else if (currentRole === "courier") {
+
+                addNotification({
+
+                    eventKey:
+                        "assigned_order_" + orderId,
+
+                    title:"طلب جديد مسند إليك 🚚",
+
+                    body:
+                        "تم إسناد طلب " +
+                        (order.storeName || "من أحد المتاجر") +
+                        " إليك للتوصيل.",
+
+                    icon:"🚚",
+
+                    orderId
+                });
+
+            } else if (currentRole === "customer") {
+
+                addNotification({
+
+                    eventKey:
+                        "customer_new_order_" + orderId,
+
+                    title:"تم تسجيل طلبك بنجاح 🛒",
+
+                    body:
+                        "تم تسجيل طلبك من " +
+                        (order.storeName || "المتجر") +
+                        " بنجاح.",
+
+                    icon:"🛒",
+
+                    orderId
+                });
+
+            }
+
+            return;
+        }
+
+        // تغير حالة الطلب
+
+        const oldStatus =
+            normalizeStatus(previous.status);
+
+        if (oldStatus !== currentStatus) {
+
+            let title = "";
+            let body = "";
+            let icon = "🔔";
+
+            if (currentRole === "customer") {
+
+                title = "تحديث طلبك";
+
+                icon = "📦";
+
+                body =
+                    "تم تحديث طلبك من " +
+                    oldStatus +
+                    " إلى " +
+                    currentStatus +
+                    ".";
+
+                if (currentStatus === "قيد التجهيز") {
+                    icon = "👨‍🍳";
+                    title = "المتجر يجهّز طلبك";
+                }
+
+                if (currentStatus === "جاهز للتسليم") {
+                    icon = "📦";
+                    title = "طلبك أصبح جاهزاً";
+                }
+
+                if (
+                    currentStatus === "المندوب في الطريق"
+                ) {
+                    icon = "🚚";
+                    title = "المندوب في الطريق إليك";
+
+                    if (order.courierName) {
+
+                        body =
+                            "المندوب " +
+                            order.courierName +
+                            " بدأ توصيل طلبك. استعد لاستلامه.";
+                    }
+                }
+
+                if (currentStatus === "تم التسليم") {
+                    icon = "✅";
+                    title = "تم تسليم طلبك";
+                    body =
+                        "تم تسليم طلبك بنجاح. شكراً لاستخدامك سِلّتي.";
+                }
+
+                if (currentStatus === "ملغي") {
+                    icon = "❌";
+                    title = "تم إلغاء الطلب";
+                }
+
+            } else if (currentRole === "merchant") {
+
+                title = "تحديث حالة الطلب";
+                icon = "📦";
+
+                body =
+                    "تم تحديث حالة الطلب رقم " +
+                    orderId +
+                    " إلى " +
+                    currentStatus +
+                    ".";
+
+            } else if (currentRole === "courier") {
+
+                title = "تحديث طلب التوصيل";
+                icon = "🚚";
+
+                body =
+                    "تم تحديث حالة الطلب رقم " +
+                    orderId +
+                    " إلى " +
+                    currentStatus +
+                    ".";
+
+                if (currentStatus === "تم التسليم") {
+                    icon = "✅";
+                    title = "اكتمل التوصيل";
+                }
+
+            } else if (currentRole === "admin") {
+
+                title = "تحديث في الطلبات";
+                body =
+                    "تغيرت حالة الطلب رقم " +
+                    orderId +
+                    " إلى " +
+                    currentStatus +
+                    ".";
+            }
+
+            if (title) {
+
+                addNotification({
+
+                    eventKey:
+                        "status_" +
+                        orderId +
+                        "_" +
+                        currentStatus,
+
+                    title,
+
+                    body,
+
+                    icon,
+
+                    orderId
+                });
+
+            }
+
+        }
+
+        // تنبيه المندوب عند إسناد طلب إليه
+
+        if (
+            currentRole === "courier" &&
+            !previous.courierUid &&
+            order.courierUid === currentUser.uid
+        ) {
+
+            addNotification({
+
+                eventKey:
+                    "courier_received_" + orderId,
+
+                title:"تم إسناد الطلب إليك 🚚",
+
+                body:
+                    "أصبح الطلب رقم " +
+                    orderId +
+                    " ضمن طلبات التوصيل الخاصة بك.",
+
+                icon:"🚚",
+
+                orderId
+            });
+
+        }
+
+    });
+
+    previousOrders = currentOrders;
+
+    firstSnapshotReceived = true;
+
+}
 
 
 // ==========================================
@@ -737,11 +1470,15 @@ function showMessage(text, icon = "ℹ️", buttonText = null, action = null) {
     message.style.display = "block";
 
     const iconElement = document.createElement("span");
+
     iconElement.className = "message-icon";
+
     iconElement.textContent = icon;
 
     const textElement = document.createElement("div");
+
     textElement.className = "message-text";
+
     textElement.textContent = text;
 
     message.append(iconElement, textElement);
@@ -749,11 +1486,14 @@ function showMessage(text, icon = "ℹ️", buttonText = null, action = null) {
     if (buttonText && action) {
 
         const button = document.createElement("button");
+
         button.textContent = buttonText;
+
         button.onclick = action;
 
         message.appendChild(button);
     }
+
 }
 
 
@@ -768,11 +1508,9 @@ function showLoading() {
     message.innerHTML = `
         <span class="message-icon">⏳</span>
         <div class="message-text">جارٍ تحميل الطلبات...</div>
-        <div>
-            <span class="loading-dot"></span>
-            <span class="loading-dot"></span>
-            <span class="loading-dot"></span>
-        </div>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
     `;
 }
 
@@ -867,6 +1605,7 @@ function calculateItemsTotal(items) {
     return items.reduce((sum, item) => {
 
         const price = Number(item.price) || 0;
+
         const quantity = Number(item.quantity) || 1;
 
         return sum + (price * quantity);
@@ -886,7 +1625,9 @@ function createTracking(status, order) {
     if (status === "ملغي") {
 
         const cancel = document.createElement("div");
+
         cancel.className = "cancel-message";
+
         cancel.textContent = "❌ تم إلغاء هذا الطلب.";
 
         return cancel;
@@ -910,17 +1651,19 @@ function createTracking(status, order) {
     }
 
     const tracking = document.createElement("div");
+
     tracking.className = "tracking";
 
     const title = document.createElement("h4");
+
     title.textContent = "🚚 رحلة طلبك";
 
     tracking.appendChild(title);
 
-
     steps.forEach((step, index) => {
 
         const done = index <= currentIndex;
+
         const current = index === currentIndex;
 
         const row = document.createElement("div");
@@ -933,6 +1676,7 @@ function createTracking(status, order) {
         const dot = document.createElement("div");
 
         dot.className = "track-dot";
+
         dot.textContent = done ? "✓" : "";
 
         const label = document.createElement("div");
@@ -958,10 +1702,6 @@ function createTracking(status, order) {
         tracking.appendChild(row);
     });
 
-
-    // توضيح استلام المندوب للطلب
-    // الاستلام وحده لا يعني أنه بدأ الطريق
-
     if (
         order.courierUid &&
         status === "جاهز للتسليم"
@@ -981,9 +1721,6 @@ function createTracking(status, order) {
         tracking.appendChild(note);
     }
 
-
-    // إظهار اسم المندوب أثناء الطريق
-
     if (
         order.courierName &&
         status === "المندوب في الطريق"
@@ -999,9 +1736,6 @@ function createTracking(status, order) {
 
         tracking.appendChild(note);
     }
-
-
-    // رسالة إتمام الطلب
 
     if (status === "تم التسليم") {
 
@@ -1031,11 +1765,10 @@ function renderOrder(order, index) {
 
     card.className = "order-card";
 
+    card.dataset.orderId = order.id;
+
     card.style.animationDelay =
-        (index * 0.06) + "s";
-
-
-    // رأس الطلب
+        (index * 0.05) + "s";
 
     const head = document.createElement("div");
 
@@ -1049,6 +1782,7 @@ function renderOrder(order, index) {
     const badge = document.createElement("span");
 
     badge.className = "status-badge";
+
     badge.textContent = status;
 
     if (status === "ملغي") {
@@ -1070,9 +1804,6 @@ function renderOrder(order, index) {
 
     head.append(title, badge);
 
-
-    // معلومات الطلب
-
     const info = document.createElement("div");
 
     info.className = "order-info";
@@ -1080,7 +1811,7 @@ function renderOrder(order, index) {
     const id = document.createElement("p");
 
     id.textContent =
-        "🔢 رقم الطلب: " + (order.id || "غير محدد");
+        "🔢 رقم الطلب: " + order.id;
 
     const date = document.createElement("p");
 
@@ -1088,9 +1819,6 @@ function renderOrder(order, index) {
         "📅 تاريخ الطلب: " + formatDate(order);
 
     info.append(id, date);
-
-
-    // اسم المندوب
 
     if (
         currentRole === "customer" &&
@@ -1105,9 +1833,6 @@ function renderOrder(order, index) {
         info.appendChild(courier);
     }
 
-
-    // المنتجات
-
     const itemsBox = document.createElement("div");
 
     itemsBox.className = "items";
@@ -1117,7 +1842,6 @@ function renderOrder(order, index) {
     itemsTitle.textContent = "🛍️ المنتجات";
 
     itemsBox.appendChild(itemsTitle);
-
 
     if (
         Array.isArray(order.items) &&
@@ -1163,9 +1887,6 @@ function renderOrder(order, index) {
         itemsBox.appendChild(emptyItems);
     }
 
-
-    // الإجمالي
-
     const total = document.createElement("div");
 
     total.className = "total";
@@ -1181,11 +1902,7 @@ function renderOrder(order, index) {
         orderTotal.toLocaleString("ar") +
         " جنيه";
 
-
-    // التتبع
-
     const tracking = createTracking(status, order);
-
 
     card.append(
         head,
@@ -1221,7 +1938,6 @@ function showOrders(snapshot) {
     ordersCount.textContent =
         orders.length.toLocaleString("ar") + " طلب";
 
-
     if (orders.length === 0) {
 
         let emptyText = "لا توجد طلبات حتى الآن.";
@@ -1229,7 +1945,7 @@ function showOrders(snapshot) {
         if (currentRole === "courier") {
 
             emptyText =
-                "لا توجد طلبات مسندة إليك حالياً. ستظهر هنا الطلبات التي تستلمها.";
+                "لا توجد طلبات مسندة إليك حالياً.";
 
         } else if (currentRole === "merchant") {
 
@@ -1290,7 +2006,10 @@ function handleOrdersError(error) {
         "إعادة المحاولة",
         () => {
             if (currentUser) {
-                loadOrdersForUser(currentUser);
+                loadOrdersForUser(
+                    currentUser,
+                    authCheckNumber
+                );
             }
         }
     );
@@ -1309,6 +2028,7 @@ function stopOrdersListener() {
 
         unsubscribeOrders = null;
     }
+
 }
 
 
@@ -1322,6 +2042,10 @@ async function loadOrdersForUser(user, checkNumber) {
 
     stopOrdersListener();
 
+    firstSnapshotReceived = false;
+
+    previousOrders = new Map();
+
     container.innerHTML = "";
 
     sectionHeading.classList.add("hidden");
@@ -1330,14 +2054,11 @@ async function loadOrdersForUser(user, checkNumber) {
 
     try {
 
-        // قراءة بيانات المستخدم
-
         const userRef = doc(db, "users", user.uid);
 
         const userSnapshot = await getDoc(userRef);
 
         if (checkNumber !== authCheckNumber) return;
-
 
         if (!userSnapshot.exists()) {
 
@@ -1348,7 +2069,6 @@ async function loadOrdersForUser(user, checkNumber) {
 
             return;
         }
-
 
         const userData = userSnapshot.data();
 
@@ -1371,11 +2091,11 @@ async function loadOrdersForUser(user, checkNumber) {
             return;
         }
 
-
         setupRoleInterface(role);
 
+        notificationBox.classList.remove("hidden");
 
-        // تجهيز الاستعلام حسب الدور
+        loadNotifications();
 
         let ordersQuery;
 
@@ -1407,9 +2127,6 @@ async function loadOrdersForUser(user, checkNumber) {
             );
         }
 
-
-        // مراقبة الطلبات لحظياً
-
         unsubscribeOrders = onSnapshot(
 
             ordersQuery,
@@ -1417,6 +2134,8 @@ async function loadOrdersForUser(user, checkNumber) {
             snapshot => {
 
                 if (checkNumber !== authCheckNumber) return;
+
+                processOrderChanges(snapshot);
 
                 showOrders(snapshot);
             },
@@ -1454,10 +2173,19 @@ onAuthStateChanged(auth, async user => {
 
     currentRole = null;
 
+    previousOrders = new Map();
+
+    firstSnapshotReceived = false;
+
     container.innerHTML = "";
 
     sectionHeading.classList.add("hidden");
 
+    notificationBox.classList.add("hidden");
+
+    notifications = [];
+
+    renderNotifications();
 
     if (!user) {
 
@@ -1481,6 +2209,7 @@ onAuthStateChanged(auth, async user => {
     }
 
     await loadOrdersForUser(user, checkNumber);
+
 });
 
 </script>
@@ -1488,4 +2217,4 @@ onAuthStateChanged(auth, async user => {
 <script src="bottom-nav.js" defer></script>
 
 </body>
-</html>
+    </html> 
