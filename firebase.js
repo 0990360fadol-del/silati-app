@@ -3,7 +3,6 @@
 // إعداد Firebase والمصادقة وقاعدة البيانات
 // ==========================================
 
-// استيراد Firebase
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
@@ -15,22 +14,30 @@ from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 // إعدادات مشروع سِلّتي
 const firebaseConfig = {
-    apiKey: "AIzaSyCYWHHS4GQ0uzRtaLj9JjY5QKKev_IwY6I",
+
+    apiKey: "ضع_مفتاح_API_الصحيح_هنا",
+
     authDomain: "silati-e8776.firebaseapp.com",
+
     projectId: "silati-e8776",
+
     storageBucket: "silati-e8776.firebasestorage.app",
+
     messagingSenderId: "354123311226",
+
     appId: "1:354123311226:web:eeaf3ca2adfeb04ac773c3",
+
     measurementId: "G-KGHZ9M14H3"
+
 };
 
-// تهيئة التطبيق
+// تشغيل Firebase
 const app = initializeApp(firebaseConfig);
 
-// تهيئة قاعدة البيانات
+// تشغيل قاعدة البيانات
 const db = getFirestore(app);
 
-// تهيئة تسجيل الدخول
+// تشغيل المصادقة
 const auth = getAuth(app);
 
 // تصدير الخدمات
@@ -40,4 +47,4 @@ export {
     auth
 };
 
-console.log("✅ سِلّتي متصل بخدمات Firebase");
+console.log("سِلّتي متصل بخدمات Firebase");
