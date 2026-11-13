@@ -15,7 +15,7 @@ from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 // إعدادات مشروع سِلّتي
 const firebaseConfig = {
-    apiKey: "AIzaSyCYWHHS4GQ0uzRtaLj9PjY5QKKev_IwY6I",
+    apiKey: "AIzaSyCYWHHS4GQ0uzRtaLj9JjY5QKKev_IwY6I",
     authDomain: "silati-e8776.firebaseapp.com",
     projectId: "silati-e8776",
     storageBucket: "silati-e8776.firebasestorage.app",
