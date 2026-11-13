@@ -4,214 +4,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087f5b">
 
 <title>تسجيل الدخول | سِلّتي</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(145deg,#e5f5ed,#f1f5f3);
+    color:#26332d;
+    padding:20px;
+    min-height:100vh;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(145deg, #e5f5ed, #f1f5f3);
-    color: #26332d;
-    padding: 20px;
-    min-height: 100vh;
+.container{
+    max-width:420px;
+    margin:35px auto;
+    background:white;
+    padding:28px 24px;
+    border-radius:22px;
+    box-shadow:0 10px 35px #087f5b18;
+    border:1px solid #e8f3ee;
 }
 
-.container {
-    max-width: 420px;
-    margin: 35px auto;
-    background: white;
-    padding: 28px 24px;
-    border-radius: 22px;
-    box-shadow: 0 10px 35px #087f5b18;
-    border: 1px solid #e8f3ee;
+.logo{
+    text-align:center;
+    font-size:36px;
+    font-weight:bold;
+    color:#087f5b;
+    margin-bottom:8px;
 }
 
-.logo {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    color: #087f5b;
-    margin-bottom: 8px;
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:28px;
+    line-height:1.7;
 }
 
-.subtitle {
-    text-align: center;
-    color: #777;
-    margin-bottom: 28px;
-    line-height: 1.7;
+.input-group{margin-bottom:15px}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    font-weight:bold;
+    color:#385448;
 }
 
-.input-group {
-    margin-bottom: 15px;
+input{
+    width:100%;
+    padding:15px;
+    border:1px solid #dce8e1;
+    border-radius:12px;
+    font-size:16px;
+    direction:ltr;
+    outline:none;
+    background:#fbfdfb;
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #385448;
+input:focus{
+    border-color:#087f5b;
+    box-shadow:0 0 0 3px #087f5b15;
 }
 
-input {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #dce8e1;
-    border-radius: 12px;
-    font-size: 16px;
-    direction: ltr;
-    outline: none;
-    transition: .3s;
-    background: #fbfdfb;
+button{
+    width:100%;
+    padding:15px;
+    margin-top:12px;
+    border:0;
+    border-radius:12px;
+    background:#087f5b;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-input:focus {
-    border-color: #087f5b;
-    box-shadow: 0 0 0 3px #087f5b15;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 12px;
-    border: none;
-    border-radius: 12px;
-    background: #087f5b;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
+.secondary{
+    background:#e8f5ee;
+    color:#087f5b;
 }
 
-button:active {
-    transform: scale(.98);
+.forgot{
+    display:block;
+    text-align:left;
+    color:#087f5b;
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+    margin-top:10px;
 }
 
-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
+#message{
+    display:none;
+    text-align:center;
+    margin-top:22px;
+    padding:15px;
+    border-radius:14px;
+    line-height:1.8;
+    font-size:14px;
+    overflow-wrap:anywhere;
 }
 
-.secondary {
-    background: #e8f5ee;
-    color: #087f5b;
+.message-success{
+    display:block!important;
+    background:#e8f8ef;
+    color:#087f5b;
+    border:1px solid #bce8cf;
 }
 
-.forgot {
-    display: block;
-    text-align: left;
-    color: #087f5b;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    margin-top: 10px;
-    cursor: pointer;
+.message-error{
+    display:block!important;
+    background:#fff0f0;
+    color:#c62828;
+    border:1px solid #ffd0d0;
 }
 
-.forgot:hover {
-    text-decoration: underline;
+.message-info{
+    display:block!important;
+    background:#edf5ff;
+    color:#245b91;
+    border:1px solid #c9e0fa;
 }
 
-/* صندوق الرسائل */
-
-#message {
-    display: none;
-    text-align: center;
-    margin-top: 22px;
-    padding: 15px;
-    border-radius: 14px;
-    line-height: 1.8;
-    font-size: 14px;
-    animation: appear .4s ease;
+.welcome-card{
+    display:none;
+    text-align:center;
+    background:linear-gradient(145deg,#e5f8ed,#f6fff9);
+    border:1px solid #bde9ce;
+    border-radius:18px;
+    padding:24px 15px;
+    margin-top:20px;
 }
 
-.message-success {
-    display: block !important;
-    background: #e8f8ef;
-    color: #087f5b;
-    border: 1px solid #bce8cf;
+.welcome-icon{font-size:55px}
+
+.welcome-card h2{color:#087f5b}
+
+.welcome-card p{
+    color:#547164;
+    line-height:1.8;
 }
 
-.message-error {
-    display: block !important;
-    background: #fff0f0;
-    color: #c62828;
-    border: 1px solid #ffd0d0;
+.welcome-small{
+    font-size:13px;
+    color:#087f5b;
+    font-weight:bold;
 }
 
-.message-info {
-    display: block !important;
-    background: #edf5ff;
-    color: #245b91;
-    border: 1px solid #c9e0fa;
-}
-
-/* بطاقة نجاح التسجيل */
-
-.welcome-card {
-    display: none;
-    text-align: center;
-    background: linear-gradient(145deg, #e5f8ed, #f6fff9);
-    border: 1px solid #bde9ce;
-    border-radius: 18px;
-    padding: 24px 15px;
-    margin-top: 20px;
-    animation: appear .6s ease;
-}
-
-.welcome-icon {
-    font-size: 55px;
-    margin-bottom: 10px;
-    animation: bounce 1s ease infinite alternate;
-}
-
-.welcome-card h2 {
-    color: #087f5b;
-    margin: 8px 0;
-    font-size: 22px;
-}
-
-.welcome-card p {
-    color: #547164;
-    line-height: 1.8;
-    margin: 8px 0;
-}
-
-.welcome-card .welcome-small {
-    font-size: 13px;
-    color: #087f5b;
-    font-weight: bold;
-}
-
-a.home {
-    display: block;
-    text-align: center;
-    margin-top: 22px;
-    color: #087f5b;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-7px); }
+a.home{
+    display:block;
+    text-align:center;
+    margin-top:22px;
+    color:#087f5b;
+    text-decoration:none;
+    font-weight:bold;
 }
 
 </style>
@@ -252,9 +208,7 @@ a.home {
         </a>
     </div>
 
-    <button id="loginBtn">
-        تسجيل الدخول
-    </button>
+    <button id="loginBtn">تسجيل الدخول</button>
 
     <button id="registerBtn" class="secondary">
         إنشاء حساب جديد
@@ -263,7 +217,6 @@ a.home {
     <div id="message"></div>
 
     <div class="welcome-card" id="welcomeCard">
-
         <div class="welcome-icon">🎉</div>
 
         <h2>مرحباً بك في عائلة سِلّتي!</h2>
@@ -276,7 +229,6 @@ a.home {
         <p class="welcome-small">
             🛒 تسوق بسهولة... وطلبك لحد بابك!
         </p>
-
     </div>
 
     <a href="index.html" class="home">
@@ -313,14 +265,15 @@ const registerBtn = document.getElementById("registerBtn");
 const forgotBtn = document.getElementById("forgotBtn");
 
 
+// =================================
+// عرض الرسائل
+// =================================
+
 function showMessage(text, type = "info") {
 
     message.textContent = text;
-
     message.className = "";
-
     message.classList.add("message-" + type);
-
     message.style.display = "block";
 
 }
@@ -329,17 +282,23 @@ function hideMessage() {
     message.style.display = "none";
 }
 
+
+// =================================
+// التحقق من المدخلات
+// =================================
+
 function getEmail() {
 
     const email = emailInput.value.trim();
 
     if (!email) {
-        showMessage("يرجى إدخال البريد الإلكتروني أولاً", "error");
+        showMessage("يرجى إدخال البريد الإلكتروني.", "error");
         return null;
     }
 
     return email;
 }
+
 
 function getUserData() {
 
@@ -348,7 +307,7 @@ function getUserData() {
 
     if (!email || !password) {
         showMessage(
-            "يرجى إدخال البريد الإلكتروني وكلمة المرور",
+            "يرجى إدخال البريد الإلكتروني وكلمة المرور.",
             "error"
         );
         return null;
@@ -356,7 +315,7 @@ function getUserData() {
 
     if (password.length < 6) {
         showMessage(
-            "كلمة المرور يجب ألا تقل عن 6 أحرف",
+            "كلمة المرور يجب ألا تقل عن 6 أحرف.",
             "error"
         );
         return null;
@@ -365,11 +324,72 @@ function getUserData() {
     return { email, password };
 }
 
+
+// =================================
+// التحكم في الأزرار
+// =================================
+
 function setLoading(loading) {
 
     loginBtn.disabled = loading;
     registerBtn.disabled = loading;
-    forgotBtn.style.pointerEvents = loading ? "none" : "auto";
+    forgotBtn.style.pointerEvents =
+        loading ? "none" : "auto";
+
+    loginBtn.textContent = loading
+        ? "يرجى الانتظار..."
+        : "تسجيل الدخول";
+
+}
+
+
+// =================================
+// ترجمة أخطاء Firebase
+// =================================
+
+function getErrorMessage(error) {
+
+    const code = error.code || "unknown";
+
+    const messages = {
+
+        "auth/invalid-email":
+            "صيغة البريد الإلكتروني غير صحيحة.",
+
+        "auth/user-not-found":
+            "لا يوجد حساب مسجل بهذا البريد الإلكتروني.",
+
+        "auth/wrong-password":
+            "كلمة المرور غير صحيحة.",
+
+        "auth/invalid-credential":
+            "بيانات الدخول غير صحيحة. تحقق من البريد وكلمة المرور، أو تأكد من أن الحساب موجود في مشروع Firebase الحالي.",
+
+        "auth/user-disabled":
+            "هذا الحساب معطل في Firebase.",
+
+        "auth/too-many-requests":
+            "محاولات كثيرة. يرجى الانتظار والمحاولة لاحقاً.",
+
+        "auth/network-request-failed":
+            "تعذر الاتصال بالإنترنت أو بخوادم Firebase.",
+
+        "auth/api-key-not-valid":
+            "مفتاح Firebase غير صحيح.",
+
+        "auth/email-already-in-use":
+            "هذا البريد مسجل بالفعل. يمكنك تسجيل الدخول.",
+
+        "auth/weak-password":
+            "كلمة المرور ضعيفة. استخدم 6 أحرف على الأقل.",
+
+        "permission-denied":
+            "تم تسجيل الدخول، لكن Firestore رفض العملية بسبب الصلاحيات."
+
+    };
+
+    return (messages[code] || error.message || "حدث خطأ غير معروف")
+        + "\n\nرمز الخطأ: " + code;
 
 }
 
@@ -387,20 +407,26 @@ registerBtn.addEventListener("click", async () => {
     try {
 
         setLoading(true);
-
         welcomeCard.style.display = "none";
 
-        showMessage("✨ لحظات ونرحب بك في عائلة سِلّتي...", "info");
-
-        const result = await createUserWithEmailAndPassword(
-            auth,
-            data.email,
-            data.password
+        showMessage(
+            "✨ لحظات ونرحب بك في عائلة سِلّتي...",
+            "info"
         );
+
+        const result =
+            await createUserWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
 
         const user = result.user;
 
-        showMessage("تم إنشاء الحساب، جارٍ تجهيز ملفك...", "info");
+        showMessage(
+            "تم إنشاء الحساب، جارٍ تجهيز بياناته...",
+            "info"
+        );
 
         await setDoc(
             doc(db, "users", user.uid),
@@ -424,25 +450,21 @@ registerBtn.addEventListener("click", async () => {
 
         console.error("خطأ إنشاء الحساب:", error);
 
-        let errorText = "تعذر إنشاء الحساب. ";
+        let text;
 
-        if (error.code === "auth/email-already-in-use") {
-            errorText = "هذا البريد مسجل بالفعل. يمكنك تسجيل الدخول مباشرة.";
-        }
-        else if (error.code === "auth/invalid-email") {
-            errorText = "البريد الإلكتروني غير صحيح.";
-        }
-        else if (error.code === "auth/weak-password") {
-            errorText = "كلمة المرور ضعيفة، استخدم 6 أحرف على الأقل.";
-        }
-        else if (error.code === "permission-denied") {
-            errorText = "تم إنشاء الحساب، لكن تعذر حفظ بياناته. تحقق من صلاحيات Firestore.";
-        }
-        else {
-            errorText += error.message;
+        if (error.code === "permission-denied") {
+
+            text =
+                "تم إنشاء حساب المصادقة، لكن تعذر حفظ بياناته في Firestore. "
+                + getErrorMessage(error);
+
+        } else {
+
+            text = getErrorMessage(error);
+
         }
 
-        showMessage(errorText, "error");
+        showMessage(text, "error");
 
     } finally {
 
@@ -466,18 +488,29 @@ loginBtn.addEventListener("click", async () => {
     try {
 
         setLoading(true);
-
         welcomeCard.style.display = "none";
 
-        showMessage("🔐 جارٍ التحقق من بياناتك...", "info");
-
-        await signInWithEmailAndPassword(
-            auth,
-            data.email,
-            data.password
+        showMessage(
+            "🔐 جارٍ التحقق من بياناتك...",
+            "info"
         );
 
-        showMessage("تم تسجيل الدخول بنجاح! أهلاً بعودتك 💚", "success");
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
+
+        console.log(
+            "تم تسجيل الدخول:",
+            result.user.uid
+        );
+
+        showMessage(
+            "تم تسجيل الدخول بنجاح! أهلاً بعودتك 💚",
+            "success"
+        );
 
         setTimeout(() => {
             window.location.href = "index.html";
@@ -485,22 +518,16 @@ loginBtn.addEventListener("click", async () => {
 
     } catch (error) {
 
-        console.error("خطأ تسجيل الدخول:", error);
+        console.error(
+            "تفاصيل خطأ تسجيل الدخول:",
+            error.code,
+            error.message
+        );
 
-        let errorText = "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.";
-
-        if (error.code === "auth/user-not-found") {
-            errorText = "هذا البريد غير مسجل. يمكنك إنشاء حساب جديد.";
-        }
-        else if (error.code === "auth/wrong-password" ||
-                 error.code === "auth/invalid-credential") {
-            errorText = "البريد أو كلمة المرور غير صحيحة.";
-        }
-        else if (error.code === "auth/too-many-requests") {
-            errorText = "محاولات كثيرة. حاول مرة أخرى لاحقاً.";
-        }
-
-        showMessage(errorText, "error");
+        showMessage(
+            getErrorMessage(error),
+            "error"
+        );
 
     } finally {
 
@@ -527,29 +554,30 @@ forgotBtn.addEventListener("click", async (event) => {
 
         setLoading(true);
 
-        showMessage("📨 جارٍ إرسال رابط استعادة كلمة المرور...", "info");
+        showMessage(
+            "📨 جارٍ إرسال رابط استعادة كلمة المرور...",
+            "info"
+        );
 
         await sendPasswordResetEmail(auth, email);
 
         showMessage(
-            "📩 تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني. افتح الرسالة واتبع التعليمات لاختيار كلمة مرور جديدة.",
+            "📩 تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني. افتح الرسالة واتبع التعليمات.",
             "success"
         );
 
     } catch (error) {
 
-        console.error("خطأ استعادة كلمة المرور:", error);
+        console.error(
+            "خطأ استعادة كلمة المرور:",
+            error.code,
+            error.message
+        );
 
-        let errorText = "تعذر إرسال رابط الاستعادة. حاول مرة أخرى.";
-
-        if (error.code === "auth/invalid-email") {
-            errorText = "صيغة البريد الإلكتروني غير صحيحة.";
-        }
-        else if (error.code === "auth/too-many-requests") {
-            errorText = "طلبات كثيرة. حاول مرة أخرى لاحقاً.";
-        }
-
-        showMessage(errorText, "error");
+        showMessage(
+            getErrorMessage(error),
+            "error"
+        );
 
     } finally {
 
